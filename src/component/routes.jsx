@@ -1,12 +1,11 @@
 import React from "react";
-import { Routes, Route,BrowserRouter } from 'react-router-dom';
+import { Routes, Route, BrowserRouter } from "react-router-dom";
 import Signin from "./signin";
 import App from "../App";
 
 const Rout = () => {
   return (
     <BrowserRouter>
-
       <Routes>
         <Route path="/" element={<App />} />
         <Route path="/signin" element={<Signin />} />
@@ -14,8 +13,7 @@ const Rout = () => {
           <Route path="/mobile" element={<mobile />} />
           <Route path="/computer" element={<computer />} /> */}
       </Routes>
-      </BrowserRouter>
-
+    </BrowserRouter>
   );
 };
 

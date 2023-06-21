@@ -1,5 +1,7 @@
+/* eslint-disable no-unused-vars */
 import React from "react";
 import { FaShoppingCart } from "react-icons/fa";
+import { Link } from "react-router-dom";
 
 import Searchbar from "./searchbar.jsx";
 import Subnav from "./subnav.jsx";
@@ -13,7 +15,7 @@ const Navbar = () => {
       >
         {/* /////////////////////      Logo       ////////////////// */}
         <div className="flex items-center justify-start">
-          <img className=" p-4 w-20 " src="../../public/LOGO.png" alt="logo " />
+          <img className=" p-4 w-20 " src="/LOGO.png" alt="logo " />
           <h1 className="">Project</h1>
         </div>
         {/* ///////////////////// searching ////////////////// */}
@@ -22,10 +24,15 @@ const Navbar = () => {
 
         {/* /////////////////////     Cart & sign in   ///////////////// */}
         <ul className=" flex justify-evenly items-center  p-5">
-          <li>Sign in</li>
+          <li>
+            <Link to="/signin">Sign in</Link>
+          </li>
           <li>
             <span className="inline-flex">
-              Cart <FaShoppingCart />
+              <Link className="inline-flex" to="/signin">
+                {" "}
+                Cart <FaShoppingCart />
+              </Link>
             </span>
           </li>
         </ul>
