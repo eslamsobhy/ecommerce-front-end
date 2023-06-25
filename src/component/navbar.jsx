@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import React from "react";
 import { FaShoppingCart } from "react-icons/fa";
 import { Link } from "react-router-dom";
@@ -9,39 +8,42 @@ import Subnav from "./subnav.jsx";
 const Navbar = () => {
   return (
     <>
-      <nav
-        id="MainNav"
-        className="bg-slate-500  grid grid-cols-4 sticky top-0 px-2 "
-      >
-        {/* /////////////////////      Logo       ////////////////// */}
-        <div className="flex items-center justify-start">
-          <img className=" p-4 w-20 " src="/LOGO.png" alt="logo " />
-          <h1 className="">Project</h1>
+      {/* Navbar */}
+      <nav id="MainNav" className="bg-slate-500 p-2 flex flex-wrap justify-between">
+        {/* Logo */}
+        <div className="flex items-center mr-4">
+          <img className="w-20" src="/LOGO.png" alt="logo" />
+          <h1 className="text-white">Project</h1>
         </div>
-        {/* ///////////////////// searching ////////////////// */}
-        <Searchbar />
-        {/* ///////////////////////////////////////////////// */}
 
-        {/* /////////////////////     Cart & sign in   ///////////////// */}
-        <ul className=" flex justify-evenly items-center  p-5">
-          <li>
-            <Link to="/signin">Sign in</Link>
+        {/* Searchbar */}
+        <Searchbar />
+
+        {/* Navigation */}
+        <ul className="flex items-center mt-4 lg:mt-0">
+          <li className="mr-6">
+            <Link className="text-white hover:text-gray-200" to="/signin">
+              Sign in
+            </Link>
           </li>
           <li>
-            <span className="inline-flex">
-              <Link className="inline-flex" to="/signin">
-                {" "}
-                Cart <FaShoppingCart />
-              </Link>
-            </span>
+            <Link className="text-white flex items-center hover:text-gray-200" to="/signin">
+              Cart <FaShoppingCart className="ml-2" />
+            </Link>
           </li>
         </ul>
       </nav>
-      {/* //////////////////////////////// SubNav ////////////////////////////////// */}
+
+      {/* Subnav */}
       <Subnav />
-      {/* ///////////////////////////////////////////////// */}
     </>
   );
 };
 
 export default Navbar;
+
+
+
+/
+
+
