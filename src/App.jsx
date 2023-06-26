@@ -2,7 +2,7 @@ import { useState } from "react";
 import viteLogo from "/vite.svg";
 import "./App.css";
 
-import Categories from "./components/Categories";
+import Categories from "./components/Categories/Categories";
 
 function App() {
   return (
