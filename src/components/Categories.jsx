@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 
+import Category from "./Category";
+
 const categoriesData = [
   {
     title: "TVs",
@@ -35,7 +37,7 @@ const categoriesData = [
     imageUrl:
       "https://img.freepik.com/premium-photo/collection-apple-products-including-apple-products_896360-1985.jpg?size=626&ext=jpg&ga=GA1.1.1326869177.1680443547&semt=ais",
     size: "large",
-    id: 5,
+    id: 6,
     linkUrl: "categories/accessories",
   },
 ];
