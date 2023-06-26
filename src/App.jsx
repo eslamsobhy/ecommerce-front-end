@@ -1,13 +1,12 @@
-import { useState } from "react";
-import viteLogo from "/vite.svg";
 import "./App.css";
+import Cart from "./components/Cart"
 
 function App() {
-  return (
-    <>
-      <h1 style={{ textAlign: "center" }}>Hello World!</h1>
-    </>
-  );
+  return (<>
+    <Cart />
+  </>)
+
+
 }
 
 export default App;
