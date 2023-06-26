@@ -15,36 +15,12 @@ const Subnav = () => {
     <>
       <nav id="SubNav" className="bg-slate-400">
         <div className="flex justify-between items-center p-3">
-          <h1 className="text-white text-lg font-semibold">My App</h1>
-          <button
-            className="block sm:hidden text-white hover:text-gray-200 focus:outline-none"
-            onClick={toggleMenu}
-          >
-            <svg
-              className="h-6 w-6 fill-current"
-              viewBox="0 0 20 20"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <title>Menu</title>
-              {isOpen ? (
-                <path
-                  fillRule="evenodd"
-                  clipRule="evenodd"
-                  d="M3 3a1 1 0 1 1 2 0v2a1 1 0 1 1-2 0V3zm4 0a1 1 0 1 1 2 0v2a1 1 0 1 1-2 0V3zm5 0a1 1 0 1 1 2 0v2a1 1 0 1 1-2 0V3zm4 0a1 1 0 1 1 2 0v2a1 1 0 1 1-2 0V3z"
-                />
-              ) : (
-                <path
-                  fillRule="evenodd"
-                  clipRule="evenodd"
-                  d="M3 3a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v2a1 1 0 1 1-2 0V4H4v2a1 1 0 1 1-2 0V3zm0 8a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v2a1 1 0 1 1-2 0v-1H4v1a1 1 0 1 1-2 0v-2zm0 8a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v2a1 1 0 1 1-2 0v-1H4v1a1 1 0 1 1-2 0v-2z"
-                />
-              )}
-            </svg>
-          </button>
+          {/* <h1 className="text-white text-lg font-semibold">My App</h1> */}
+
           <div
             className={`${
               isOpen ? "block" : "hidden"
-            } sm:block sm:flex-grow sm:items-center sm:w-auto`}
+            } sm:block sm:flex-grow ml-5 sm:items-center sm:w-auto`}
           >
             <div
               className={`${
@@ -89,6 +65,31 @@ const Subnav = () => {
               </Link>
             </div>
           </div>
+          <button
+            className="block sm:hidden text-white hover:text-gray-200 focus:outline-none"
+            onClick={toggleMenu}
+          >
+            <svg
+              className="h-6 w-6 fill-current"
+              viewBox="0 0 20 20"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <title>Menu</title>
+              {isOpen ? (
+                <path
+                  fillRule="evenodd"
+                  clipRule="evenodd"
+                  d="M3 3a1 1 0 1 1 2 0v2a1 1 0 1 1-2 0V3zm4 0a1 1 0 1 1 2 0v2a1 1 0 1 1-2 0V3zm5 0a1 1 0 1 1 2 0v2a1 1 0 1 1-2 0V3zm4 0a1 1 0 1 1 2 0v2a1 1 0 1 1-2 0V3z"
+                />
+              ) : (
+                <path
+                  fillRule="evenodd"
+                  clipRule="evenodd"
+                  d="M3 3a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v2a1 1 0 1 1-2 0V4H4v2a1 1 0 1 1-2 0V3zm0 8a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v2a1 1 0 1 1-2 0v-1H4v1a1 1 0 1 1-2 0v-2zm0 8a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v2a1 1 0 1 1-2 0v-1H4v1a1 1 0 1 1-2 0v-2z"
+                />
+              )}
+            </svg>
+          </button>
         </div>
       </nav>
     </>
