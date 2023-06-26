@@ -2,11 +2,12 @@ import { useState } from "react";
 import viteLogo from "/vite.svg";
 import "./App.css";
 
+import Categories from "./components/Categories/Categories";
+
 function App() {
   return (
     <>
-      <h1 style={{ textAlign: "center" }}>Hello World!</h1>
-      <p>a test paragraph!</p>
+      <Categories />
     </>
   );
 }
