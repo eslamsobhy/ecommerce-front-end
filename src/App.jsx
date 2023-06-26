@@ -2,6 +2,7 @@ import { useState } from "react";
 import "./App.css";
 import Login from "./components/Login";
 import Signup from "./components/SignUp";
+import Cart from "./components/Cart"
 
 import Categories from "./components/Categories/Categories";
 
@@ -29,6 +30,7 @@ function App() {
       {modalIsShown && loginModalStatus && <Login  toggleModal={toggleModal} toggleModalContent={toggleModalContent} />  }
       {modalIsShown && signUpModalStatus && <Signup  toggleModal={toggleModal} toggleModalContent={toggleModalContent} />  }
 
+      <Cart />
       <Categories />
     </>
   );
