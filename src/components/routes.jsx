@@ -1,6 +1,5 @@
-import React from "react";
 import { Routes, Route, BrowserRouter } from "react-router-dom";
-import Signin from "./signin";
+import Category from "./Category";
 import App from "../App";
 
 const Rout = () => {
@@ -8,10 +7,8 @@ const Rout = () => {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<App />} />
-        <Route path="/signin" element={<Signin />} />
-        {/* <Route path="/cart" element={<cart />} />
-          <Route path="/mobile" element={<mobile />} />
-          <Route path="/computer" element={<computer />} /> */}
+        <Route path="/category" element={<Category />} />
+
       </Routes>
     </BrowserRouter>
   );

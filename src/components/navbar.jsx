@@ -1,9 +1,8 @@
-import React from "react";
 import { FaShoppingCart } from "react-icons/fa";
 import { Link } from "react-router-dom";
 
-import Searchbar from "./searchbar.jsx";
-import Subnav from "./subnav.jsx";
+import Searchbar from "./Searchbar.jsx";
+import Subnav from "./Subnav.jsx";
 
 const Navbar = (props) => {
   return (
@@ -25,12 +24,12 @@ const Navbar = (props) => {
         {/* Navigation */}
         <ul className="flex items-center justify-end">
           <li className="text-white hover:text-gray-200 text-sm:10">
-            <Link to="/signin">SignIn</Link>
+            <Link to="/category">SignIn</Link>
           </li>
           <li className="mx-3">
             <Link
               className="text-white flex items-center hover:text-gray-200"
-              to="/signin"
+              to="/category"
             >
               Cart <FaShoppingCart className="" />
             </Link>

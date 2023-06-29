@@ -3,8 +3,8 @@ import { useState } from "react";
 import viteLogo from "/vite.svg";
 import { BrowserRouter, Routes, Router } from "react-router-dom";
 
-import Navbar from "./components/navbar.jsx";
-import Rout from "./components/routes.jsx";
+import Navbar from "./components/Navbar.jsx";
+import Rout from "./components/Routes.jsx";
 import "./App.css";
 
 function App() {

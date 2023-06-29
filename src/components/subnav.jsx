@@ -1,22 +1,54 @@
-
-
-
-import React, { useState } from "react";
+import { useState } from "react";
 import { Link } from "react-router-dom";
+
+import  Mobile  from "./Mobile.jsx"
+import  Labtop  from "./Labtop.jsx"
 
 const Subnav = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [isHovered, setIsHovered] = useState(false);
+  const [productId, setProductId] = useState();
+  const [bgColor, setBgColor] = useState("bg-white");
+
 
   const toggleMenu = () => {
     setIsOpen(!isOpen);
   };
 
+  function switchcase(productId) {
+    switch (productId) {
+      case "1":
+        return <div  onMouseLeave={handleMouseLeave} className="  absolute bg-blue-500 bg-opacity-100 z-10 trp  m-auto h-fit "><Mobile /></div>;
+      case "2":
+        return <div  onMouseLeave={handleMouseLeave}  className=" absolute bg-blue-500 bg-opacity-100 z-10 m-auto h-fit "><Labtop/></div>;
+      case "3":
+        return <div  onMouseLeave={handleMouseLeave}  className=" absolute bg-blue-500 bg-opacity-100  z-10  m-auto h-fit "><Mobile /></div>;
+      case "4":
+        return <div  onMouseLeave={handleMouseLeave}  className=" absolute bg-blue-500 bg-opacity-100  z-10 m-auto h-fit"><Mobile /></div>;
+      case "5":
+        return <div  onMouseLeave={handleMouseLeave}  className=" absolute bg-blue-500 bg-opacity-100  z-10 m-auto h-fit"><Mobile /></div>;
+      case "6":
+        return <div  onMouseLeave={handleMouseLeave}  className=" absolute bg-blue-500 bg-opacity-100  z-10  m-auto h-fit"><Mobile /></div>;
+      default:
+        return <div  onMouseLeave={handleMouseLeave} className=" absolute bg-blue-500  bg-opacity-100  z-10  m-auto  h-fit" ><Mobile /></div>;
+    } }
+
+  function handleMouseEnter(e) {
+    setIsHovered(true);
+    setProductId(e.target.id);
+    setBgColor("bg-gray-600 bg-opacity-10")
+    console.log(e.target.id);
+  }
+
+  function handleMouseLeave() {
+    setIsHovered(false);
+    setBgColor("bg-white")
+  }
+
   return (
     <>
       <nav id="SubNav" className="bg-slate-400">
         <div className="flex justify-between items-center p-3">
-          {/* <h1 className="text-white text-lg font-semibold">My App</h1> */}
-
           <div
             className={`${
               isOpen ? "block" : "hidden"
@@ -28,37 +60,63 @@ const Subnav = () => {
               } sm:block sm:flex-grow sm:items-center sm:w-auto`}
             >
               <Link
-                to="/signin"
+                id="1"
+                onMouseEnter={(e) => {
+                  handleMouseEnter(e);
+                }}
+                to="/category"
+                className="block  sm:inline-block text-white hover:text-gray-200 sm:mx-4"
+              >
+                Mobile
+              </Link>
+
+              <Link
+                id="2"
+                onMouseEnter={(e) => {
+                  handleMouseEnter(e);
+                }}
+                to="/category"
+                className="block sm:inline-block text-white hover:text-gray-200 sm:mx-4"
+              >
+                Labtop
+              </Link>
+              <Link
+                id="3"
+                onMouseEnter={(e) => {
+                  handleMouseEnter(e);
+                }}
+                to="/category"
                 className="block sm:inline-block text-white hover:text-gray-200 sm:mx-4"
               >
                 Product
               </Link>
               <Link
-                to="/signin"
+                id="4"
+                onMouseEnter={(e) => {
+                  handleMouseEnter(e);
+                }}
+                to="/category"
                 className="block sm:inline-block text-white hover:text-gray-200 sm:mx-4"
               >
                 Product
               </Link>
               <Link
-                to="/signin"
+                id="5"
+                onMouseEnter={(e) => {
+                  handleMouseEnter(e);
+                }}               
+                to="/category"
                 className="block sm:inline-block text-white hover:text-gray-200 sm:mx-4"
               >
                 Product
               </Link>
               <Link
-                to="/signin"
-                className="block sm:inline-block text-white hover:text-gray-200 sm:mx-4"
-              >
-                Product
-              </Link>
-              <Link
-                to="/signin"
-                className="block sm:inline-block text-white hover:text-gray-200 sm:mx-4"
-              >
-                Product
-              </Link>
-              <Link
-                to="/signin"
+              id="6"
+              onMouseEnter={(e) => {
+                handleMouseEnter(e);
+              }}
+              
+                to="/category"
                 className="block sm:inline-block text-white hover:text-gray-200 sm:mx-4"
               >
                 Product
@@ -92,41 +150,46 @@ const Subnav = () => {
           </button>
         </div>
       </nav>
+
+     <div className={`relative h-screen ${bgColor} `}> 
+     {isHovered && productId? (switchcase(productId)) : ("")}
+      <div className={` absolute  top-0 left-0 `}>
+        <img src="../../public/apple-ar21.svg"></img>
+        <img src="../../public/apple-ar21.svg"></img>
+        <img src="../../public/apple-ar21.svg"></img>
+        <img src="../../public/apple-ar21.svg"></img>
+        <img src="../../public/apple-ar21.svg"></img>
+        <img src="../../public/apple-ar21.svg"></img>
+        <img src="../../public/apple-ar21.svg"></img>
+        <img src="../../public/apple-ar21.svg"></img>
+        <img src="../../public/apple-ar21.svg"></img>
+        <img src="../../public/apple-ar21.svg"></img>
+        <img src="../../public/apple-ar21.svg"></img>
+        <img src="../../public/apple-ar21.svg"></img>
+        <img src="../../public/apple-ar21.svg"></img>
+        <img src="../../public/apple-ar21.svg"></img>
+        <img src="../../public/apple-ar21.svg"></img>
+        <img src="../../public/apple-ar21.svg"></img>
+        <img src="../../public/apple-ar21.svg"></img>
+        <img src="../../public/apple-ar21.svg"></img>
+        <img src="../../public/apple-ar21.svg"></img>
+        <img src="../../public/apple-ar21.svg"></img>
+        <img src="../../public/apple-ar21.svg"></img>
+        <img src="../../public/apple-ar21.svg"></img>
+        <img src="../../public/apple-ar21.svg"></img>
+        <img src="../../public/apple-ar21.svg"></img>
+        <img src="../../public/apple-ar21.svg"></img>
+        <img src="../../public/apple-ar21.svg"></img>
+        <img src="../../public/apple-ar21.svg"></img>
+        <img src="../../public/apple-ar21.svg"></img>
+        <img src="../../public/apple-ar21.svg"></img>
+        </div>
+     </div>
+             
+
+
     </>
   );
 };
 
 export default Subnav;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
