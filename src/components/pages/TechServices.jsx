@@ -9,37 +9,38 @@ function TechServices() {
   return (
     <div>
       <h1>Nav should be here</h1>
-      <div className="max-w-[900px] mx-auto my-12">
-      <img src="public\mainbanner_en.jpg" alt="" />
+      <div className="max-w-[900px] mx-auto my-12 flex flex-justify-center ">
+      <img src="public\mainbanner_en.jpg" alt="" className='max-w-full mx-2 block ' />
       </div>
       <h1 className="font-semibold text-[28px] mx-auto  w-fit">Our Services</h1>
       {/* -------------------------------------------------------------------------- */}
-      <div className='card-holder flex justify-around my-12'>
-      {/* card */}
-        <div className="flex flex-col max-w-[270px] items-center text-center">
-          <BsFillFileEarmarkCodeFill size={50} color='#f37020' className='mb-3' />
-          <h2 className="font-medium text-[18px]">Software</h2>
-          <p className="text-[14px] text-gray-600">Solve Software Technical Issues For aptop And Mobile Different Operating Systems (Microsoft Windows , Mac ,S Android And IOS).</p>
-        </div>
-        {/* card */}
-        <div className="flex flex-col max-w-[270px] items-center text-center">
-          <MdOutlineMiscellaneousServices size={50} color='#f37020' className='mb-3' />
-          <h2 className="font-medium text-[18px]">Hardware</h2>
-          <p className="text-[14px] text-gray-600">Repairing Laptops , Mobiles, TVs.</p>
-        </div>
-        {/* card */}
-        <div className="flex flex-col max-w-[270px] items-center text-center">
-          <GiUpgrade size={50} color='#f37020' className='mb-3' />
-          <h2 className="font-medium text-[18px]">Upgrading</h2>
-          <p className="text-[14px] text-gray-600">Upgrading Laptop Hardware ( SSD Hard Drive , RAM).</p>
-        </div>
-      </div>
+      <div className="card-holder flex flex-col md:flex-row items-center gap-4 justify-around my-12">
+  {/* card */}
+  <div className="flex flex-col max-w-[270px] items-center text-center mb-6 sm:mb-0">
+    <BsFillFileEarmarkCodeFill size={50} color='#f37020' className='mb-3' />
+    <h2 className="font-medium text-[18px]">Software</h2>
+    <p className="text-[14px] text-gray-600">Solve Software Technical Issues For aptop And Mobile Different Operating Systems (Microsoft Windows , Mac ,S Android And IOS).</p>
+  </div>
+  {/* card */}
+  <div className="flex flex-col max-w-[270px] items-center text-center mb-6 sm:mb-0">
+    <MdOutlineMiscellaneousServices size={50} color='#f37020' className='mb-3' />
+    <h2 className="font-medium text-[18px]">Hardware</h2>
+    <p className="text-[14px] text-gray-600">Repairing Laptops , Mobiles, TVs.</p>
+  </div>
+  {/* card */}
+  <div className="flex flex-col max-w-[270px] items-center text-center">
+    <GiUpgrade size={50} color='#f37020' className='mb-3' />
+    <h2 className="font-medium text-[18px]">Upgrading</h2>
+    <p className="text-[14px] text-gray-600">Upgrading Laptop Hardware ( SSD Hard Drive , RAM).</p>
+  </div>
+</div>
+
       {/* ------------------------------------------------------------------------------------------- */}
       
       {/*------------------------------- addresses ----------------------------------------------------- */}
       <div style={{ backgroundColor: '#fef9f0' }} className='my-7 px-12 py-5 max-w-[1500px] mx-auto rounded-lg'>
       <h1 className='font-semibold text-[27px] mx-auto w-fit '>Choose Your Nearest Store</h1>
-      <div className='card-holder flex flex-wrap justify-around pt-9'>
+      <div className='card-holder flex flex-wrap justify-around pt-9 gap-3'>
         
           {/* card */}
           <div className="flex gap-4 max-w-[230px] ">

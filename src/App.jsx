@@ -1,12 +1,13 @@
 // import { useState } from "react";
 import "./App.css";
+import FreeShipping from "./components/pages/FreeShipping";
 // import Login from "./components/Login";
 // import Signup from "./components/SignUp";
 // import Cart from "./components/Cart"
 
 // import Categories from "./components/Categories/Categories";
 // import OtherServices from "./components/OtherServices";
-import TechServices from "./components/pages/TechServices";
+// import TechServices from "./components/pages/TechServices";
 
 function App() {
   // const [modalIsShown,setModalIsShown ] = useState(false);
@@ -35,7 +36,8 @@ function App() {
       <Cart />
       <OtherServices />
       <Categories /> */}
-      <TechServices />
+      {/* <TechServices /> */}
+      <FreeShipping />
     </>
   );
 }
