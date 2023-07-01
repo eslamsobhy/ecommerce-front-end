@@ -21,12 +21,12 @@ function FreeShipping() {
       <h2 className="mb-3 font-bold text-[20px] " >Cairo, Giza & Alex</h2>
       <ul className="list-disc list-inside">
         <p className='flex items-center gap-2'><BsClock /> Delivery within 2 business days.</p>
-        <li>Free delivery for orders above 300 EGP</li>
-        <li>Large Home Appliances not included .</li>
-        <li>Large Home Appliances shipping fees are 165 EGP .</li>
-        <li>Large Home Appliances shipping fees depend on the product weight & delivery destination, you will receive a phone call to confirm final shipping fees before your order is shipped.</li>
-        <li>Cash on delivery is not available on large Home Appliances and orders above 20,000.</li>
-        <li>Delivery to Cairo, Giza & Alex depends on the availability of reaching the requested destination by cars.</li>
+        <li className='mt-3 border-t border-gray-300 py-2'>Free delivery for orders above 300 EGP</li>
+        <li className='border-t border-gray-300 py-2'>Large Home Appliances not included .</li>
+        <li className='border-t border-gray-300 py-2'>Large Home Appliances shipping fees are 165 EGP .</li>
+        <li className='border-t border-gray-300 py-2'>Large Home Appliances shipping fees depend on the product weight & delivery destination, you will receive a phone call to confirm final shipping fees before your order is shipped.</li>
+        <li className='border-t border-gray-300 py-2'>Cash on delivery is not available on large Home Appliances and orders above 20,000.</li>
+        <li className='border-t border-gray-300 py-2'>Delivery to Cairo, Giza & Alex depends on the availability of reaching the requested destination by cars.</li>
       </ul>
     </div>
   </div>
@@ -37,9 +37,9 @@ function FreeShipping() {
       <ul className="list-disc list-inside">
         <p className='flex items-center gap-2'><BsClock />All orders outside Cairo, Giza & Alex</p>
         <p> are processed within 5 business days.</p>
-        <li>Large Home Appliances shipping fees depend on the product weight & delivery destination, you will receive a phone call to confirm final shipping fees before your order is shipped.</li>
-        <li>Cash on delivery is not available on large Home Appliances and orders above 20,000.</li>
-        <li>Delivery outside Cairo, Giza & Alex depends on the availability of reaching the requested destination by cars.</li>
+        <li className='mt-3 border-t border-gray-300 py-2'>Large Home Appliances shipping fees depend on the product weight & delivery destination, you will receive a phone call to confirm final shipping fees before your order is shipped.</li>
+        <li className='border-t border-gray-300 py-2'>Cash on delivery is not available on large Home Appliances and orders above 20,000.</li>
+        <li className='border-t border-gray-300 py-2'>Delivery outside Cairo, Giza & Alex depends on the availability of reaching the requested destination by cars.</li>
       </ul>
     </div>
   </div>
