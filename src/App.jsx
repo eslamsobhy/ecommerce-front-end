@@ -1,39 +1,31 @@
+/* eslint-disable no-unused-vars */
 import { useState } from "react";
-import "./App.css";
-import Login from "./components/Login";
-import Signup from "./components/SignUp";
-import Cart from "./components/Cart"
 
-import Categories from "./components/Categories/Categories";
+import viteLogo from "/vite.svg";
+import { Routes,  Route } from "react-router-dom";
+import Navbar from "./components/Navbar.jsx";
+import "./App.css";
+import Cart from "./pages/Cart.jsx"
+import Footer from "../src/components/Footer";
+import Home from "./pages/Home.jsx";
 import OtherServices from "./components/OtherServices";
 
+
+
 function App() {
-  const [modalIsShown,setModalIsShown ] = useState(false);
 
-  const [loginModalStatus,setLoginModalStatus ] = useState(true);
-  const [signUpModalStatus,setSignUpModalStatus ] = useState(false);
+  const [searchText, setSearchText] = useState("");   
 
-  //toggle the modal it self 
-  function toggleModal(){
-    setModalIsShown(prevValue => !prevValue)
-  }
-  
-  //toggle between sign up and login forms
-  function toggleModalContent(){
-    setSignUpModalStatus(prevValue => !prevValue)
-    setLoginModalStatus(prevValue => !prevValue)
-  }
-  
 
   return (
     <>
-      <button onClick={toggleModal} >toggle</button>
-      {modalIsShown && loginModalStatus && <Login  toggleModal={toggleModal} toggleModalContent={toggleModalContent} />  }
-      {modalIsShown && signUpModalStatus && <Signup  toggleModal={toggleModal} toggleModalContent={toggleModalContent} />  }
+      <Navbar searchText={searchText} setSearchText={setSearchText} />  
+      <Routes>  
+        <Route path="/" element={<Home />} />
+        <Route path="/cart" element={<Cart />} />
+      </Routes>
+        <Footer />
 
-      <Cart />
-      <OtherServices />
-      <Categories /> 
     </>
   );
 }
