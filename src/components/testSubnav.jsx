@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 
 import Mobile from "./Mobile.jsx";
-import Labtop from "./Labtop.jsx";
+import Laptop from "./Laptop.jsx";
 
 const Subnav = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -31,7 +31,7 @@ const Subnav = () => {
             onMouseLeave={handleMouseLeave}
             className=" absolute bg-blue-500 bg-opacity-100 z-10 m-auto h-fit "
           >
-            <Labtop />
+            <Laptop />
           </div>
         );
       case "3":
@@ -126,7 +126,7 @@ const Subnav = () => {
                 to="/category"
                 className="block sm:inline-block text-white hover:text-gray-200 sm:mx-4"
               >
-                Labtop
+                Laptop
               </Link>
               <Link
                 id="3"
