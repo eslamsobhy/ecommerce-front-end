@@ -11,8 +11,9 @@ import "./App.css";
 import Login from "./components/Login";
 import Signup from "./components/SignUp";
 import Cart from "./components/Cart"
-
+import Footer from "../src/Components/Footer";
 import Categories from "./components/Categories/Categories";
+
 
 function App() {
 
@@ -44,6 +45,7 @@ function App() {
 
       <Cart />
       <Categories />
+        <Footer />
     </>
   );
 }
