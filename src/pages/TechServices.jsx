@@ -8,7 +8,6 @@ import { GiUpgrade  } from 'react-icons/gi';
 function TechServices() {
   return (
     <div>
-      <h1>Nav should be here</h1>
       <div className="max-w-[900px] mx-auto my-12 flex flex-justify-center ">
       <img src="public\mainbanner_en.jpg" alt="" className='max-w-full mx-2 block ' />
       </div>
@@ -83,7 +82,6 @@ function TechServices() {
         {/* ------------------------------------------------------- */}
       </div>
       </div>
-      <h1>footer should be here</h1>
     </div>
   )
 }

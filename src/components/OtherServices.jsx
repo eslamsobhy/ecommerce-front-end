@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { FaTruckPickup  } from 'react-icons/fa';
 import { MdOutlineMiscellaneousServices  } from 'react-icons/md';
-// import { Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 export default function OtherServices() {
   const [isHovered1, setIsHovered1] = useState(false);
@@ -25,7 +25,7 @@ export default function OtherServices() {
   // declare their routes in App
   return (
     <div className="flex max-w-[900px] m-auto px-12 my-12 justify-around flex-wrap">
-      {/* <Link to="/TechServices"> */}
+      <Link to="/Techservices">
       <div
         className={`flex items-center font-bold bg-slate-300 hover:bg-orange-500 text-white ${
           isHovered1 ? 'bg-orange-500 text-white' : ''
@@ -36,9 +36,9 @@ export default function OtherServices() {
         {isHovered1 ? 'Learn more' : 'Technical Service'}
         <MdOutlineMiscellaneousServices className='ml-3' size={32} color={isHovered1 ? 'white' : '#f37020'} />
       </div>
-        {/* </Link> */}
+        </Link>
 
-      {/* <Link to="/FreeShipping"> */}
+      <Link to="/Freeshipping">
       <div
         className={`flex items-center font-bold bg-slate-300 hover:bg-orange-500 text-white ${
           isHovered2 ? 'bg-orange-500 text-white' : ''
@@ -49,7 +49,7 @@ export default function OtherServices() {
         {isHovered2 ? 'Learn more' : 'Free Shipping'}
         <FaTruckPickup className='ml-3' size={32} color={isHovered2 ? 'white' : '#f37020'}/>
       </div>
-      {/* </Link> */}
+      </Link>
     </div>
   );
 }
