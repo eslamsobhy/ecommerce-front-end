@@ -1,7 +1,8 @@
-import React from "react";
+/* eslint-disable no-unused-vars */
+/* eslint-disable react/prop-types */
 
 // Styles
-import "./category.scss";
+import "./Category.scss";
 
 const Category = (props) => {
   const { title, imageUrl, linkUrl, size } = props.category;

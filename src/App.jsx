@@ -1,16 +1,16 @@
 /* eslint-disable no-unused-vars */
-import { useEffect, useState } from "react";
-import "./App.css";
-import Login from "./components/Login";
-import Signup from "./components/SignUp";
-import Cart from "./components/Cart"
+import { useState , useEffect } from "react";
+import viteLogo from "/vite.svg";
+import { Routes,  Route } from "react-router-dom";
+import Navbar from "./components/Navbar.jsx";
 
-import Categories from "./components/Categories/Categories";
-import NewArrivalsSlider from "./components/NewArrivalsSlider";
-import BestSellerSlider from "./components/BestSellerSlider";
-import DealsSlider from "./components/DealsSlider";
-import axios from "axios";
-import Circles from "./components/Circles";
+import "./App.css";
+import Cart from "./pages/Cart.jsx"
+import Footer from "../src/components/Footer";
+import Home from "./pages/Home.jsx";
+import FreeShipping from "./pages/FreeShipping.jsx";
+import TechServices from "./pages/TechServices.jsx";
+
 
 function App() {
   const [modalIsShown,setModalIsShown ] = useState(false);
@@ -44,33 +44,22 @@ function App() {
     {_id:18,  images : ['public/images/pTest.png'], name : "test18" ,  price : "37" , rate : "4.5" }
   ]);
 
-  const [loginModalStatus,setLoginModalStatus ] = useState(true);
-  const [signUpModalStatus,setSignUpModalStatus ] = useState(false);
 
-  //toggle the modal it self 
-  function toggleModal(){
-    setModalIsShown(prevValue => !prevValue)
-  }
-  
-  //toggle between sign up and login forms
-  function toggleModalContent(){
-    setSignUpModalStatus(prevValue => !prevValue)
-    setLoginModalStatus(prevValue => !prevValue)
-  }
-  
+
+  const [searchText, setSearchText] = useState("");   
+
 
   return (
     <>
-      <button onClick={toggleModal} >toggle</button>
-      {modalIsShown && loginModalStatus && <Login  toggleModal={toggleModal} toggleModalContent={toggleModalContent} />  }
-      {modalIsShown && signUpModalStatus && <Signup  toggleModal={toggleModal} toggleModalContent={toggleModalContent} />  }
-
-      <NewArrivalsSlider products={products} />
-      <Cart />
-      <BestSellerSlider products={products} />
-      <Categories />
-      <DealsSlider products={products} />
-      <Circles />
+      <Navbar searchText={searchText} setSearchText={setSearchText} />  
+      <Routes>  
+        <Route path="/" element={<Home />} />
+        <Route path="/cart" element={<Cart />} />
+        <Route path="/Techservices" element={<TechServices />} />
+        <Route path="/Freeshipping" element={<FreeShipping />} />
+        <Route path="/cart" element={<Cart />} />
+      </Routes>
+        <Footer />
     </>
   );
 }
