@@ -6,7 +6,7 @@ import NewArrivalsSlider from "../components/NewArrivalsSlider";
 import Circles from "../components/Circles";
 import DealsSlider from "../components/DealsSlider";
 import axios from "axios";
-
+import AdsSlider from "../components/AdsSlider"
 export default function Home() {
 
   useEffect(()=>{
@@ -49,6 +49,7 @@ export default function Home() {
       <Categories />
       <NewArrivalsSlider products={products} />
       <DealsSlider products={products} />
+      <AdsSlider />
     </>
   );
 }

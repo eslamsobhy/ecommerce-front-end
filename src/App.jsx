@@ -4,6 +4,9 @@ import Footer from "../src/components/Footer";
 import Home from "./pages/Home.jsx";
 import FreeShipping from "./pages/FreeShipping.jsx";
 import TechServices from "./pages/TechServices.jsx";
+import { useState } from "react";
+import Navbar from "./components/Navbar.jsx";
+import { Route, Routes } from "react-router";
 
 
 function App() {
