@@ -7,6 +7,7 @@ import TechServices from "./pages/TechServices.jsx";
 import { useState } from "react";
 import Navbar from "./components/Navbar.jsx";
 import { Route, Routes } from "react-router";
+import NotFound from "./pages/NotFound.jsx";
 
 
 function App() {
@@ -23,6 +24,7 @@ function App() {
         <Route path="/Techservices" element={<TechServices />} />
         <Route path="/Freeshipping" element={<FreeShipping />} />
         <Route path="/cart" element={<Cart />} />
+        <Route path="/*" element={<NotFound />} />
       </Routes>
         <Footer />
     </>

@@ -44,12 +44,12 @@ export default function Home() {
 
   return (
     <>
-      <Circles />
-      <OtherServices />
-      <Categories />
-      <NewArrivalsSlider products={products} />
-      <DealsSlider products={products} />
       <AdsSlider />
+      <OtherServices />
+      <Circles />
+      <NewArrivalsSlider products={products} />
+      <Categories />
+      <DealsSlider products={products} />
     </>
   );
 }
