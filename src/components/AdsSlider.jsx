@@ -41,7 +41,7 @@ import 'swiper/css/scrollbar';
       modules={[Autoplay, Pagination, Navigation]}
     >
    
-    {ads.map(ad => <SwiperSlide><img className='w-[100%]' src={ad} alt='Image not Found'/></SwiperSlide>)}
+    {ads.map(ad => <SwiperSlide key={Math.random()}><img className='w-[100%]' src={ad} alt='Image not Found'/></SwiperSlide>)}
 
     </Swiper>
   );

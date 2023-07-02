@@ -12,8 +12,8 @@ export default function Home() {
 
   useEffect(()=>{
     async function getProducts(){
-      const response = await axios.get("http://localhost:3000/products")
-      console.log(response.data)
+      // const response = await axios.get("http://localhost:3000/products")
+      // console.log(response.data)
       // setProducts(response.data)
     }
     getProducts()

@@ -51,7 +51,7 @@ const [items, setItems] = useState([
             </div>
 
             {items.map((item, index)=> (
-              <CartItem item={item} index={index} deleteItem={deleteItem}/>
+              <CartItem key={Math.random()} item={item} index={index} deleteItem={deleteItem}/>
             ))}
 
           </section>

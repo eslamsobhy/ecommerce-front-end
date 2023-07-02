@@ -20,7 +20,6 @@ function App() {
       <Navbar searchText={searchText} setSearchText={setSearchText} />  
       <Routes>  
         <Route path="/" element={<Home />} />
-        <Route path="/cart" element={<Cart />} />
         <Route path="/Techservices" element={<TechServices />} />
         <Route path="/Freeshipping" element={<FreeShipping />} />
         <Route path="/cart" element={<Cart />} />
