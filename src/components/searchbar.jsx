@@ -1,9 +1,8 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable no-unused-vars */
-import React, { useState, useEffect } from "react";
+import React from "react";
 
 const Searchbar = (props) => {
-  //  const [searchText, setSearchText] = useState("");
   console.log(props);
   const changeHandler = (e) => {
     props.setSearchText(e.target.value);
@@ -20,7 +19,6 @@ const Searchbar = (props) => {
           <input
             onChange={changeHandler}
             type="text"
-            // value={this.target.value}
             className="px-5  w-full text-purple-700 bg-white border rounded-full focus:border-purple-400 focus:ring-purple-300 focus:outline-none focus:ring focus:ring-opacity-40"
             placeholder="Search..."
           />

@@ -1,15 +1,14 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 
-import  Mobile  from "./Mobile.jsx"
-import  Labtop  from "./Labtop.jsx"
+import Mobile from "./Mobile.jsx";
+import Labtop from "./Labtop.jsx";
 
 const Subnav = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
   const [productId, setProductId] = useState();
   const [bgColor, setBgColor] = useState("bg-white");
-
 
   const toggleMenu = () => {
     setIsOpen(!isOpen);
@@ -18,31 +17,80 @@ const Subnav = () => {
   function switchcase(productId) {
     switch (productId) {
       case "1":
-        return <div  onMouseLeave={handleMouseLeave} className="  absolute bg-blue-500 bg-opacity-100 z-10 trp  m-auto h-fit "><Mobile /></div>;
+        return (
+          <div
+            onMouseLeave={handleMouseLeave}
+            className="  absolute bg-blue-500 bg-opacity-100 z-10 trp  m-auto h-fit "
+          >
+            <Mobile />
+          </div>
+        );
       case "2":
-        return <div  onMouseLeave={handleMouseLeave}  className=" absolute bg-blue-500 bg-opacity-100 z-10 m-auto h-fit "><Labtop/></div>;
+        return (
+          <div
+            onMouseLeave={handleMouseLeave}
+            className=" absolute bg-blue-500 bg-opacity-100 z-10 m-auto h-fit "
+          >
+            <Labtop />
+          </div>
+        );
       case "3":
-        return <div  onMouseLeave={handleMouseLeave}  className=" absolute bg-blue-500 bg-opacity-100  z-10  m-auto h-fit "><Mobile /></div>;
+        return (
+          <div
+            onMouseLeave={handleMouseLeave}
+            className=" absolute bg-blue-500 bg-opacity-100  z-10  m-auto h-fit "
+          >
+            <Mobile />
+          </div>
+        );
       case "4":
-        return <div  onMouseLeave={handleMouseLeave}  className=" absolute bg-blue-500 bg-opacity-100  z-10 m-auto h-fit"><Mobile /></div>;
+        return (
+          <div
+            onMouseLeave={handleMouseLeave}
+            className=" absolute bg-blue-500 bg-opacity-100  z-10 m-auto h-fit"
+          >
+            <Mobile />
+          </div>
+        );
       case "5":
-        return <div  onMouseLeave={handleMouseLeave}  className=" absolute bg-blue-500 bg-opacity-100  z-10 m-auto h-fit"><Mobile /></div>;
+        return (
+          <div
+            onMouseLeave={handleMouseLeave}
+            className=" absolute bg-blue-500 bg-opacity-100  z-10 m-auto h-fit"
+          >
+            <Mobile />
+          </div>
+        );
       case "6":
-        return <div  onMouseLeave={handleMouseLeave}  className=" absolute bg-blue-500 bg-opacity-100  z-10  m-auto h-fit"><Mobile /></div>;
+        return (
+          <div
+            onMouseLeave={handleMouseLeave}
+            className=" absolute bg-blue-500 bg-opacity-100  z-10  m-auto h-fit"
+          >
+            <Mobile />
+          </div>
+        );
       default:
-        return <div  onMouseLeave={handleMouseLeave} className=" absolute bg-blue-500  bg-opacity-100  z-10  m-auto  h-fit" ><Mobile /></div>;
-    } }
+        return (
+          <div
+            onMouseLeave={handleMouseLeave}
+            className=" absolute bg-blue-500  bg-opacity-100  z-10  m-auto  h-fit"
+          >
+            <Mobile />
+          </div>
+        );
+    }
+  }
 
   function handleMouseEnter(e) {
     setIsHovered(true);
     setProductId(e.target.id);
-    setBgColor("bg-gray-600 bg-opacity-10")
-    console.log(e.target.id);
+    setBgColor("bg-gray-600 bg-opacity-10");
   }
 
   function handleMouseLeave() {
     setIsHovered(false);
-    setBgColor("bg-white")
+    setBgColor("bg-white");
   }
 
   return (
@@ -104,18 +152,17 @@ const Subnav = () => {
                 id="5"
                 onMouseEnter={(e) => {
                   handleMouseEnter(e);
-                }}               
+                }}
                 to="/category"
                 className="block sm:inline-block text-white hover:text-gray-200 sm:mx-4"
               >
                 Product
               </Link>
               <Link
-              id="6"
-              onMouseEnter={(e) => {
-                handleMouseEnter(e);
-              }}
-              
+                id="6"
+                onMouseEnter={(e) => {
+                  handleMouseEnter(e);
+                }}
                 to="/category"
                 className="block sm:inline-block text-white hover:text-gray-200 sm:mx-4"
               >
@@ -151,43 +198,10 @@ const Subnav = () => {
         </div>
       </nav>
 
-     <div className={`relative h-screen ${bgColor} `}> 
-     {isHovered && productId? (switchcase(productId)) : ("")}
-      <div className={` absolute  top-0 left-0 `}>
-        <img src="../../public/apple-ar21.svg"></img>
-        <img src="../../public/apple-ar21.svg"></img>
-        <img src="../../public/apple-ar21.svg"></img>
-        <img src="../../public/apple-ar21.svg"></img>
-        <img src="../../public/apple-ar21.svg"></img>
-        <img src="../../public/apple-ar21.svg"></img>
-        <img src="../../public/apple-ar21.svg"></img>
-        <img src="../../public/apple-ar21.svg"></img>
-        <img src="../../public/apple-ar21.svg"></img>
-        <img src="../../public/apple-ar21.svg"></img>
-        <img src="../../public/apple-ar21.svg"></img>
-        <img src="../../public/apple-ar21.svg"></img>
-        <img src="../../public/apple-ar21.svg"></img>
-        <img src="../../public/apple-ar21.svg"></img>
-        <img src="../../public/apple-ar21.svg"></img>
-        <img src="../../public/apple-ar21.svg"></img>
-        <img src="../../public/apple-ar21.svg"></img>
-        <img src="../../public/apple-ar21.svg"></img>
-        <img src="../../public/apple-ar21.svg"></img>
-        <img src="../../public/apple-ar21.svg"></img>
-        <img src="../../public/apple-ar21.svg"></img>
-        <img src="../../public/apple-ar21.svg"></img>
-        <img src="../../public/apple-ar21.svg"></img>
-        <img src="../../public/apple-ar21.svg"></img>
-        <img src="../../public/apple-ar21.svg"></img>
-        <img src="../../public/apple-ar21.svg"></img>
-        <img src="../../public/apple-ar21.svg"></img>
-        <img src="../../public/apple-ar21.svg"></img>
-        <img src="../../public/apple-ar21.svg"></img>
-        </div>
-     </div>
-             
-
-
+      <div className={`relative  ${bgColor} `}>
+        {isHovered && productId ? switchcase(productId) : ""}
+        <div className={` absolute  top-0 left-0 `}></div>
+      </div>
     </>
   );
 };
