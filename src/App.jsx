@@ -8,7 +8,6 @@ import "./App.css";
 import Cart from "./pages/Cart.jsx"
 import Footer from "../src/components/Footer";
 import Home from "./pages/Home.jsx";
-import OtherServices from "./components/OtherServices";
 
 
 
