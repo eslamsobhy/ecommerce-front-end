@@ -7,6 +7,7 @@ import Circles from "../components/Circles";
 import DealsSlider from "../components/DealsSlider";
 import axios from "axios";
 import AdsSlider from "../components/AdsSlider"
+import Filter from "../components/Filter";
 export default function Home() {
 
   useEffect(()=>{
