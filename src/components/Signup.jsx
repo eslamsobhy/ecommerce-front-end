@@ -5,29 +5,38 @@ import { useForm } from "react-hook-form";
 import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import UserContext from "../context/UserContext"
-import { useContext } from "react";
-import { useCookies } from "react-cookie";
+import { useContext, useState } from "react";
+import { useCookies } from 'react-cookie';
+
 
 function Signup(){
   const {register , handleSubmit , formState: { errors }} = useForm()
   const userCTX = useContext(UserContext)
+  const [countryCode, setCountryCode] = useState("+1");
   const [cookies, setCookie] = useCookies(['UserToken','User']);
-  
+
   async function onSubmit(data){
-    let {firstName,lastName, email , password}  = data
+    let {first_name,last_name, email , password ,phone_number}  = data
 
     try {
-    const response = await axios.post(`http://localhost:3000/users/signup`,{firstName,lastName, email, password });
-    toast(`your account has been created successfully ${cookies.User['first_name']}!`)
+    const response = await axios.post(`http://localhost:3000/users/signup`,
+      {first_name,last_name, email, password,phone_number 
+    });
+    toast(`your account has been created successfully ${first_name}!`)
+    
+    setCookie('User', JSON.stringify(response.data.newUser));
+    setCookie('UserToken', response.data.token);
+    window.localStorage.setItem("logged", true)
+    window.localStorage.removeItem("cartItems")
+
     userCTX.toggleModal()
-    console.log(response)
+    // console.log(response)
 
   } catch (error) {
     console.error(error);
-    error.response ? toast(error.response.data.message) : ''
+    error.response ? toast.success(error.response.data.message) : ''
   }
   }
-
 
   return(
     <>
@@ -62,19 +71,37 @@ function Signup(){
             {errors.password?.type === "maxLength" && (<p className="text-red-500" role="alert">password must be less than 20 chars</p>)}
           {/* ------------------------------------firstName------------------------------------------ */}
           <div className="w-full mb-4">
-            <label htmlFor="firstName" className="block text-gray-700 font-semibold mb-2 mt-3">firstName</label>
-            <input {...register("firstName" , { required: true, maxLength: 20 })} aria-invalid={errors.firstName ? "true" : "false"} className="input" />
+            <label htmlFor="first_name" className="block text-gray-700 font-semibold mb-2 mt-3">firstName</label>
+            <input {...register("first_name" , { required: true, maxLength: 20 })} aria-invalid={errors.first_name ? "true" : "false"} className="input" />
           </div>
-            {errors.firstName?.type === "required" && (<p className="text-red-500" role="alert">firstName is required</p>)}
-            {errors.firstName?.type === "maxLength" && (<p className="text-red-500" role="alert">firstName must be less than 20 chars</p>)}
+            {errors.first_name?.type === "required" && (<p className="text-red-500" role="alert">firstName is required</p>)}
+            {errors.first_name?.type === "maxLength" && (<p className="text-red-500" role="alert">firstName must be less than 20 chars</p>)}
           {/* -----------------------------------lastName------------------------------------------- */}
           <div className="w-full mb-4">
-            <label htmlFor="lastName" className="block text-gray-700 font-semibold mb-2 mt-3">lastName</label>
-            <input {...register("lastName", { required: true, maxLength: 20 })} aria-invalid={errors.lastName ? "true" : "false"} className="input" />
+            <label htmlFor="last_name" className="block text-gray-700 font-semibold mb-2 mt-3">lastName</label>
+            <input {...register("last_name", { required: true, maxLength: 20 })} aria-invalid={errors.last_name ? "true" : "false"} className="input" />
           </div>
-            {errors.lastName?.type === "required" && (<p className="text-red-500" role="alert">lastName is required</p>)}
-            {errors.lastName?.type === "maxLength" && (<p className="text-red-500" role="alert">lastName must be less than 20 chars</p>)}
-            
+            {errors.last_name?.type === "required" && (<p className="text-red-500" role="alert">lastName is required</p>)}
+            {errors.last_name?.type === "maxLength" && (<p className="text-red-500" role="alert">lastName must be less than 20 chars</p>)}
+             {/* ----------------------------------phone number--------------------------------------- */}
+          <div className="w-full mb-4">
+            <label htmlFor="phone_number" className="block text-gray-700 font-semibold mb-2 mt-3" >
+              Phone Number
+            </label>
+            <div className="flex">
+              <select value={countryCode} onChange={(e) => setCountryCode(e.target.value)} className="input mr-2 max-w-[100px]" >
+                <option value="+20">+20</option>
+                <option value="+212">+212</option>
+              </select>
+              <input type="text" {...register("phone_number", { required:true, 
+                  pattern: {
+                  value: /^\d{11}$/ , message: "Invalid Phone Number"} })}
+                  aria-invalid={errors.phone_number ? "true" : "false"} className="input"/>
+            </div>
+            {errors.phone_number && (
+            <p className="text-red-500" role="alert">{errors.phone_number.message}</p>
+            )}
+          </div>
             <input type="submit" value={"CREATE AN ACCOUNT"}  className="primaryBtn" />
         </form>
         <ToastContainer />

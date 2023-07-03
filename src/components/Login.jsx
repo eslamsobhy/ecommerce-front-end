@@ -24,7 +24,7 @@ function Login(){
     setCookie('UserToken', response.data.token);
     setCookie('User', JSON.stringify(response.data.user));
     window.localStorage.setItem("logged", true)
-      toast(`Welcome back ${cookies.User?.['first_name'] || ''}!`)
+    toast(`Welcome back ${response.data.user?.['first_name'] || ''}!`)
     userCTX.toggleModal();
 
   } catch (error) {
