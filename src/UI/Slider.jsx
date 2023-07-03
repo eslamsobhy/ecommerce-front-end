@@ -1,10 +1,12 @@
 /* eslint-disable react/prop-types */
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import {  BiChevronRight , BiChevronLeft, BiBasket  } from 'react-icons/bi';
+import cartContext from "../context/CartContext"
+
 
 
 function Slider({products}){
-  
+  const myCart = useContext(cartContext)
   const [currentIndex, setCurrentIndex] = useState(0);
 
   const nextSlide = () => {
@@ -27,13 +29,25 @@ function Slider({products}){
   const showLeftArrow = currentIndex > 0;
   const showRightArrow = currentIndex < products.length - 6;
 
+  async function addItemToCart(product){
+    myCart.addItem({
+      key :product._id,
+      id: product._id,
+      name: product.name,
+      image : product.image,
+      amount :1,
+      price: product.price
+    })
+    
+  }
+
   return (
     <>
       <div className="slider mx-12 my-8 relative">
         <div className="slider-cards flex " >
           {products.slice(currentIndex, currentIndex + 6).map((product) => (
             <div key={product._id} className="card border mx-1 p-4 w-96 bg-white  shadow-md rounded-lg">
-              <figure><img src={product.images} /></figure>
+              <figure><img src={product.image} /></figure>
               <div className="card-body">
                 <h2 className="card-title">
                   {product.name}
@@ -47,7 +61,7 @@ function Slider({products}){
                     </dd>
                   </div> 
                   <div className="badge badge-outline text-gray-500">{product.price}LE</div>
-                  <button className='flex items-center gap-3 border p-2 rounded-lg mx-auto my-3 hover:bg-orange-500 hover:text-white'>
+                  <button onClick={()=> addItemToCart(product)} className='flex items-center gap-3 border p-2 rounded-lg mx-auto my-3 hover:bg-orange-500 hover:text-white'>
                     Add to cart <BiBasket />
                   </button>
                 </div>
