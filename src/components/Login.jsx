@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
 /* eslint-disable react/no-unescaped-entities */
 import { useForm } from "react-hook-form"
@@ -5,10 +6,10 @@ import Modal from "../UI/Modal"
 import axios  from "axios"
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-
+import { useCookies } from 'react-cookie';
 
 function Login(props){
-
+  const [cookies, setCookie] = useCookies(['UserToken']);
   const {register , handleSubmit , formState: { errors }} = useForm()
   
 
@@ -17,7 +18,10 @@ function Login(props){
 
     try {
     const response = await axios.post(`http://localhost:3000/users/login`,{ email, password });
-    console.log(response.data.token) //save the token in a cookie
+    console.log(response.data.token) //delete this line in the end 
+    console.log(response.data.user) //delete this line in the end 
+    setCookie('UserToken', response.data.token);
+    window.localStorage.setItem("logged", true)
     toast("You are successfully logged in!")
     props.toggleModal();
 

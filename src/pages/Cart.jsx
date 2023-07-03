@@ -1,42 +1,28 @@
-import { useState } from "react"
+import { useContext } from "react"
 import CartItem from "../components/CartItem"
+import cartContext from "../context/CartContext"
+import { useNavigate } from "react-router-dom";
+
 
 
 const Cart = () => {
-const [items, setItems] = useState([
-    {
-      poster_path:"https://m.media-amazon.com/images/I/71nHKoF+OJL._AC_AA180_.jpg", 
-      item_name:"Avatar: The Way of Water",
-      item_provider:"by sam Wothington",
-      item_desc:"bluray",
-      available:true,
-      price:200
-    },
-    {
-      poster_path:"https://m.media-amazon.com/images/I/71nHKoF+OJL._AC_AA180_.jpg", 
-      item_name:"Avatar2: The Way of Water",
-      item_provider:"by sam Wothington",
-      item_desc:"bluray",
-      available:false,
-      price:100
-    },
-    {
-      poster_path:"https://m.media-amazon.com/images/I/71nHKoF+OJL._AC_AA180_.jpg", 
-      item_name:"Avatar3: The Way of Water",
-      item_provider:"by sam Wothington",
-      item_desc:"bluray",
-      available:true,
-      price:300
-    }
-  ])
+  const myCart = useContext(cartContext)
+  const navigate = useNavigate();
+  
 
-
-  const deleteItem = (index)=> {
-    const newItems = [... items];
-    newItems.splice(index, 1);
-    setItems(newItems)
-    console.log(index);
+  function removeItemHandler(id) {
+    myCart.removeItem(id);
   }
+
+  function addItemHandler(item) {
+    myCart.addItem({ ...item, amount: 1 });
+  }
+
+  function checkoutHandler(){
+    const userStatus = window.localStorage.getItem("logged")
+    userStatus ? navigate("/checkout") : "open login modal"
+  }
+
 
   return (
     <>
@@ -50,17 +36,32 @@ const [items, setItems] = useState([
               <span className="absolute right-5">Price</span>
             </div>
 
-            {items.map((item, index)=> (
-              <CartItem key={Math.random()} item={item} index={index} deleteItem={deleteItem}/>
-            ))}
+            {myCart.items.length ? (
+              myCart.items.map((item) => <CartItem 
+              item={item}
+              key={item.id}     
+              onAdd={() => addItemHandler(item)}
+              onRemove={() => removeItemHandler(item.id)} 
+              />)
+            ) : (
+              localStorage.getItem("cartItems") &&
+              JSON.parse(localStorage.getItem("cartItems")).map((item) => (
+                <CartItem 
+                  item={item} 
+                  key={item.id} 
+                  onAdd={() => addItemHandler(item)}
+                  onRemove={() => removeItemHandler(item.id)} 
+                />
+              ))
+            )}
 
           </section>
           <aside className="col-span-5 lg:col-span-1">
             <div className="py-6 bg-gray-50 flex flex-col px-5">
               <h6 className=" font-semibold text-xl">Subtotal</h6>
-              <span>5 items:<span className="font-bold"> $500</span></span>
+              <span>{myCart.totalItemsNum} items:<span className="font-bold"> ${myCart.totalAmount}</span></span>
               
-              <button className="bg-yellow-500 px-2  rounded block">Checkout</button>
+              <button onClick={checkoutHandler} className="bg-yellow-500 px-2  rounded block">Checkout</button>
             </div>
           </aside>
         </div>
