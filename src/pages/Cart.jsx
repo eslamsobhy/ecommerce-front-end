@@ -1,14 +1,18 @@
+/* eslint-disable no-unused-vars */
 import { useContext } from "react"
 import CartItem from "../components/CartItem"
 import cartContext from "../context/CartContext"
 import { useNavigate } from "react-router-dom";
-
+import UserContext from "../context/UserContext"
+import { toast } from "react-toastify";
+import { useCookies } from 'react-cookie';
 
 
 const Cart = () => {
+  const userCTX = useContext(UserContext)
   const myCart = useContext(cartContext)
   const navigate = useNavigate();
-  
+  const [cookies, setCookie] = useCookies(['UserToken','User']);
 
   function removeItemHandler(id) {
     myCart.removeItem(id);
@@ -19,8 +23,18 @@ const Cart = () => {
   }
 
   function checkoutHandler(){
+    const cartIsNotEmpty = myCart.totalItemsNum ? true : false
     const userStatus = window.localStorage.getItem("logged")
-    userStatus ? navigate("/checkout") : "open login modal"
+
+    if(userStatus && cartIsNotEmpty){
+      navigate("/checkout")
+    }else if(!userStatus){
+      userCTX.toggleModal()
+      toast(`Please Sign First!`)
+    }else if(!cartIsNotEmpty){
+      toast(`The Cart Is Empty ${cookies.User['first_name']}!`)
+    }
+
   }
 
 
@@ -61,14 +75,13 @@ const Cart = () => {
               <h6 className=" font-semibold text-xl">Subtotal</h6>
               <span>{myCart.totalItemsNum} items:<span className="font-bold"> ${myCart.totalAmount}</span></span>
               
-              <button onClick={checkoutHandler} className="bg-yellow-500 px-2  rounded block">Checkout</button>
+              <button onClick={checkoutHandler} className="bg-f37020 px-2 max-w-[200px]  rounded block">Checkout</button>
             </div>
           </aside>
         </div>
     </div>
 </>
   )
-   
   
 }
 

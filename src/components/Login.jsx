@@ -7,23 +7,25 @@ import axios  from "axios"
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useCookies } from 'react-cookie';
+import UserContext from "../context/UserContext"
+import { useContext } from "react";
 
-function Login(props){
-  const [cookies, setCookie] = useCookies(['UserToken']);
+function Login(){
+  const [cookies, setCookie] = useCookies(['UserToken','User']);
   const {register , handleSubmit , formState: { errors }} = useForm()
-  
+  const userCTX = useContext(UserContext)
 
   async function onSubmit(data){
     const {email , password}  = data
 
     try {
     const response = await axios.post(`http://localhost:3000/users/login`,{ email, password });
-    console.log(response.data.token) //delete this line in the end 
-    console.log(response.data.user) //delete this line in the end 
+
     setCookie('UserToken', response.data.token);
+    setCookie('User', JSON.stringify(response.data.user));
     window.localStorage.setItem("logged", true)
-    toast("You are successfully logged in!")
-    props.toggleModal();
+      toast(`Welcome back ${cookies.User?.['first_name'] || ''}!`)
+    userCTX.toggleModal();
 
   } catch (error) {
     console.error(error);
@@ -35,16 +37,15 @@ function Login(props){
 
   return(
     <>
-      <Modal toggleModal={props.toggleModal} >
+      <Modal toggleModal={userCTX.toggleModal} >
 
-      <div className="max-w-md mx-auto p-6 bg-white rounded-lg shadow-md">
-        <h1 className="text-2xl font-bold mb-4">Welcome back!</h1>
-        <h1 className="text-lg mb-4">Sign in to your account</h1>
-        <p className="text-sm mb-4">Don't have an account? <a onClick={props.toggleModalContent} className="text-blue-500 cursor-pointer">Sign Up</a></p>
-        <form onSubmit={handleSubmit(onSubmit)} className=" flex flex-col items-center  max-w-md mx-auto py-4 px-10 bg-white rounded-lg shadow-md">
+        <h1 className="mx-auto w-fit text-2xl font-bold mb-4">Welcome back!</h1>
+        <h1 className="mx-auto w-fit  text-sm mb-4">Sign in to your account</h1>
+        <p className="mx-auto w-fit  text-sm mb-4">Don't have an account? <a onClick={userCTX.toggleModalContent} className="text-f37020 cursor-pointer">Sign Up</a></p>
+        <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col items-center min-w-[300px] w-[400px] mx-auto py-3 px-10 bg-white rounded-lg ">
           
           {/* -------------------------------email------------------------------------------------ */}
-          <div className="mb-4">
+          <div className="w-full mb-4">
             <label htmlFor="email" className="block text-gray-700 font-semibold mb-2 mt-3">Email</label>
             <input {...register("email",{ 
                 required: true, 
@@ -56,9 +57,9 @@ function Login(props){
             {errors.email?.type === "required" && (<p className="text-red-500" role="alert">email is required</p>)}
             {errors.email?.type === "pattern" && (<p className="text-red-500" role="alert">email must be valid </p>)}
           {/* ----------------------------------password-------------------------------------------- */}
-          <div className="mb-4">
+          <div className="w-full mb-4">
             <label htmlFor="password" className="block text-gray-700 font-semibold mb-2 mt-3">password</label>
-            <input {...register("password", { required: true, minLength:6 , maxLength: 20 })} aria-invalid={errors.password ? "true" : "false"} className="input" />
+            <input {...register("password", { required: true, minLength:6 , maxLength: 20 })} type="password" aria-invalid={errors.password ? "true" : "false"} className="input" />
           </div>
             {errors.password?.type === "required" && (<p className="text-red-500" role="alert">password is required</p>)}
             {errors.password?.type === "minLength" && (<p className="text-red-500" role="alert">password must be at least 6 chars </p>)}
@@ -67,7 +68,6 @@ function Login(props){
           <input type="submit" value={"Login"}  className="primaryBtn" />
         </form>
         <ToastContainer />
-      </div>
       </Modal>
     </>
   )
