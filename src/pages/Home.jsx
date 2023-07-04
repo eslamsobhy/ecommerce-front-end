@@ -15,19 +15,28 @@ export default function Home() {
   const [cookies, setCookies,removeCookie] = useCookies(['User']);
 
   useEffect(()=>{
-    async function getProducts(){
+    // async function getProducts(){
       // const response = await axios.get("http://localhost:3000/products")
       // console.log(response.data)
       // setProducts(response.data)
-    }
-    getProducts()
+    // }
+    // getProducts()
 
-    async function getUserData(){
-      const response = await axios.get(`http://localhost:3000/users/${cookies.User._id}`)
-      removeCookie('User');
-      setCookies("User", response.data.user)
+    async function getUserData() {
+      try {
+        const response = await axios.get(`http://localhost:3000/users/${cookies.User._id}`, {
+          headers: { Authorization: cookies.UserToken }
+        });
+        console.log(response);
+        setCookies("User", response.data.user);
+      } catch (error) {
+        console.error(error);
+      }
     }
-    getUserData()
+  
+    if (window.localStorage.getItem("logged")) {
+      getUserData();
+    }
   },[])
 
   const [products ,setProducts ] = useState([
