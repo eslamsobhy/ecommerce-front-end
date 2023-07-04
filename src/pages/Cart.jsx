@@ -45,7 +45,7 @@ const Cart = () => {
 
 
   return (
-<>
+    <>
       <div className="container mx-auto my-10">
         <div className="grid grid-cols-5 gap-4">
           <section className="col-span-5 lg:col-span-3">
@@ -80,47 +80,42 @@ const Cart = () => {
                 Checkout
               </button>
               <button
-                className="mt-4 bg-black text-white py-2 px-4 rounded-md max-w-[200px]  shadow-md hover:bg-orange-600 focus:outline-none"
-                onClick={togglePurchasedItems}>
+                className="mt-4 bg-black text-white py-2 px-4 rounded-md max-w-[200px] shadow-md hover:bg-orange-600 focus:outline-none"
+                onClick={togglePurchasedItems}
+              >
                 Show Purchased Items
               </button>
             </div>
             {showPurchasedItems && window.localStorage.getItem('purchasedItems') && (
-              <div className="purchased-container  max-w-[300px] border border-spacing-x-4  mr-3 p-1">
+              <div className="purchased-container max-w-[300px] border border-spacing-x-4 mr-3 p-1">
                 <div className="purchased-items">
                   {JSON.parse(window.localStorage.getItem('purchasedItems')).map((item) => (
-
                     <div className="flex justify-between my-1 border-b-[2px] py-1" key={item.id} >
-                    <div className="flex">
-                      <img className="max-w-[140px]" src={item.image} alt="Image not Found" />
-                      <div className="flex flex-col">
-                        <h3 className="text-[17px] font-bold">{item.name}</h3>
-                        <div className="flex gap-2 flex-col">
-                          <div className="text-f37020 text-[13px]">{item.amount} pieces Purchased</div>
-                          <div className=" me-1 text-bold"> { item.amount * item.price } LE </div>
-                          <button className="bg-black text-white  hover:bg-orange-600 text-[13px] px-2 py-1 rounded-lg" onClick={() => addItemHandler(item)}>buy again!</button>
+                      <div className="flex">
+                        <img className="max-w-[140px]" src={item.image} alt="Image not Found" />
+                        <div className="flex flex-col">
+                          <h3 className="text-[17px] font-bold">{item.name}</h3>
+                          <div className="flex gap-2 flex-col">
+                            <div className="text-f37020 text-[13px]">{item.amount} pieces Purchased</div>
+                            <div className="me-1 text-bold"> { item.amount * item.price } LE </div>
+                            <button className="bg-black text-white hover:bg-orange-600 text-[13px] px-2 py-1 rounded-lg" onClick={() => addItemHandler(item)}>buy again!</button>
+                          </div>
                         </div>
                       </div>
                     </div>
-                    </div>
-
-                    // <CartItem
-                    //   item={item}
-                    //   key={item.id}
-                    //   onAdd={() => addItemHandler(item)}
-                    //   onRemove={() => removeItemHandler(item.id)}
-                    // />
                   ))}
                 </div>
               </div>
             )}
 
+            {!window.localStorage.getItem('purchasedItems') &&showPurchasedItems && (
+              <p className="text-start ml-6 text-gray-500 mt-4">No purchased items found.</p>
+            )}
           </aside>
         </div>
       </div>
     </>
   )
-  
 }
 
 export default Cart
