@@ -9,10 +9,10 @@ import { useState } from "react";
 import Navbar from "./components/Navbar.jsx";
 import { Route, Routes } from "react-router";
 import NotFound from "./pages/NotFound.jsx";
+import Products from "./pages/Products.jsx";
 
 
 function App() {
-  
   const [searchText, setSearchText] = useState("");   
 
 
@@ -24,7 +24,8 @@ function App() {
         <Route path="/Techservices" element={<TechServices />} />
         <Route path="/Freeshipping" element={<FreeShipping />} />
         <Route path="/cart" element={<Cart />} />
-        <Route path="/checkout" element={<Checkout />} />
+        <Route path="/products" element={<Products />} />
+        <Route path="/checkout" element={<Checkout  />} />
         <Route path="/*" element={<NotFound />} />
       </Routes>
         <Footer />

@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React, { useEffect, useState } from "react";
 import Filter from "../components/Filter";
 import axios, { all } from "axios";
@@ -10,7 +11,7 @@ const productsData = [
   // Add more products
 ];
 
-const ProductsPage = () => {
+const Products = () => {
   const [allProducts, setAllProducts] = useState(productsData);
   const [filteredProducts, setfilteredProducts] = useState();
   const [searchParams, setSearchParams] = useSearchParams();
@@ -60,4 +61,4 @@ const ProductsPage = () => {
   );
 };
 
-export default ProductsPage;
+export default Products;

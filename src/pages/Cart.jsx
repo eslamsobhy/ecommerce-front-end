@@ -40,6 +40,7 @@ const Cart = () => {
 
   return (
     <>
+    
     <div className="container mx-auto my-10">
         <div className="grid grid-cols-5  gap-4">
 
@@ -49,8 +50,9 @@ const Cart = () => {
               <h1 className=" font-semibold text-2xl">Shopping Cart</h1>
               <span className="absolute right-5">Price</span>
             </div>
+    {myCart.items.length != 0 && localStorage.getItem("cartItems").length != 0 ? 
 
-            {myCart.items.length ? (
+            myCart.items.length ? (
               myCart.items.map((item) => <CartItem 
               item={item}
               key={item.id}     
@@ -67,8 +69,11 @@ const Cart = () => {
                   onRemove={() => removeItemHandler(item.id)} 
                 />
               ))
-            )}
-
+            )
+          :
+          <p className="mx-auto max-w-fit py-1 px-2 font-semibold text-xl my-3 rounded-full">Cart is empty !</p>
+  
+}
           </section>
           <aside className="col-span-5 lg:col-span-1">
             <div className="py-6 bg-gray-50 flex flex-col px-5">

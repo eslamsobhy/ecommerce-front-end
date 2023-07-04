@@ -112,7 +112,7 @@ const Subnav = () => {
                 onMouseEnter={(e) => {
                   handleMouseEnter(e);
                 }}
-                to="/category"
+                to="/products"
                 className="block  sm:inline-block text-white hover:text-gray-200 sm:mx-4"
               >
                 Mobile
@@ -123,7 +123,7 @@ const Subnav = () => {
                 onMouseEnter={(e) => {
                   handleMouseEnter(e);
                 }}
-                to="/category"
+                to="/products"
                 className="block sm:inline-block text-white hover:text-gray-200 sm:mx-4"
               >
                 Laptop
@@ -133,7 +133,7 @@ const Subnav = () => {
                 onMouseEnter={(e) => {
                   handleMouseEnter(e);
                 }}
-                to="/category"
+                to="/products"
                 className="block sm:inline-block text-white hover:text-gray-200 sm:mx-4"
               >
                 Product
@@ -143,7 +143,7 @@ const Subnav = () => {
                 onMouseEnter={(e) => {
                   handleMouseEnter(e);
                 }}
-                to="/category"
+                to="/products"
                 className="block sm:inline-block text-white hover:text-gray-200 sm:mx-4"
               >
                 Product
@@ -153,7 +153,7 @@ const Subnav = () => {
                 onMouseEnter={(e) => {
                   handleMouseEnter(e);
                 }}
-                to="/category"
+                to="/products"
                 className="block sm:inline-block text-white hover:text-gray-200 sm:mx-4"
               >
                 Product
@@ -163,7 +163,7 @@ const Subnav = () => {
                 onMouseEnter={(e) => {
                   handleMouseEnter(e);
                 }}
-                to="/category"
+                to="/products"
                 className="block sm:inline-block text-white hover:text-gray-200 sm:mx-4"
               >
                 Product

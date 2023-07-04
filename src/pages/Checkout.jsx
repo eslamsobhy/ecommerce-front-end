@@ -1,30 +1,66 @@
+/* eslint-disable react/prop-types */
+/* eslint-disable no-unused-vars */
 import { useForm } from "react-hook-form";
 import PayPal from "../components/PayPalButton.jsx";
-import { useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { BsFillCheckCircleFill } from 'react-icons/bs';
-const Checkout = () => {
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm();
+import UserContext from "../context/UserContext.jsx";
+import CartContext from "../context/CartContext.jsx";
+import { useNavigate } from "react-router-dom";
+import { useCookies } from 'react-cookie';
+import axios from "axios";
+import { ToastContainer, toast } from "react-toastify";
 
-  const onSubmit = (data) => {
-    console.log(data);
 
-    data.paymentMethod === "Cash" ? setCashclass("") : setCashclass("hidden");
-    data.paymentMethod === "PayPal"
-      ? setPaypalclass("")
-      : setPaypalclass("hidden");
-  };
+const Checkout = (props) => {
+
+  const { register, handleSubmit, formState: { errors }} = useForm();
+  const navigate = useNavigate();
+  const userCTX = useContext(UserContext)
+  const CartCTX = useContext(CartContext)
+  const [cookies, setCookies] = useCookies(['User']);
   const [paypalclass, setPaypalclass] = useState("hidden");
   const [cashclass, setCashclass] = useState("hidden");
+
+
+  useEffect(()=>{
+    if(!window.localStorage.getItem("logged")){
+      userCTX.toggleModal()
+      navigate('/Cart')
+    }
+
+  },[])
+
+
+  const onSubmit = async (data) => {
+    data.paymentMethod === "Cash" ? setCashclass("") : setCashclass("hidden");
+    data.paymentMethod === "PayPal" ? setPaypalclass("") : setPaypalclass("hidden");
+    try{
+      // updating user info
+      const response = await axios.patch(`http://localhost:3000/users/${cookies.User._id}`,
+      { address: data.address },
+      { headers: { Authorization: `${cookies.UserToken}`}})
+
+
+    }catch(error){
+      toast(error)
+    }
+
+  };
+
+
+  function closeHandler(){
+      setCashclass("hidden");
+      navigate("/")
+      window.location.reload()
+  }
+  
+
+
   return (
-    <>
+    <div className="flex justify-between">
       <form
-        onSubmit={handleSubmit(onSubmit)}
-        className="max-w-md mx-auto xl:m-10 md:m-10 sm:my-10"
-      >
+        onSubmit={handleSubmit(onSubmit)} className="max-w-md mx-auto xl:m-10 md:m-10 sm:my-10">
         <div className="mb-4">
           <label htmlFor="name" className="block mb-2">
             Name:
@@ -32,6 +68,7 @@ const Checkout = () => {
           <input
             id="name"
             {...register("name", { required: true })}
+            defaultValue={`${cookies.User?.first_name} ${cookies.User?.last_name}`}
             className="w-full sm:w-1/2 px-3 py-2 border rounded-md focus:outline-none focus:ring focus:border-blue-300 transition-colors"
           />
           {errors.name && (
@@ -45,6 +82,7 @@ const Checkout = () => {
           </label>
           <input
             id="phone"
+            defaultValue={`${cookies.User?.phone_number}`}
             {...register("phone", { required: true })}
             className="w-full sm:w-1/2 px-3 py-2 border rounded-md focus:outline-none focus:ring focus:border-blue-300 transition-colors"
           />
@@ -59,7 +97,8 @@ const Checkout = () => {
           </label>
           <input
             id="email"
-            {...register("email", { required: true, pattern: /^\S+@\S+$/i })}
+            {...register("email", { required: true, pattern: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i })}
+            defaultValue={`${cookies.User?.email}`}
             className="w-full sm:w-1/2 px-3 py-2 border rounded-md focus:outline-none focus:ring focus:border-blue-300 transition-colors"
           />
           {errors.email && (
@@ -76,6 +115,7 @@ const Checkout = () => {
           <input
             id="address"
             {...register("address", { required: true })}
+            defaultValue={`${cookies.User.address?cookies.User.address:''}`}
             className="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring focus:border-blue-300 transition-colors"
           />
           {errors.address && (
@@ -90,24 +130,21 @@ const Checkout = () => {
           <select
             id="paymentMethod"
             {...register("paymentMethod", { required: true })}
-            className="w-full sm:w-1/2 px-3 py-2 border rounded-md focus:outline-none focus:ring focus:border-blue-300 transition-colors"
-          >
+            className="w-full sm:w-1/2 px-3 py-2 border rounded-md focus:outline-none focus:ring focus:border-blue-300 transition-colors" >
             <option value="">Select a payment method</option>
             <option value="PayPal">PayPal Or Credit Card</option>
             <option value="Cash">Cash On Delivery</option>
           </select>
           {errors.paymentMethod && (
-            <span className="text-red-500">Please select a payment method</span>
+            <span className="text-red-500 text-[14px] ml-1">Please select a payment method</span>
           )}
         </div>
 
         <button
           type="submit"
-          className="w-full py-2 px-4 my-10 bg-blue-500 text-white rounded-md hover:bg-blue-600 focus:outline-none focus:ring focus:border-blue-300 transition-colors"
-        >
+          className="w-full py-2 px-4 my-10 bg-blue-500 text-white rounded-md hover:bg-blue-600 focus:outline-none focus:ring focus:border-blue-300 transition-colors" >
           Proceed To Payment
         </button>
-      </form>
       <div className={paypalclass}>
         <PayPal />
       </div>
@@ -117,16 +154,50 @@ const Checkout = () => {
           <h3 className="text-center font-serif text-2xl text-f37020 my-2" >Congratulations </h3>
           <p >We have received your order and our team is preparing it as soon as possible. Thank you for confirming the order.</p>
           <p></p>
-          <button
-            onClick={() => {
-              setCashclass("hidden");
-            }}
-          >
+          <button onClick={closeHandler}>
             <img className="fixed -top-10 -left-10 w-10 " src="../../public/close-button.svg" alt="close"></img>
           </button>
         </div>
       </div>
-    </>
+      </form>
+      <div className=" bg-orange-300  items drop-shadow-md  flex flex-wrap items-start height-fit">
+      {CartCTX.items? CartCTX.items.map((product) => (
+            <div key={product.id} className="card border max-w-[150px]  my-10 mx-1 p-2 w-96 bg-white  shadow-md rounded-lg">
+              <figure><img src={product.image} /></figure>
+              <div className="card-body">
+                <h2 className="card-title text-bold"> {product.name} </h2>
+                  
+                  <div className="text-gray-700">pieces :{product.amount}</div>
+                  <div className="badge badge-outline text-gray-500">{product.price}LE</div>
+              </div>
+            </div>
+          ))
+        :
+        window.localStorage.getItem("cartItems")? JSON.parse(window.localStorage.getItem("cartItems")).map((product) => (
+          <div key={product.id} className="card border mx-1 p-4 w-96 bg-white  shadow-md rounded-lg">
+            <figure><img src={product.image} /></figure>
+            <div className="card-body">
+              <h2 className="card-title">
+                {product.name}
+              </h2>
+              <div className="card-actions justify-end">
+                <div className="badge badge-outline">
+                  <dd className="text-indigo-600 flex items-center dark:text-orange-500">
+                    <svg width="24" height="24" fill="none" aria-hidden="true" className="mr-1 stroke-current dark:stroke-orange-500">
+                    <path d="m12 5 2 5h5l-4 4 2.103 5L12 16l-5.103 3L9 14l-4-4h5l2-5Z"  strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                    </svg> {product.rate}
+                  </dd>
+                </div> 
+                <div className="badge badge-outline text-gray-500">{product.price}LE</div>
+              </div>
+            </div>
+          </div>
+        ))
+        : '' }
+      </div>
+        <div className="my-5 bg-orange-300 ">{CartCTX.totalAmount } LE <span className="text-f37020 font-bold"> OR </span> { Math.round(CartCTX.totalAmount / 30)}$</div>
+      <ToastContainer />
+    </div>
   );
 };
 

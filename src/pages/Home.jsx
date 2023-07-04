@@ -7,8 +7,12 @@ import Circles from "../components/Circles";
 import DealsSlider from "../components/DealsSlider";
 import axios from "axios";
 import AdsSlider from "../components/AdsSlider"
-import Filter from "../components/Filter";
+import { useCookies } from 'react-cookie';
+
+
 export default function Home() {
+
+  const [cookies, setCookies,removeCookie] = useCookies(['User']);
 
   useEffect(()=>{
     async function getProducts(){
@@ -17,6 +21,13 @@ export default function Home() {
       // setProducts(response.data)
     }
     getProducts()
+
+    async function getUserData(){
+      const response = await axios.get(`http://localhost:3000/users/${cookies.User._id}`)
+      removeCookie('User');
+      setCookies("User", response.data.user)
+    }
+    getUserData()
   },[])
 
   const [products ,setProducts ] = useState([
@@ -39,6 +50,7 @@ export default function Home() {
     {_id:17,  image : 'public/images/pTest.png', name : "test17" ,  price : 85 , rate : "3.5" },
     {_id:18,  image : 'public/images/pTest.png', name : "test18" ,  price : 37 , rate : "4.5" }
   ]);
+
 
 
 
