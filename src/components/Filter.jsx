@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import  { useState } from "react";
+import { useState } from "react";
 import { useSearchParams } from "react-router-dom";
 
 const brands = ["All", "Brand A", "Brand B", "Brand C"]; // Replace with your brand options
@@ -14,7 +14,7 @@ const Filter = () => {
   );
   const [priceRange, setPriceRange] = useState({
     min: searchParams.get("min") ? searchParams.get("min") : "",
-    max: searchParams.get("max") ? searchParams.get("max") : ""
+    max: searchParams.get("max") ? searchParams.get("max") : "",
   });
 
   const toggleMenu = () => {
@@ -60,7 +60,7 @@ const Filter = () => {
 
   return (
     <>
-      <div className="md:hidden block fixed bottom-4 left-4">
+      <div className="md:hidden mt-5 top-5 sticky min-w-0 max-w-full block bottom-4 left-4">
         <button
           className="rounded-full bg-gray-200 p-3 focus:outline-none"
           onClick={toggleMenu}
@@ -71,8 +71,8 @@ const Filter = () => {
       <div
         className={
           !isMenuOpen
-            ? "fixed top-0 left-0 hidden md:block md:w-80 p-4 bg-white shadow-md rounded-md"
-            : "relative left-0 top-0 h-screen w-64 p-4 bg-white shadow-lg"
+            ? "left-0 top-0 sticky min-w-0 max-w-full hidden md:block md:w-80 p-4 bg-white shadow-md rounded-md"
+            : "fixed z-10 left-0 top-0 h-screen w-64 p-4 bg-white shadow-lg"
         }
       >
         {/* Add Close Button to Menu */}
@@ -142,7 +142,7 @@ const Filter = () => {
       </div>
       {isMenuOpen && (
         <div
-          className="fixed inset-y-0 right-0 w-[calc(100%-16rem)] bg-gray-900 opacity-50"
+          className="fixed z-10 inset-y-0 right-0 w-[calc(100%-16rem)] bg-gray-900 opacity-50"
           onClick={handleBackdropClick}
         />
       )}

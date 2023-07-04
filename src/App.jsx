@@ -12,6 +12,7 @@ import NotFound from "./pages/NotFound.jsx";
 import Products from "./pages/Products.jsx";
 
 
+
 function App() {
   const [searchText, setSearchText] = useState("");   
 
