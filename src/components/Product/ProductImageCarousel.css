@@ -25,10 +25,15 @@
 }
 
 .first-swiper .swiper-slide {
-  height: 460px;
   opacity: 0.4;
 }
 
 .first-swiper .swiper-slide-thumb-active {
   opacity: 1;
+}
+
+@media (max-width: 768px) {
+  .first-swiper {
+    display: none;
+  }
 }
