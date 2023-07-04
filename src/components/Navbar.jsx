@@ -1,29 +1,51 @@
+/* eslint-disable no-unused-vars */
 import { FaShoppingCart } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import Login from "./Login"
 import Signup from "./Signup"
 import Searchbar from "./Searchbar.jsx";
 import Subnav from "./Subnav.jsx";
-import { useState } from "react";
+import { useContext, useEffect, useState } from "react";
+import UserContext from "../context/UserContext"
+import { useCookies } from "react-cookie";
 
 const Navbar = (props) => {
+  const userCTX = useContext(UserContext)
+  const userStatus = window.localStorage.getItem("logged")
+  const [cookies, setCookie,removeCookie] = useCookies(['UserToken', 'User']);
+  const [CurrUser , setCurrUser] = useState('')
+  const [isDropdownVisible, setIsDropdownVisible] = useState(false);
 
-  const [modalIsShown,setModalIsShown ] = useState(false);
+  const handleMouseEnter = () => {
+    setIsDropdownVisible(true);
+  };
 
-  const [loginModalStatus,setLoginModalStatus ] = useState(true);
-  const [signUpModalStatus,setSignUpModalStatus ] = useState(false);
+  const handleMouseLeave = () => {
+    setIsDropdownVisible(false);
+  };
 
-  //toggle the modal it self 
-  function toggleModal(){
-    setModalIsShown(prevValue => !prevValue)
+  const handleDropdownMouseEnter = () => {
+    setIsDropdownVisible(true);
+  };
+
+  const handleDropdownMouseLeave = () => {
+    setIsDropdownVisible(false);
+  };
+
+  useEffect(()=>{
+      if(cookies.User){
+        setCurrUser(cookies.User)
+      }
+  },[cookies.User])
+
+
+  function signoutHandler(){
+    window.localStorage.removeItem("logged")
+    removeCookie('UserToken');
+    removeCookie('User');
+    window.location.reload();
   }
-  
-  //toggle between sign up and login forms
-  function toggleModalContent(){
-    setSignUpModalStatus(prevValue => !prevValue)
-    setLoginModalStatus(prevValue => !prevValue)
-  }
-  
+
 
   return (
     <>
@@ -37,8 +59,8 @@ const Navbar = (props) => {
           </Link>
 
         {/* sign in  */}
-        {modalIsShown && loginModalStatus && <Login  toggleModal={toggleModal} toggleModalContent={toggleModalContent} />  }
-        {modalIsShown && signUpModalStatus && <Signup  toggleModal={toggleModal} toggleModalContent={toggleModalContent} />  }
+        {userCTX.modalIsShown && userCTX.loginModalStatus && <Login />  }
+        {userCTX.modalIsShown && userCTX.signUpModalStatus && <Signup />  }
         
         {/* Searchbar */}
         <Searchbar {...props} />
@@ -46,7 +68,27 @@ const Navbar = (props) => {
         {/* Navigation */}
         <ul className="flex items-center justify-end">
           <li className="text-white hover:text-gray-200 text-sm:10">
-            <button onClick={toggleModal}>SignIn</button>
+            {userStatus?  
+          <div className="relative">
+          <img
+            className="max-w-[40px] rounded-full cursor-pointer"
+            src={CurrUser.avatar}
+            onMouseEnter={handleMouseEnter}
+            onMouseLeave={handleMouseLeave}
+            alt="User Avatar"/>
+
+          {isDropdownVisible && (
+            <div
+            onMouseEnter={handleDropdownMouseEnter}
+            onMouseLeave={handleDropdownMouseLeave}
+            className="absolute right-0  py-2 w-40 bg-white rounded shadow-lg z-10">
+              <button onClick={signoutHandler} className="block w-[160px] px-4 py-2 text-gray-800 hover:bg-gray-200">Sign Out </button>
+            </div>
+          )}
+        </div>
+            : 
+            <button onClick={userCTX.toggleModal}>SignIn</button>
+            }
           </li>
           <li className="mx-3">
             <Link className="text-white flex items-center hover:text-gray-200" to="/cart">
