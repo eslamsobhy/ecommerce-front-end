@@ -1,5 +1,6 @@
 /* eslint-disable no-unused-vars */
 import Cart from "./pages/Cart.jsx"
+import Checkout from "./pages/Checkout.jsx"
 import Footer from "../src/components/Footer";
 import Home from "./pages/Home.jsx";
 import FreeShipping from "./pages/FreeShipping.jsx";
@@ -23,6 +24,7 @@ function App() {
         <Route path="/Techservices" element={<TechServices />} />
         <Route path="/Freeshipping" element={<FreeShipping />} />
         <Route path="/cart" element={<Cart />} />
+        <Route path="/checkout" element={<Checkout />} />
         <Route path="/*" element={<NotFound />} />
       </Routes>
         <Footer />
