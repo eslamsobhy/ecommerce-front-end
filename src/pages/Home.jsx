@@ -7,16 +7,36 @@ import Circles from "../components/Circles";
 import DealsSlider from "../components/DealsSlider";
 import axios from "axios";
 import AdsSlider from "../components/AdsSlider"
-import Filter from "../components/Filter";
+import { useCookies } from 'react-cookie';
+
+
 export default function Home() {
 
+  const [cookies, setCookies,removeCookie] = useCookies(['User']);
+
   useEffect(()=>{
-    async function getProducts(){
+    // async function getProducts(){
       // const response = await axios.get("http://localhost:3000/products")
       // console.log(response.data)
       // setProducts(response.data)
+    // }
+    // getProducts()
+
+    async function getUserData() {
+      try {
+        const response = await axios.get(`http://localhost:3000/users/${cookies.User._id}`, {
+          headers: { Authorization: cookies.UserToken }
+        });
+        console.log(response);
+        setCookies("User", response.data.user);
+      } catch (error) {
+        console.error(error);
+      }
     }
-    getProducts()
+  
+    if (window.localStorage.getItem("logged")) {
+      getUserData();
+    }
   },[])
 
   const [products ,setProducts ] = useState([
@@ -39,6 +59,7 @@ export default function Home() {
     {_id:17,  image : 'public/images/pTest.png', name : "test17" ,  price : 85 , rate : "3.5" },
     {_id:18,  image : 'public/images/pTest.png', name : "test18" ,  price : 37 , rate : "4.5" }
   ]);
+
 
 
 

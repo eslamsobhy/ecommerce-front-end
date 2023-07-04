@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 /* eslint-disable no-unused-vars */
 import { FaShoppingCart } from "react-icons/fa";
 import { Link } from "react-router-dom";
@@ -8,8 +9,11 @@ import Subnav from "./Subnav.jsx";
 import { useContext, useEffect, useState } from "react";
 import UserContext from "../context/UserContext"
 import { useCookies } from "react-cookie";
+import { useNavigate } from "react-router-dom";
+
 
 const Navbar = (props) => {
+  const navigate = useNavigate();
   const userCTX = useContext(UserContext)
   const userStatus = window.localStorage.getItem("logged")
   const [cookies, setCookie,removeCookie] = useCookies(['UserToken', 'User']);
@@ -43,9 +47,9 @@ const Navbar = (props) => {
     window.localStorage.removeItem("logged")
     removeCookie('UserToken');
     removeCookie('User');
+    navigate('/')
     window.location.reload();
   }
-
 
   return (
     <>

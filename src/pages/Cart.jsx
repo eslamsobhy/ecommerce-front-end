@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import { useContext } from "react"
+import { useContext, useState } from "react"
 import CartItem from "../components/CartItem"
 import cartContext from "../context/CartContext"
 import { useNavigate } from "react-router-dom";
@@ -13,6 +13,11 @@ const Cart = () => {
   const myCart = useContext(cartContext)
   const navigate = useNavigate();
   const [cookies, setCookie] = useCookies(['UserToken','User']);
+  const [showPurchasedItems, setShowPurchasedItems] = useState(false);
+
+  const togglePurchasedItems = () => {
+    setShowPurchasedItems(!showPurchasedItems);
+  };
 
   function removeItemHandler(id) {
     myCart.removeItem(id);
@@ -25,6 +30,7 @@ const Cart = () => {
   function checkoutHandler(){
     const cartIsNotEmpty = myCart.totalItemsNum ? true : false
     const userStatus = window.localStorage.getItem("logged")
+
 
     if(userStatus && cartIsNotEmpty){
       navigate("/checkout")
@@ -39,48 +45,80 @@ const Cart = () => {
 
 
   return (
-    <>
-    <div className="container mx-auto my-10">
-        <div className="grid grid-cols-5  gap-4">
-
-          <section className="col-span-5 lg:col-span-4">
-            {/* cart header  */}
-            <div className="relative p-6 border-b-[2px]">
-              <h1 className=" font-semibold text-2xl">Shopping Cart</h1>
+<>
+      <div className="container mx-auto my-10">
+        <div className="grid grid-cols-5 gap-4">
+          <section className="col-span-5 lg:col-span-3">
+            {/* cart header */}
+            <div className="relative p-6 border-b-2">
+              <h1 className="font-semibold text-2xl">Shopping Cart</h1>
               <span className="absolute right-5">Price</span>
             </div>
-
-            {myCart.items.length ? (
-              myCart.items.map((item) => <CartItem 
-              item={item}
-              key={item.id}     
-              onAdd={() => addItemHandler(item)}
-              onRemove={() => removeItemHandler(item.id)} 
-              />)
+            {/* cart items */}
+            {myCart.items.length !== 0 && localStorage.getItem('cartItems').length !== 0 ? (
+              myCart.items.length ? (
+                myCart.items.map((item) => (
+                  <CartItem item={item} key={item.id} onAdd={() => addItemHandler(item)} onRemove={() => removeItemHandler(item.id)} />
+                ))
+              ) : (
+                localStorage.getItem('cartItems') &&
+                JSON.parse(localStorage.getItem('cartItems')).map((item) => (
+                  <CartItem item={item} key={item.id} onAdd={() => addItemHandler(item)} onRemove={() => removeItemHandler(item.id)} />
+                ))
+              )
             ) : (
-              localStorage.getItem("cartItems") &&
-              JSON.parse(localStorage.getItem("cartItems")).map((item) => (
-                <CartItem 
-                  item={item} 
-                  key={item.id} 
-                  onAdd={() => addItemHandler(item)}
-                  onRemove={() => removeItemHandler(item.id)} 
-                />
-              ))
+              <p className="mx-auto max-w-fit py-1 px-2 font-semibold text-xl my-3 rounded-full">Cart is empty!</p>
+            )}
+          </section>
+          <aside className="col-span-5 lg:col-span-2">
+            <div className="py-6 bg-gray-50 flex flex-col px-5">
+              <h6 className="font-semibold text-xl">Subtotal</h6>
+              <span>
+                {myCart.totalItemsNum} items:<span className="font-bold"> {myCart.totalAmount} LE</span>
+              </span>
+              <button onClick={checkoutHandler} className="bg-f37020 px-2 max-w-[200px] rounded block">
+                Checkout
+              </button>
+              <button
+                className="mt-4 bg-black text-white py-2 px-4 rounded-md max-w-[200px]  shadow-md hover:bg-orange-600 focus:outline-none"
+                onClick={togglePurchasedItems}>
+                Show Purchased Items
+              </button>
+            </div>
+            {showPurchasedItems && window.localStorage.getItem('purchasedItems') && (
+              <div className="purchased-container  max-w-[300px] border border-spacing-x-4  mr-3 p-1">
+                <div className="purchased-items">
+                  {JSON.parse(window.localStorage.getItem('purchasedItems')).map((item) => (
+
+                    <div className="flex justify-between my-1 border-b-[2px] py-1" key={item.id} >
+                    <div className="flex">
+                      <img className="max-w-[140px]" src={item.image} alt="Image not Found" />
+                      <div className="flex flex-col">
+                        <h3 className="text-[17px] font-bold">{item.name}</h3>
+                        <div className="flex gap-2 flex-col">
+                          <div className="text-f37020 text-[13px]">{item.amount} pieces Purchased</div>
+                          <div className=" me-1 text-bold"> { item.amount * item.price } LE </div>
+                          <button className="bg-black text-white  hover:bg-orange-600 text-[13px] px-2 py-1 rounded-lg" onClick={() => addItemHandler(item)}>buy again!</button>
+                        </div>
+                      </div>
+                    </div>
+                    </div>
+
+                    // <CartItem
+                    //   item={item}
+                    //   key={item.id}
+                    //   onAdd={() => addItemHandler(item)}
+                    //   onRemove={() => removeItemHandler(item.id)}
+                    // />
+                  ))}
+                </div>
+              </div>
             )}
 
-          </section>
-          <aside className="col-span-5 lg:col-span-1">
-            <div className="py-6 bg-gray-50 flex flex-col px-5">
-              <h6 className=" font-semibold text-xl">Subtotal</h6>
-              <span>{myCart.totalItemsNum} items:<span className="font-bold"> ${myCart.totalAmount}</span></span>
-              
-              <button onClick={checkoutHandler} className="bg-f37020 px-2 max-w-[200px]  rounded block">Checkout</button>
-            </div>
           </aside>
         </div>
-    </div>
-</>
+      </div>
+    </>
   )
   
 }

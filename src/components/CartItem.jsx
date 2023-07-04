@@ -6,12 +6,12 @@ const CartItem = ({item, onAdd , onRemove}) => {
     <>
       {/* cart item */}
       <div
-        className=" flex justify-between my-3 border-b-[2px] py-2"
+        className=" flex justify-between my-1 border-b-[2px] py-1"
         key={item.id}
       >
         <div className="  flex">
           <img
-            className=""
+            className="max-w-[140px]"
             src={item.image}
             alt="Image not Found"
           />
@@ -27,7 +27,7 @@ const CartItem = ({item, onAdd , onRemove}) => {
             </div>
           </div>
         </div>
-        <div className=" me-5">{ item.amount * item.price } </div>
+        <div className=" me-5 text-bold"> { item.amount * item.price } LE </div>
       </div>
     </>
   );

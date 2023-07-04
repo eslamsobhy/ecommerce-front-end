@@ -1,20 +1,17 @@
-import { useEffect } from "react";
+/* eslint-disable react/prop-types */
+import { useContext, useEffect, useState } from "react";
 import {
   PayPalScriptProvider,
   PayPalButtons,
   usePayPalScriptReducer,
 } from "@paypal/react-paypal-js";
+import CartContext from "../context/CartContext.jsx";
 
-// This values are the props in the UI
-const amount = "2";
-const currency = "USD";
-const style = { layout: "vertical" };
-
-// Custom component to wrap the PayPalButtons and handle currency changes
 const ButtonWrapper = ({ currency, showSpinner }) => {
-  // usePayPalScriptReducer can be use only inside children of PayPalScriptProviders
-  // This is the main reason to wrap the PayPalButtons in a new component
   const [{ options, isPending }, dispatch] = usePayPalScriptReducer();
+  const CartCTX = useContext(CartContext);
+  const [amount, setAmount] = useState("");
+  const style = { layout: "vertical" };
 
   useEffect(() => {
     dispatch({
@@ -24,6 +21,7 @@ const ButtonWrapper = ({ currency, showSpinner }) => {
         currency: currency,
       },
     });
+    setAmount(Math.round(CartCTX.totalAmount /30))
   }, [currency, showSpinner]);
 
   return (
@@ -62,6 +60,8 @@ const ButtonWrapper = ({ currency, showSpinner }) => {
 };
 
 export default function PayPal() {
+  const currency = "USD";
+
   return (
     <div className="w-full px-4  max-w-md mx-auto xl:m-10 md:m-10 sm:my-10">
       <PayPalScriptProvider
