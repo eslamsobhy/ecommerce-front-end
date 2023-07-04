@@ -10,6 +10,7 @@ import { Route, Routes } from "react-router";
 import NotFound from "./pages/NotFound.jsx";
 
 
+
 function App() {
   
   const [searchText, setSearchText] = useState("");   
