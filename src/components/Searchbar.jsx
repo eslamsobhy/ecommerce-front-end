@@ -19,12 +19,12 @@ const Searchbar = (props) => {
           <input
             onChange={changeHandler}
             type="text"
-            className="px-5  w-full text-purple-700 bg-white border rounded-full focus:border-purple-400 focus:ring-purple-300 focus:outline-none focus:ring focus:ring-opacity-40"
+            className="px-5  w-full text-orange-500 bg-white border rounded-full focus:border-orange-400 focus:ring-orange-400 focus:outline-none focus:ring focus:ring-opacity-40"
             placeholder="Search..."
           />
           <button
             onClick={(e) => clickHandler(e, props.searchText)}
-            className="text-white bg-purple-600 rounded-full "
+            className="text-white bg-orange-500 rounded-full "
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"

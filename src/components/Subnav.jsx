@@ -20,7 +20,7 @@ const Subnav = () => {
         return (
           <div
             onMouseLeave={handleMouseLeave}
-            className="  absolute bg-blue-500 bg-opacity-100 z-10 trp  m-auto h-fit "
+            className="  absolute bg-slate-200 bg-opacity-100 z-10 trp  m-auto h-fit "
           >
             <Mobile />
           </div>
@@ -29,7 +29,7 @@ const Subnav = () => {
         return (
           <div
             onMouseLeave={handleMouseLeave}
-            className=" absolute bg-blue-500 bg-opacity-100 z-10 m-auto h-fit "
+            className=" absolute bg-slate-200 bg-opacity-100 z-10 m-auto h-fit "
           >
             <Laptop />
           </div>
@@ -38,7 +38,7 @@ const Subnav = () => {
         return (
           <div
             onMouseLeave={handleMouseLeave}
-            className=" absolute bg-blue-500 bg-opacity-100  z-10  m-auto h-fit "
+            className=" absolute bg-slate-200 bg-opacity-100  z-10  m-auto h-fit "
           >
             <Mobile />
           </div>
@@ -47,7 +47,7 @@ const Subnav = () => {
         return (
           <div
             onMouseLeave={handleMouseLeave}
-            className=" absolute bg-blue-500 bg-opacity-100  z-10 m-auto h-fit"
+            className=" absolute bg-slate-200 bg-opacity-100  z-10 m-auto h-fit"
           >
             <Mobile />
           </div>
@@ -56,7 +56,7 @@ const Subnav = () => {
         return (
           <div
             onMouseLeave={handleMouseLeave}
-            className=" absolute bg-blue-500 bg-opacity-100  z-10 m-auto h-fit"
+            className=" absolute bg-slate-200 bg-opacity-100  z-10 m-auto h-fit"
           >
             <Mobile />
           </div>
@@ -65,7 +65,7 @@ const Subnav = () => {
         return (
           <div
             onMouseLeave={handleMouseLeave}
-            className=" absolute bg-blue-500 bg-opacity-100  z-10  m-auto h-fit"
+            className=" absolute bg-slate-200 bg-opacity-100  z-10  m-auto h-fit"
           >
             <Mobile />
           </div>
@@ -74,7 +74,7 @@ const Subnav = () => {
         return (
           <div
             onMouseLeave={handleMouseLeave}
-            className=" absolute bg-blue-500  bg-opacity-100  z-10  m-auto  h-fit"
+            className=" absolute bg-slate-200 bg-opacity-100  z-10  m-auto  h-fit"
           >
             <Mobile />
           </div>
@@ -95,7 +95,7 @@ const Subnav = () => {
 
   return (
     <>
-      <nav id="SubNav" className="bg-slate-400">
+      <nav id="SubNav" className="bg-black bg-opacity-90">
         <div className="flex justify-between items-center p-3">
           <div
             className={`${
