@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable react/prop-types */
 /* eslint-disable no-unused-vars */
 import { useForm } from "react-hook-form";
@@ -52,7 +53,7 @@ const Checkout = (props) => {
       // });
 
     }catch(error){
-      toast(error)
+      toast.error(error)
     }
     window.localStorage.setItem("purchasedItems", JSON.stringify(CartCTX.items))
     CartCTX.clearCart()
@@ -74,8 +75,10 @@ const Checkout = (props) => {
   
       <div className="flex flex-col md:flex-row justify-between">
         {/* Form */}
-        <div className="mx-auto xl:m-10 md:m-10 sm:my-10 min-w-[350px] self-end">
+
+        <div className="mx-auto xl:m-10 md:m-10 sm:my-10 min-w-[350px] ">
           <form ref={form} onSubmit={handleSubmit(onSubmit)} className="mx-auto xl:m-10 md:m-10 sm:my-10 min-w-[350px]">
+
             <div className="mb-4">
               <label htmlFor="name" className="block mb-2">
                 Name:
@@ -182,9 +185,9 @@ const Checkout = (props) => {
         </div>
   
         {/* Items */}
-        <div className="bg-orange-100 m-3 p-1 rounded-lg border border-orange-400 items drop-shadow-md flex flex-wrap items-start">
+        <div className="  m-3 p-1 rounded-lg items drop-shadow-md flex flex-wrap items-start ">
           {CartCTX.items ? CartCTX.items.map((product) => (
-            <div key={product.id} className="card border border-orange-400 max-w-[120px] my-10 mx-1 p-2 w-96 bg-white shadow-md rounded-lg">
+            <div key={product.id} className="card border max-w-[120px] my-10 mx-1 p-2 w-96 bg-white shadow-md rounded-lg">
               <figure><img src={product.image} /></figure>
               <div className="card-body">
                 <h2 className="card-title text-bold">{product.name}</h2>
