@@ -4,10 +4,12 @@ import ProductImageCarousel from "../components/Product/ProductImageCarousel";
 import ProductDetails from "../components/Product/ProductDetails";
 import ProductPanels from "../components/Product/ProductPanels";
 import ProductRoute from "../components/Product/ProductRoute";
+import { useParams } from "react-router-dom";
 
 const ProductPage = () => {
   const [product, setProduct] = useState(null);
   const [count, setCount] = useState(0);
+  const { id } = useParams();
 
   // handleCounterDecrement
   const handleCounterDecrement = () => {
@@ -22,9 +24,7 @@ const ProductPage = () => {
 
   useEffect(() => {
     async function getProduct() {
-      const { data } = await axios.get(
-        "http://localhost:8000/products/64a3ec3f763571524548b9a6"
-      );
+      const { data } = await axios.get(`http://localhost:8000/products/${id}`);
       console.log(data);
       setProduct(data);
     }
