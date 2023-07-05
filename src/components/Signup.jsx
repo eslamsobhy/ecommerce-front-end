@@ -28,6 +28,7 @@ function Signup(){
     setCookie('UserToken', response.data.token);
     window.localStorage.setItem("logged", true)
     window.localStorage.removeItem("cartItems")
+    window.localStorage.removeItem("purchasedItems")
 
     userCTX.toggleModal()
     // console.log(response)
