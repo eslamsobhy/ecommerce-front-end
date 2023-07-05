@@ -5,9 +5,9 @@ import ProductsItem from "./ProductsItem";
 
 // Example items, to simulate fetching from another resources.
 
-function PaginatedItems({ itemsData }) {
-  const itemData = itemsData;
-  
+function PaginatedItems({ filteredProducts }) {
+  const products = filteredProducts;
+
   const [currentItems, setCurrentItems] = useState([]);
   const [pageCount, setPageCount] = useState(0);
   const [itemOffset, setItemOffset] = useState(0);
@@ -15,19 +15,19 @@ function PaginatedItems({ itemsData }) {
 
   useEffect(() => {
     const endOffset = itemOffset + itemsPerPage;
-    setCurrentItems(itemData.slice(itemOffset, endOffset));
-    setPageCount(Math.ceil(itemData.length / itemsPerPage));
+    setCurrentItems(products.slice(itemOffset, endOffset));
+    setPageCount(Math.ceil(products.length / itemsPerPage));
   }, [itemOffset, itemsPerPage]);
 
   const handlePageClick = (event) => {
-    const newOffset = (event.selected * itemsPerPage) % itemData.length;
+    const newOffset = (event.selected * itemsPerPage) % products.length;
     setItemOffset(newOffset);
   };
 
   return (
     <>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 ">
-        {currentItems.map((item,index) => (
+        {currentItems.map((item, index) => (
           <ProductsItem key={index} item={item} />
         ))}
       </div>
