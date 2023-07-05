@@ -2,7 +2,7 @@
 /* eslint-disable no-unused-vars */
 import { useForm } from "react-hook-form";
 import PayPal from "../components/PayPalButton.jsx";
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import { BsFillCheckCircleFill } from 'react-icons/bs';
 import UserContext from "../context/UserContext.jsx";
 import CartContext from "../context/CartContext.jsx";
@@ -10,6 +10,7 @@ import { useNavigate } from "react-router-dom";
 import { useCookies } from 'react-cookie';
 import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
+// import emailjs from 'emailjs-com';
 
 
 const Checkout = (props) => {
@@ -21,7 +22,8 @@ const Checkout = (props) => {
   const [cookies, setCookies] = useCookies(['User']);
   const [paypalclass, setPaypalclass] = useState("hidden");
   const [cashclass, setCashclass] = useState("hidden");
-
+  const form = useRef();
+  // emailjs.init('ieyQAv01RBSvsmGou', 'ieyQAv01RBSvsmGou');
 
   useEffect(()=>{
     if(!window.localStorage.getItem("logged")){
@@ -41,6 +43,13 @@ const Checkout = (props) => {
       { address: data.address },
       { headers: { Authorization: `${cookies.UserToken}`}})
 
+      //emailJS not working
+      // emailjs.sendForm('service_97xavkg', 'template_6bes58a', form.current, 'ieyQAv01RBSvsmGou')
+      // .then((result) => {
+      //     console.log(result.text);
+      // }, (error) => {
+      //     console.log(error.text);
+      // });
 
     }catch(error){
       toast(error)
@@ -66,7 +75,7 @@ const Checkout = (props) => {
       <div className="flex flex-col md:flex-row justify-between">
         {/* Form */}
         <div className="mx-auto xl:m-10 md:m-10 sm:my-10 min-w-[350px] self-end">
-          <form onSubmit={handleSubmit(onSubmit)} className="mx-auto xl:m-10 md:m-10 sm:my-10 min-w-[350px]">
+          <form ref={form} onSubmit={handleSubmit(onSubmit)} className="mx-auto xl:m-10 md:m-10 sm:my-10 min-w-[350px]">
             <div className="mb-4">
               <label htmlFor="name" className="block mb-2">
                 Name:
