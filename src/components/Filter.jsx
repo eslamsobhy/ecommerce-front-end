@@ -143,6 +143,7 @@ const Filter = () => {
               <input
                 type="number"
                 placeholder="Min"
+                min={0}
                 value={priceRange.min}
                 onChange={(e) => handlePriceChange(e, "min")}
                 className="w-1/2 px-2 py-1 text-sm border rounded-md"
@@ -150,6 +151,7 @@ const Filter = () => {
               <input
                 type="number"
                 placeholder="Max"
+                min={0}
                 value={priceRange.max}
                 onChange={(e) => handlePriceChange(e, "max")}
                 className="w-1/2 px-2 py-1 text-sm border rounded-md"
