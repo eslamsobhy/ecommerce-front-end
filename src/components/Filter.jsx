@@ -1,10 +1,12 @@
 /* eslint-disable react/prop-types */
-import { useState } from "react";
+import axios from "axios";
+import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 
-const brands = ["All", "Brand A", "Brand B", "Brand C"]; // Replace with your brand options
+// const brands = ["All", "Brand A", "Brand B", "Brand C"]; // Replace with your brand options
 
 const Filter = () => {
+  // Filter Functionalities ///////////////////////////////////
   const [searchParams, setSearchParams] = useSearchParams();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isOpenBrand, setIsOpenBrand] = useState(false);
@@ -14,8 +16,20 @@ const Filter = () => {
   );
   const [priceRange, setPriceRange] = useState({
     min: searchParams.get("min") ? searchParams.get("min") : "",
-    max: searchParams.get("max") ? searchParams.get("max") : "",
+    max: searchParams.get("max") ? searchParams.get("max") : ""
   });
+
+  // Data /////////////////////////////////////////////////////
+  const [brands, setBrands] = useState(null);
+
+  useEffect(() => {
+    async function getAllBrands() {
+      const { data } = await axios.get("http://localhost:8000/brands");
+
+      setBrands(data);
+    }
+    getAllBrands();
+  }, []);
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
@@ -93,17 +107,27 @@ const Filter = () => {
         </button>
         {isOpenBrand && (
           <div className="mt-4">
-            {brands.map((brand) => (
-              <div key={brand} className="space-x-2">
-                <input
-                  type="radio"
-                  checked={selectedBrand === brand}
-                  onChange={() => handleBrandChange(brand)}
-                  name={brand}
-                />
-                <label htmlFor={brand}>{brand}</label>
-              </div>
-            ))}
+            <div className="space-x-2">
+              <input
+                type="radio"
+                checked={selectedBrand === "All"}
+                onChange={() => handleBrandChange("All")}
+                name="All"
+              />
+              <label htmlFor="All">All</label>
+            </div>
+            {brands &&
+              brands.map((brand) => (
+                <div key={brand._id} className="space-x-2">
+                  <input
+                    type="radio"
+                    checked={selectedBrand === brand.brand_name}
+                    onChange={() => handleBrandChange(brand.brand_name)}
+                    name={brand.brand_name}
+                  />
+                  <label htmlFor={brand.brand_name}>{brand.brand_name}</label>
+                </div>
+              ))}
           </div>
         )}
         <button
