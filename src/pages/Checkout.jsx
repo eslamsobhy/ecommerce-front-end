@@ -132,7 +132,7 @@ const Checkout = (props) => {
             </div>
             {/* items sent to email */}
             <input className="hidden" {...register("items")} 
-            defaultValue={`${CartCTX.items?.map((item) => item.name).join(", ")}`}
+            defaultValue={`${window.localStorage.getItem("cartItems")?JSON.parse(window.localStorage.getItem("cartItems")).map((item) => item.name).join(", "):""}`}
             />
             {/* total totalAmount sent to email */}
             <input className="hidden" {...register("totalAmount")} 
