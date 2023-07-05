@@ -63,6 +63,7 @@ const Checkout = (props) => {
     window.localStorage.setItem("purchasedItems", JSON.stringify(CartCTX.items))
     CartCTX.clearCart()
     window.localStorage.setItem("cartItems","")
+    window.localStorage.setItem("totalAmount","")
   };
 
 
@@ -136,7 +137,7 @@ const Checkout = (props) => {
             />
             {/* total totalAmount sent to email */}
             <input className="hidden" {...register("totalAmount")} 
-            defaultValue={`${CartCTX?.totalAmount}`}
+            defaultValue={`${window.localStorage.getItem("totalAmount")?JSON.parse(window.localStorage.getItem("totalAmount")):""}`}
             />
             <div className="mb-4">
               <label htmlFor="address" className="block mb-2">
