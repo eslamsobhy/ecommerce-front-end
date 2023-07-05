@@ -3,6 +3,8 @@ import { Link } from "react-router-dom";
 
 import Mobile from "./Mobile.jsx";
 import Laptop from "./Laptop.jsx";
+import Accessories from "./Accessories.jsx";
+import Games from "./Games.jsx";
 
 const Subnav = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -20,7 +22,7 @@ const Subnav = () => {
         return (
           <div
             onMouseLeave={handleMouseLeave}
-            className="  absolute bg-slate-200 bg-opacity-100 z-10 trp  m-auto h-fit "
+            className="  absolute bg-slate-200 bg-opacity-100 z-10 trp w-full  m-auto h-fit "
           >
             <Mobile />
           </div>
@@ -29,7 +31,7 @@ const Subnav = () => {
         return (
           <div
             onMouseLeave={handleMouseLeave}
-            className=" absolute bg-slate-200 bg-opacity-100 z-10 m-auto h-fit "
+            className=" absolute bg-slate-200 bg-opacity-100 z-10 w-full m-auto h-fit "
           >
             <Laptop />
           </div>
@@ -38,25 +40,25 @@ const Subnav = () => {
         return (
           <div
             onMouseLeave={handleMouseLeave}
-            className=" absolute bg-slate-200 bg-opacity-100  z-10  m-auto h-fit "
+            className=" absolute bg-slate-200 bg-opacity-100  z-10 w-full m-auto h-fit "
           >
-            <Mobile />
+            <Accessories/>
           </div>
         );
       case "4":
         return (
           <div
             onMouseLeave={handleMouseLeave}
-            className=" absolute bg-slate-200 bg-opacity-100  z-10 m-auto h-fit"
+            className=" absolute bg-slate-200 bg-opacity-100 w-full z-10 m-auto h-fit"
           >
-            <Mobile />
+            <Games />
           </div>
         );
       case "5":
         return (
           <div
             onMouseLeave={handleMouseLeave}
-            className=" absolute bg-slate-200 bg-opacity-100  z-10 m-auto h-fit"
+            className=" absolute bg-slate-200 bg-opacity-100 w-full z-10 m-auto h-fit"
           >
             <Mobile />
           </div>
@@ -65,7 +67,7 @@ const Subnav = () => {
         return (
           <div
             onMouseLeave={handleMouseLeave}
-            className=" absolute bg-slate-200 bg-opacity-100  z-10  m-auto h-fit"
+            className=" absolute bg-slate-200 bg-opacity-100 w-full z-10  m-auto h-fit"
           >
             <Mobile />
           </div>
@@ -74,7 +76,7 @@ const Subnav = () => {
         return (
           <div
             onMouseLeave={handleMouseLeave}
-            className=" absolute bg-slate-200 bg-opacity-100  z-10  m-auto  h-fit"
+            className=" absolute bg-slate-200 bg-opacity-100 w-full z-10  m-auto  h-fit"
           >
             <Mobile />
           </div>
@@ -136,7 +138,7 @@ const Subnav = () => {
                 to="/products"
                 className="block sm:inline-block text-white hover:text-gray-200 sm:mx-4"
               >
-                Product
+                Accessories
               </Link>
               <Link
                 id="4"
@@ -146,7 +148,7 @@ const Subnav = () => {
                 to="/products"
                 className="block sm:inline-block text-white hover:text-gray-200 sm:mx-4"
               >
-                Product
+                Games
               </Link>
               <Link
                 id="5"
