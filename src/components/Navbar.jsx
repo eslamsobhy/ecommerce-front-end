@@ -53,12 +53,12 @@ const Navbar = (props) => {
 
   return (
     <>
-      <nav id="MainNav" className="bg-slate-500 p-2 flex justify-between flex-wrap">
+      <nav id="MainNav" className="bg-black text-white p-2 flex justify-between flex-wrap">
         {/* Logo */}
           <Link to={"/"}>
         <div className="flex items-center ">
-          <img className="w-10 mr-3" src="/LOGO.png" alt="logo" />
-          <h1 className="text-white">Project</h1>
+          <img className="w-10 mr-3 bg-orange-500" src="/LOGO.png" alt="logo" />
+          <h1 className="text-orange-500  ">Project</h1>
         </div>
           </Link>
 
