@@ -43,7 +43,7 @@ const Checkout = (props) => {
 
 
     }catch(error){
-      toast(error)
+      toast.error(error)
     }
     window.localStorage.setItem("purchasedItems", JSON.stringify(CartCTX.items))
     CartCTX.clearCart()

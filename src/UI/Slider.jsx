@@ -189,9 +189,9 @@ const Slider = () => {
           rows: 1,
         }}
         spaceBetween={20}
-        pagination={{
-          clickable: true,
-        }}
+        // pagination={{
+        //   clickable: true,
+        // }}
         navigation={true}
         modules={[Grid, Pagination, Navigation]}
         className="container"

@@ -22,7 +22,7 @@ function Signup(){
     const response = await axios.post(`http://localhost:3000/users/signup`,
       {first_name,last_name, email, password,phone_number 
     });
-    toast(`your account has been created successfully ${first_name}!`)
+    toast.success(`your account has been created successfully ${first_name}!`)
     
     setCookie('User', JSON.stringify(response.data.newUser));
     setCookie('UserToken', response.data.token);
@@ -34,7 +34,7 @@ function Signup(){
 
   } catch (error) {
     console.error(error);
-    error.response ? toast.success(error.response.data.message) : ''
+    error.response ? toast.error(error.response.data.message) : ''
   }
   }
 
@@ -104,9 +104,9 @@ function Signup(){
           </div>
             <input type="submit" value={"CREATE AN ACCOUNT"}  className="primaryBtn" />
         </form>
-        <ToastContainer />
 
     </Modal>
+        <ToastContainer />
     </>
   )
 }

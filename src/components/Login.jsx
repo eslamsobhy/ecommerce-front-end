@@ -30,7 +30,7 @@ function Login(){
 
   } catch (error) {
     console.error(error);
-    error.response ? toast(error.response.data.message) : ''
+    error.response ? toast.error(error.response.data.message) : ''
   }
 }
 
@@ -68,8 +68,8 @@ function Login(){
           
           <input type="submit" value={"Login"}  className="primaryBtn" />
         </form>
-        <ToastContainer />
       </Modal>
+        <ToastContainer />
     </>
   )
 }
