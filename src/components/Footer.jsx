@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import BackToTopButton from "./BackToTopButton.jsx";
 
 import {
@@ -30,12 +31,12 @@ const Footer = () => {
               <h2 className="text-orange-600 font-serif font-extrabold">
                 CONNECT WITH US
               </h2>
-
+              <Link to={"/about"}>
               <p className="text-white font-bold ">About company</p>
+              </Link>
 
-              <p className="text-white font-bold ">call us</p>
+              <p className="text-white font-bold ">call us: 442266</p>
 
-              <p className="text-white font-bold ">THE PHONE: 442266</p>
             </div>
 
             <div className="w-4"></div>
