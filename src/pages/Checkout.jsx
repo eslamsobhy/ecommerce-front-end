@@ -11,7 +11,7 @@ import { useNavigate } from "react-router-dom";
 import { useCookies } from 'react-cookie';
 import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
-// import emailjs from 'emailjs-com';
+import emailjs from 'emailjs-com';
 
 
 const Checkout = (props) => {
@@ -24,7 +24,7 @@ const Checkout = (props) => {
   const [paypalclass, setPaypalclass] = useState("hidden");
   const [cashclass, setCashclass] = useState("hidden");
   const form = useRef();
-  // emailjs.init('ieyQAv01RBSvsmGou', 'ieyQAv01RBSvsmGou');
+  emailjs.init('ieyQAv01RBSvsmGou');
 
   useEffect(()=>{
     if(!window.localStorage.getItem("logged")){
@@ -44,13 +44,18 @@ const Checkout = (props) => {
       { address: data.address },
       { headers: { Authorization: `${cookies.UserToken}`}})
 
-      //emailJS not working
-      // emailjs.sendForm('service_97xavkg', 'template_6bes58a', form.current, 'ieyQAv01RBSvsmGou')
-      // .then((result) => {
-      //     console.log(result.text);
-      // }, (error) => {
-      //     console.log(error.text);
-      // });
+      const templateParams = {
+        ...data, // Include the form data
+        items: CartCTX.items.map((item) => item.name).join(", "),
+        amount: CartCTX.totalAmount, // Total amount
+      };
+
+      emailjs.sendForm('service_97xavkg', 'template_6bes58a', form.current, 'ieyQAv01RBSvsmGou')
+      .then((result) => {
+          console.log(result.text);
+      }, (error) => {
+          console.log(error.text);
+      });
 
     }catch(error){
       toast.error(error)
@@ -125,7 +130,14 @@ const Checkout = (props) => {
                 </span>
               )}
             </div>
-  
+            {/* items sent to email */}
+            <input className="hidden" {...register("items")} 
+            defaultValue={`${CartCTX.items?.map((item) => item.name).join(", ")}`}
+            />
+            {/* total totalAmount sent to email */}
+            <input className="hidden" {...register("totalAmount")} 
+            defaultValue={`${CartCTX?.totalAmount}`}
+            />
             <div className="mb-4">
               <label htmlFor="address" className="block mb-2">
                 Address:
