@@ -83,7 +83,7 @@ const Cart = () => {
                 className="mt-4 bg-black text-white py-2 px-4 rounded-md max-w-[200px] shadow-md hover:bg-orange-600 focus:outline-none"
                 onClick={togglePurchasedItems}
               >
-                Show Purchased Items
+                Recently Purchased
               </button>
             </div>
             {showPurchasedItems && window.localStorage.getItem('purchasedItems') && (
