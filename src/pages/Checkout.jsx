@@ -72,7 +72,7 @@ const Checkout = (props) => {
 
 
   return (
-    <>
+    <div className="mx-12">
       <div className="mx-auto rounded-lg my-2 bg-orange-100 p-3 w-fit">The Total of Your Order is: <span className="text-bold">{CartCTX.totalAmount}</span> LE <span className="text-f37020 font-bold">OR</span> <span className="text-bold">{Math.round(CartCTX.totalAmount / 30)}</span> $</div>
   
       <div className="flex flex-col md:flex-row justify-between">
@@ -230,7 +230,7 @@ const Checkout = (props) => {
         </div>
       </div>
       <ToastContainer />
-    </>
+    </div>
   );
   
 };
