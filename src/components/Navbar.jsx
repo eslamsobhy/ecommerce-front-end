@@ -10,11 +10,13 @@ import { useContext, useEffect, useState } from "react";
 import UserContext from "../context/UserContext"
 import { useCookies } from "react-cookie";
 import { useNavigate } from "react-router-dom";
+import CartContext from "../context/CartContext";
 
 
 const Navbar = (props) => {
   const navigate = useNavigate();
   const userCTX = useContext(UserContext)
+  const cartCTX = useContext(CartContext)
   const userStatus = window.localStorage.getItem("logged")
   const [cookies, setCookie,removeCookie] = useCookies(['UserToken', 'User']);
   const [CurrUser , setCurrUser] = useState('')
@@ -53,7 +55,7 @@ const Navbar = (props) => {
 
   return (
     <>
-      <nav id="MainNav" className="bg-black text-white p-2 flex justify-between flex-wrap">
+      <nav id="MainNav" className="bg-black text-white py-4 px-7 flex justify-between flex-wrap">
         {/* Logo */}
           <Link to={"/"}>
         <div className="flex items-center ">
@@ -71,7 +73,7 @@ const Navbar = (props) => {
 
         {/* Navigation */}
         <ul className="flex items-center justify-end">
-          <li className="text-white hover:text-gray-200 text-sm:10">
+          <li className="text-white hover:text-gray-200 text-sm:10 pr-6 ">
             {userStatus?  
           <div className="relative">
           <img
@@ -94,9 +96,15 @@ const Navbar = (props) => {
             <button onClick={userCTX.toggleModal}>SignIn</button>
             }
           </li>
-          <li className="mx-3">
-            <Link className="text-white flex items-center hover:text-gray-200" to="/cart">
-              Cart <FaShoppingCart className="" />
+          <li className="mx-3 ">
+            <Link className="text-white flex items-center hover:text-gray-200 relative" to="/cart">
+              <span className="mr-2 text-md"> Cart </span> <FaShoppingCart className="" />
+              {cartCTX.totalItemsNum > 0 && (
+              <span className="ml-1 bg-f37020 text-white rounded-full px-[7px] py-[1px] text-[14px] absolute right-[-20px] top-[-17px]">
+                {cartCTX.totalItemsNum}
+              </span>
+              )}
+
             </Link>
           </li>
         </ul>
