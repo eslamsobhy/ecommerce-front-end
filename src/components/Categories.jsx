@@ -19,7 +19,7 @@ const categoriesData = [
     linkUrl: "categories/mobiles"
   },
   {
-    title: "Laptops & PCs",
+    title: "Laptops",
     imageUrl:
       "https://img.freepik.com/free-photo/still-life-books-versus-technology_23-2150062920.jpg?size=626&ext=jpg&ga=GA1.1.1326869177.1680443547&semt=sph",
     id: 3,

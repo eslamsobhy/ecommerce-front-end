@@ -6,148 +6,104 @@ import axios, { all } from "axios";
 import { useSearchParams } from "react-router-dom";
 import PaginatedItems from "../components/PaginatedItems";
 
-const productsData = [
-  { id: 1, name: "Product 1", brand: "Brand A", price: 10 },
-  { id: 2, name: "Product 2", brand: "Brand B", price: 20 },
-  { id: 3, name: "Product 3", brand: "Brand A", price: 15 },
-  // Add more products
-];
-
-
 const Products = () => {
-
-const itemsData = [
-  {
-    img_path:
-      "https://2b.com.eg/en/msi-gf63-thin-10sc-808xeg-intelr-coretm-i5-10500h-8gb-1tb-256gb-ssd-nvidiar-geforcer-gtxr-1650-4gb-15-6-fhd-black.html",
-    name: " MSI GF63 Thin 10SC-808XEG",
-    price: 3000,
-    sale: true,
-    newArrival: true,
-  },
-  {
-    img_path:
-      "https://2b.com.eg/en/msi-gf63-thin-10sc-808xeg-intelr-coretm-i5-10500h-8gb-1tb-256gb-ssd-nvidiar-geforcer-gtxr-1650-4gb-15-6-fhd-black.html",
-    name: " MSI GF63 Thin 10SC-808XEG",
-    price: 3000,
-    sale: true,
-    newArrival: true,
-  },
-  {
-    img_path:
-      "https://2b.com.eg/en/msi-gf63-thin-10sc-808xeg-intelr-coretm-i5-10500h-8gb-1tb-256gb-ssd-nvidiar-geforcer-gtxr-1650-4gb-15-6-fhd-black.html",
-    name: " MSI GF63 Thin 10SC-808XEG",
-    price: 3000,
-    sale: true,
-    newArrival: false,
-  },
-  {
-    img_path:
-      "https://2b.com.eg/en/msi-gf63-thin-10sc-808xeg-intelr-coretm-i5-10500h-8gb-1tb-256gb-ssd-nvidiar-geforcer-gtxr-1650-4gb-15-6-fhd-black.html",
-    name: " MSI GF63 Thin 10SC-808XEG",
-    price: 3000,
-    sale: true,
-    newArrival: true,
-  },
-  {
-    img_path:
-      "https://2b.com.eg/en/msi-gf63-thin-10sc-808xeg-intelr-coretm-i5-10500h-8gb-1tb-256gb-ssd-nvidiar-geforcer-gtxr-1650-4gb-15-6-fhd-black.html",
-    name: " MSI GF63 Thin 10SC-808XEG",
-    price: 3000,
-    sale: false,
-    newArrival: true,
-  },
-  {
-    img_path:
-      "https://2b.com.eg/en/msi-gf63-thin-10sc-808xeg-intelr-coretm-i5-10500h-8gb-1tb-256gb-ssd-nvidiar-geforcer-gtxr-1650-4gb-15-6-fhd-black.html",
-    name: " MSI GF63 Thin 10SC-808XEG",
-    price: 3000,
-    sale: true,
-    newArrival: true,
-  },
-  {
-    img_path:
-      "https://2b.com.eg/en/msi-gf63-thin-10sc-808xeg-intelr-coretm-i5-10500h-8gb-1tb-256gb-ssd-nvidiar-geforcer-gtxr-1650-4gb-15-6-fhd-black.html",
-    name: " MSI GF63 Thin 10SC-808XEG",
-    price: 3000,
-    sale: false,
-    newArrival: true,
-  },
-  {
-    img_path:
-      "https://2b.com.eg/en/msi-gf63-thin-10sc-808xeg-intelr-coretm-i5-10500h-8gb-1tb-256gb-ssd-nvidiar-geforcer-gtxr-1650-4gb-15-6-fhd-black.html",
-    name: " MSI GF63 Thin 10SC-808XEG",
-    price: 3000,
-    sale: true,
-    newArrival: true,
-  },
-  {
-    img_path:
-      "https://2b.com.eg/en/msi-gf63-thin-10sc-808xeg-intelr-coretm-i5-10500h-8gb-1tb-256gb-ssd-nvidiar-geforcer-gtxr-1650-4gb-15-6-fhd-black.html",
-    name: " MSI GF63 Thin 10SC-808XEG",
-    price: 3000,
-    sale: true,
-    newArrival: false,
-  },
-  {
-    img_path:
-      "https://2b.com.eg/en/msi-gf63-thin-10sc-808xeg-intelr-coretm-i5-10500h-8gb-1tb-256gb-ssd-nvidiar-geforcer-gtxr-1650-4gb-15-6-fhd-black.html",
-    name: " MSI GF63 Thin 10SC-808XEG",
-    price: 3000,
-    sale: false,
-    newArrival: true,
-  },
-  {
-    img_path:
-      "https://2b.com.eg/en/msi-gf63-thin-10sc-808xeg-intelr-coretm-i5-10500h-8gb-1tb-256gb-ssd-nvidiar-geforcer-gtxr-1650-4gb-15-6-fhd-black.html",
-    name: " MSI GF63 Thin 10SC-808XEG",
-    price: 3000,
-    sale: true,
-    newArrival: true,
-  },
-];
-
-
-  const [allProducts, setAllProducts] = useState(productsData);
-  const [filteredProducts, setfilteredProducts] = useState();
+  const [allProducts, setAllProducts] = useState(null);
+  const [filteredProducts, setfilteredProducts] = useState(null);
   const [searchParams, setSearchParams] = useSearchParams();
 
-  // useEffect(() => {
+  useEffect(() => {
     // get all products
-    // const getAllProducts = async () => {
-    //   const { data } = await axios.get("");
-    //   // set all products
-    //   setAllProducts(data);
-    // };
-  // }, []);
+    const getAllProducts = async () => {
+      const { data } = await axios.get("http://localhost:8000/products");
+      // set all products
+      setAllProducts(data);
+    };
+
+    getAllProducts();
+  }, []);
 
   useEffect(() => {
-    // filter products
-    const filtered = allProducts.filter((product) => {
-      const matchBrand =
+    if (allProducts) {
+      // filter products
+      let filtered = null;
+      if (
+        searchParams.get("brand") === "All" &&
+        searchParams.get("category") !== "All"
+      ) {
+        filtered = allProducts.filter((product) => {
+          if (isInPriceRange(product) && hasMatchCategory(product)) {
+            return product;
+          }
+        });
+      } else if (
+        searchParams.get("category") === "All" &&
+        searchParams.get("brand") !== "All"
+      ) {
+        filtered = allProducts.filter((product) => {
+          if (hasMatchBrand(product) && isInPriceRange(product)) {
+            return product;
+          }
+        });
+      } else if (
+        searchParams.get("category") === "All" &&
+        searchParams.get("brand") === "All"
+      ) {
+        filtered = allProducts.filter((product) => {
+          if (isInPriceRange(product)) {
+            return product;
+          }
+        });
+      } else {
+        filtered = allProducts.filter((product) => {
+          if (
+            hasMatchBrand(product) &&
+            isInPriceRange(product) &&
+            hasMatchCategory(product)
+          ) {
+            return product;
+          }
+        });
+      }
+      setfilteredProducts(filtered);
+    }
+  }, [allProducts, searchParams]);
+
+  const hasMatchCategory = (product) => {
+    let matchCategory = true;
+    if (searchParams.get("category")) {
+      matchCategory =
+        searchParams.get("category") &&
+        product.category_id.category_name === searchParams.get("category");
+    }
+    return matchCategory;
+  };
+
+  const hasMatchBrand = (product) => {
+    let matchBrand = true;
+    if (searchParams.get("brand")) {
+      matchBrand =
         searchParams.get("brand") &&
-        product.brand === searchParams.get("brand");
+        product.brand_id.brand_name === searchParams.get("brand");
+    }
 
-      const minPrice = searchParams.get("min");
-      const maxPrice = searchParams.get("max");
-      let inPriceRange = true;
+    return matchBrand;
+  };
 
-      if (minPrice && !maxPrice) {
-        inPriceRange = product.price >= minPrice ? true : false;
-      } else if (!minPrice && maxPrice) {
-        inPriceRange = product.price <= maxPrice ? true : false;
-      } else if (minPrice && maxPrice) {
-        inPriceRange =
-          product.price >= minPrice && product.price <= maxPrice ? true : false;
-      }
+  const isInPriceRange = (product) => {
+    const minPrice = searchParams.get("min");
+    const maxPrice = searchParams.get("max");
+    let inPriceRange = true;
 
-      if (matchBrand && inPriceRange) {
-        return product;
-      }
-    });
-
-    setfilteredProducts(filtered);
-  }, [searchParams]);
+    if (minPrice && !maxPrice) {
+      inPriceRange = product.price >= minPrice ? true : false;
+    } else if (!minPrice && maxPrice) {
+      inPriceRange = product.price <= maxPrice ? true : false;
+    } else if (minPrice && maxPrice) {
+      inPriceRange =
+        product.price >= minPrice && product.price <= maxPrice ? true : false;
+    }
+    return inPriceRange;
+  };
 
   return (
     <>
@@ -157,7 +113,9 @@ const itemsData = [
         </div>
         {/* Render your products using the filtered products */}
         <div id="container">
-          <PaginatedItems itemsData={itemsData} />
+          {filteredProducts && filteredProducts?.length !== 0 && (
+            <PaginatedItems filteredProducts={filteredProducts} />
+          )}
         </div>
       </div>
     </>

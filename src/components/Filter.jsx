@@ -1,24 +1,56 @@
 /* eslint-disable react/prop-types */
-import { useState } from "react";
+import axios from "axios";
+import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 
-const brands = ["All", "Brand A", "Brand B", "Brand C"]; // Replace with your brand options
+// const brands = ["All", "Brand A", "Brand B", "Brand C"]; // Replace with your brand options
 
 const Filter = () => {
+  // Filter Functionalities ///////////////////////////////////
   const [searchParams, setSearchParams] = useSearchParams();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isOpenCategory, setIsOpenCategory] = useState(false);
   const [isOpenBrand, setIsOpenBrand] = useState(false);
   const [isOpenPrice, setIsOpenPrice] = useState(false);
   const [selectedBrand, setSelectedBrand] = useState(
     searchParams.get("brand") ? searchParams.get("brand") : "All"
   );
+  const [selectedCategory, setSelectedCategory] = useState(
+    searchParams.get("category") ? searchParams.get("category") : "All"
+  );
   const [priceRange, setPriceRange] = useState({
     min: searchParams.get("min") ? searchParams.get("min") : "",
-    max: searchParams.get("max") ? searchParams.get("max") : "",
+    max: searchParams.get("max") ? searchParams.get("max") : ""
   });
 
+  // Data /////////////////////////////////////////////////////
+  const [brands, setBrands] = useState(null);
+  const [categories, setCategories] = useState(null);
+
+  useEffect(() => {
+    async function getAllBrands() {
+      const { data } = await axios.get("http://localhost:8000/brands");
+
+      setBrands(data);
+    }
+    getAllBrands();
+  }, []);
+
+  useEffect(() => {
+    async function getAllCategories() {
+      const { data } = await axios.get("http://localhost:8000/categories");
+
+      setCategories(data);
+    }
+    getAllCategories();
+  }, []);
+
+  // Togglers ////////////////////////////////////////////////////////
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
+  };
+  const toggleCategorySection = () => {
+    setIsOpenCategory(!isOpenCategory);
   };
 
   const toggleBrandSection = () => {
@@ -29,6 +61,7 @@ const Filter = () => {
     setIsOpenPrice(!isOpenPrice);
   };
 
+  // Handlers ////////////////////////////////////////////////////
   const handleBackdropClick = () => {
     setIsMenuOpen(false);
   };
@@ -42,11 +75,18 @@ const Filter = () => {
     setSelectedBrand(brand);
   };
 
+  const handleCategoryChange = (category) => {
+    setSelectedCategory(category);
+  };
+
   const applyFilters = () => {
     const data = {};
 
     if (selectedBrand) {
       data.brand = selectedBrand;
+    }
+    if (selectedCategory) {
+      data.category = selectedCategory;
     }
     for (let key in priceRange) {
       if (priceRange[key] !== "") {
@@ -83,9 +123,46 @@ const Filter = () => {
             </span>
           </div>
         )}
-
+        {/* ------------------------------------- Categories ------------------------------- */}
         <button
           className="flex items-center justify-between w-full px-4 py-2 text-lg font-medium text-left bg-gray-200 focus:outline-none focus:bg-gray-300 rounded-md"
+          onClick={toggleCategorySection}
+        >
+          Category
+          <ArrowIcon isOpen={isOpenCategory} />
+        </button>
+        {isOpenCategory && (
+          <div className="mt-4">
+            <div className="space-x-2">
+              <input
+                type="radio"
+                checked={selectedCategory === "All"}
+                onChange={() => handleCategoryChange("All")}
+                name="all-categories"
+              />
+              <label htmlFor="all-categories">All</label>
+            </div>
+            {categories &&
+              categories.map((category) => (
+                <div key={category._id} className="space-x-2">
+                  <input
+                    type="radio"
+                    checked={selectedCategory === category.category_name}
+                    onChange={() =>
+                      handleCategoryChange(category.category_name)
+                    }
+                    name={category.category_name}
+                  />
+                  <label htmlFor={category.category_name}>
+                    {category.category_name}
+                  </label>
+                </div>
+              ))}
+          </div>
+        )}
+        {/* ------------------------------------- Brands ------------------------------- */}
+        <button
+          className="flex items-center justify-between w-full px-4 py-2 mt-4 text-lg font-medium text-left bg-gray-200 focus:outline-none focus:bg-gray-300 rounded-md"
           onClick={toggleBrandSection}
         >
           Brands
@@ -93,17 +170,27 @@ const Filter = () => {
         </button>
         {isOpenBrand && (
           <div className="mt-4">
-            {brands.map((brand) => (
-              <div key={brand} className="space-x-2">
-                <input
-                  type="radio"
-                  checked={selectedBrand === brand}
-                  onChange={() => handleBrandChange(brand)}
-                  name={brand}
-                />
-                <label htmlFor={brand}>{brand}</label>
-              </div>
-            ))}
+            <div className="space-x-2">
+              <input
+                type="radio"
+                checked={selectedBrand === "All"}
+                onChange={() => handleBrandChange("All")}
+                name="all-brands"
+              />
+              <label htmlFor="all-brands">All</label>
+            </div>
+            {brands &&
+              brands.map((brand) => (
+                <div key={brand._id} className="space-x-2">
+                  <input
+                    type="radio"
+                    checked={selectedBrand === brand.brand_name}
+                    onChange={() => handleBrandChange(brand.brand_name)}
+                    name={brand.brand_name}
+                  />
+                  <label htmlFor={brand.brand_name}>{brand.brand_name}</label>
+                </div>
+              ))}
           </div>
         )}
         <button
@@ -119,6 +206,7 @@ const Filter = () => {
               <input
                 type="number"
                 placeholder="Min"
+                min={0}
                 value={priceRange.min}
                 onChange={(e) => handlePriceChange(e, "min")}
                 className="w-1/2 px-2 py-1 text-sm border rounded-md"
@@ -126,6 +214,7 @@ const Filter = () => {
               <input
                 type="number"
                 placeholder="Max"
+                min={0}
                 value={priceRange.max}
                 onChange={(e) => handlePriceChange(e, "max")}
                 className="w-1/2 px-2 py-1 text-sm border rounded-md"
