@@ -6,12 +6,12 @@ import axios, { all } from "axios";
 import { useSearchParams } from "react-router-dom";
 import PaginatedItems from "../components/PaginatedItems";
 
-const productsData = [
-  { id: 1, name: "Product 1", brand: "Brand A", price: 10 },
-  { id: 2, name: "Product 2", brand: "Brand B", price: 20 },
-  { id: 3, name: "Product 3", brand: "Brand A", price: 15 }
-  // Add more products
-];
+// const productsData = [
+//   { id: 1, name: "Product 1", brand: "Brand A", price: 10 },
+//   { id: 2, name: "Product 2", brand: "Brand B", price: 20 },
+//   { id: 3, name: "Product 3", brand: "Brand A", price: 15 }
+//   // Add more products
+// ];
 
 const Products = () => {
   const [allProducts, setAllProducts] = useState(null);
@@ -24,7 +24,6 @@ const Products = () => {
       const { data } = await axios.get("http://localhost:8000/products");
       // set all products
       setAllProducts(data);
-      setfilteredProducts(data);
     };
 
     getAllProducts();
@@ -72,24 +71,27 @@ const Products = () => {
           }
         });
       }
-
       setfilteredProducts(filtered);
     }
-  }, [searchParams]);
+  }, [allProducts, searchParams]);
 
   const hasMatchCategory = (product) => {
-    const matchCategory =
-      searchParams.get("category") &&
-      product.category_id.category_name === searchParams.get("category");
-    console.log(matchCategory);
-
+    let matchCategory = true;
+    if (searchParams.get("category")) {
+      matchCategory =
+        searchParams.get("category") &&
+        product.category_id.category_name === searchParams.get("category");
+    }
     return matchCategory;
   };
 
   const hasMatchBrand = (product) => {
-    const matchBrand =
-      searchParams.get("brand") &&
-      product.brand_id.brand_name === searchParams.get("brand");
+    let matchBrand = true;
+    if (searchParams.get("brand")) {
+      matchBrand =
+        searchParams.get("brand") &&
+        product.brand_id.brand_name === searchParams.get("brand");
+    }
 
     return matchBrand;
   };
