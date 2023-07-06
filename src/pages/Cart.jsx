@@ -33,6 +33,7 @@ const Cart = () => {
 
 
     if(userStatus && cartIsNotEmpty){
+    window.localStorage.setItem("totalAmount", myCart.totalAmount)
       navigate("/checkout")
     }else if(!userStatus){
       userCTX.toggleModal()
@@ -46,7 +47,7 @@ const Cart = () => {
 
   return (
     <>
-      <div className="container mx-auto my-10">
+      <div className="container mx-12 my-10">
         <div className="grid grid-cols-5 gap-4">
           <section className="col-span-5 lg:col-span-3">
             {/* cart header */}

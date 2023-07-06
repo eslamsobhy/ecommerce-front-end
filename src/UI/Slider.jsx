@@ -181,8 +181,8 @@ const Slider = () => {
     <div className="my-12">
       <Swiper
         style={{
-          "--swiper-navigation-color": "orange",
-          "--swiper-pagination-color": "orange",
+          "--swiper-navigation-color": "black",
+          "--swiper-pagination-color": "black",
         }}
         slidesPerView={slidesPerView}
         grid={{
@@ -200,8 +200,7 @@ const Slider = () => {
           <SwiperSlide key={index}>
             <div
               key={product._id}
-              className="card border  p-4 bg-white  shadow-md rounded-lg"
-            >
+              className="card border   px-4 py-1 bg-white  shadow-md rounded-lg" >
               <figure>
                 <img src={product.image} />
               </figure>
@@ -209,7 +208,7 @@ const Slider = () => {
                 <h2 className="card-title">{product.name}</h2>
                 <div className="card-actions justify-end">
                   <div className="badge badge-outline">
-                    <dd className="text-indigo-600 flex items-center dark:text-orange-500">
+                    <dd className="text-orange-600 flex items-center dark:text-orange-500">
                       <svg
                         width="24"
                         height="24"
@@ -230,7 +229,7 @@ const Slider = () => {
                   <div className="badge badge-outline text-gray-500">
                     {product.price}LE
                   </div>
-                  <button onClick={()=>addItemToCart(product)} className="flex items-center gap-3 border p-2 rounded-lg mx-auto my-3 hover:bg-orange-500 hover:text-white">
+                  <button onClick={()=>addItemToCart(product)} className="flex items-center gap-3 border p-2 rounded-lg mx-auto my-3 hover:bg-orange-500 hover:text-white text-sm">
                     Add to cart <BiBasket />
                   </button>
                 </div>

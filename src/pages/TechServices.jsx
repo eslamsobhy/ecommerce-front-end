@@ -7,8 +7,8 @@ import { GiUpgrade  } from 'react-icons/gi';
 
 function TechServices() {
   return (
-    <div>
-      <div className="max-w-[900px] mx-auto my-12 flex flex-justify-center ">
+    <div className='mx-12'>
+      <div className="max-w-[1000px] mx-auto my-12 flex flex-justify-center ">
       <img src="public\mainbanner_en.jpg" alt="" className='max-w-full mx-2 block ' />
       </div>
       <h1 className="font-semibold text-[28px] mx-auto  w-fit">Our Services</h1>

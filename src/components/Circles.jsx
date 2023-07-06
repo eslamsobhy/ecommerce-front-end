@@ -3,7 +3,7 @@
 function Circles() {
   return (
     // uncomment the routing link 
-  <div className="flex flex-wrap justify-center gap-12 mx-auto max-w-9xl">
+  <div className="flex flex-wrap justify-center gap-12 mx-12 max-w-9xl">
     {/* <Link to="/products/charges"> */}
     <img src="../../public/images/entry_chargers_en_web.jpg" alt="" className="cursor-pointer max-w-[130px] sm:w-auto" />
     {/* </Link> */}
