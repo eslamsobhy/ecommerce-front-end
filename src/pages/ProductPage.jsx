@@ -1,15 +1,31 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+import { useContext } from "react";
+
+import CartContext from "../context/CartContext";
+
 import ProductImageCarousel from "../components/Product/ProductImageCarousel";
 import ProductDetails from "../components/Product/ProductDetails";
 import ProductPanels from "../components/Product/ProductPanels";
 import ProductRoute from "../components/Product/ProductRoute";
-import { useParams } from "react-router-dom";
 
 const ProductPage = () => {
   const [product, setProduct] = useState(null);
   const [count, setCount] = useState(0);
+  const myCart = useContext(CartContext);
   const { id } = useParams();
+
+  const handleAddItemToCart = (product) => {
+    myCart.addItem({
+      key: product._id,
+      id: product._id,
+      name: product.name,
+      image: product.images[0].url,
+      amount: count,
+      price: product.new_price ?? product.price
+    });
+  };
 
   // handleCounterDecrement
   const handleCounterDecrement = () => {
@@ -25,7 +41,7 @@ const ProductPage = () => {
   useEffect(() => {
     async function getProduct() {
       const { data } = await axios.get(`http://localhost:8000/products/${id}`);
-      console.log(data);
+      // console.log(data);
       setProduct(data);
     }
 
@@ -48,6 +64,7 @@ const ProductPage = () => {
                   count={count}
                   handleCounterDecrement={handleCounterDecrement}
                   handleCounterIncrement={handleCounterIncrement}
+                  handleAddItemToCart={handleAddItemToCart}
                 />
               </div>
               <div className="bg-white  px-5">
