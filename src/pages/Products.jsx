@@ -34,59 +34,81 @@ const Products = () => {
     if (allProducts) {
       // filter products
       let filtered = null;
-      if (searchParams.get("brand") === "All") {
+      if (
+        searchParams.get("brand") === "All" &&
+        searchParams.get("category") !== "All"
+      ) {
         filtered = allProducts.filter((product) => {
-          const minPrice = searchParams.get("min");
-          const maxPrice = searchParams.get("max");
-          let inPriceRange = true;
-
-          if (minPrice && !maxPrice) {
-            inPriceRange = product.price >= minPrice ? true : false;
-          } else if (!minPrice && maxPrice) {
-            inPriceRange = product.price <= maxPrice ? true : false;
-          } else if (minPrice && maxPrice) {
-            inPriceRange =
-              product.price >= minPrice && product.price <= maxPrice
-                ? true
-                : false;
+          if (isInPriceRange(product) && hasMatchCategory(product)) {
+            return product;
           }
-
-          if (inPriceRange) {
+        });
+      } else if (
+        searchParams.get("category") === "All" &&
+        searchParams.get("brand") !== "All"
+      ) {
+        filtered = allProducts.filter((product) => {
+          if (hasMatchBrand(product) && isInPriceRange(product)) {
+            return product;
+          }
+        });
+      } else if (
+        searchParams.get("category") === "All" &&
+        searchParams.get("brand") === "All"
+      ) {
+        filtered = allProducts.filter((product) => {
+          if (isInPriceRange(product)) {
             return product;
           }
         });
       } else {
         filtered = allProducts.filter((product) => {
-          const matchBrand =
-            searchParams.get("brand") &&
-            product.brand_id.brand_name === searchParams.get("brand");
-
-          const minPrice = searchParams.get("min");
-          const maxPrice = searchParams.get("max");
-          let inPriceRange = true;
-
-          if (minPrice && !maxPrice) {
-            inPriceRange = product.price >= minPrice ? true : false;
-          } else if (!minPrice && maxPrice) {
-            inPriceRange = product.price <= maxPrice ? true : false;
-          } else if (minPrice && maxPrice) {
-            inPriceRange =
-              product.price >= minPrice && product.price <= maxPrice
-                ? true
-                : false;
-          }
-
-          if (matchBrand && inPriceRange) {
+          if (
+            hasMatchBrand(product) &&
+            isInPriceRange(product) &&
+            hasMatchCategory(product)
+          ) {
             return product;
           }
         });
       }
 
       setfilteredProducts(filtered);
-      // console.log(filtered);
-      // console.log(filteredProducts);
     }
   }, [searchParams]);
+
+  const hasMatchCategory = (product) => {
+    const matchCategory =
+      searchParams.get("category") &&
+      product.category_id.category_name === searchParams.get("category");
+    console.log(matchCategory);
+
+    return matchCategory;
+  };
+
+  const hasMatchBrand = (product) => {
+    const matchBrand =
+      searchParams.get("brand") &&
+      product.brand_id.brand_name === searchParams.get("brand");
+
+    return matchBrand;
+  };
+
+  const isInPriceRange = (product) => {
+    const minPrice = searchParams.get("min");
+    const maxPrice = searchParams.get("max");
+    let inPriceRange = true;
+
+    if (minPrice && !maxPrice) {
+      inPriceRange = product.price >= minPrice ? true : false;
+    } else if (!minPrice && maxPrice) {
+      inPriceRange = product.price <= maxPrice ? true : false;
+    } else if (minPrice && maxPrice) {
+      inPriceRange =
+        product.price >= minPrice && product.price <= maxPrice ? true : false;
+    }
+    return inPriceRange;
+  };
 
   return (
     <>
