@@ -6,74 +6,74 @@ import {
   FaTwitter,
   FaLinkedin,
   FaInstagram,
-  FaCcVisa,
-  FaCcMastercard,
-  FaMoneyBill,
 } from "react-icons/fa";
 
 const Footer = () => {
   return (
     <>
       <footer className="bg-[#272723]">
-        <header className=" flex flex-col justify-center py-5 ">
-          <h1 className="text-center text-white font-extrabold ">
+        <header className=" flex flex-col justify-center mb-3 py-5 ">
+          <h3 className="text-center text-white font-bold ">
             BE THE FIRST TO KNOW
-          </h1>
-
-          <h3 className="text-white font-bold text-center ">
-            Subscribe and know all the new offers and news now
           </h3>
+
+          <h4 className="text-white  text-center ">
+            Subscribe and know all the new offers and news now
+          </h4>
         </header>
         <section className="grid grid-cols-4 pb-5 border-b  border-[#3d3d38] ">
-          <div className="col-span-4 md:col-span-1">
-            <h2 className="text-orange-600 font-serif font-extrabold">
+          <div className="col-span-4 md:col-span-1 mb-2">
+            <h2 className="text-orange-600  font-bold">
               CONNECT WITH US
             </h2>
             <Link to={"/about"}>
-              <p className="text-white font-bold ">About company</p>
+              <p className="text-white  ">About company</p>
             </Link>
 
-            <p className="text-white font-bold ">call us: 442266</p>
+            <p className="text-white  ">call us: 442266</p>
 
           </div>
-          <div className="col-span-4 md:col-span-1">
-            <h2 className="text-orange-600 font-serif font-extrabold">
+          <div className="col-span-4 md:col-span-1  mb-2">
+            <h2 className="text-orange-600  font-bold">
               ARITHMETIC
             </h2>
 
-            <p className="text-white font-bold ">my personal account</p>
+            <p className="text-white  ">my personal account</p>
 
-            <p className="text-white font-bold ">Order history</p>
+            <p className="text-white  ">Order history</p>
 
-            <p className="text-white font-bold ">Track your order</p>
+            <p className="text-white  ">Track your order</p>
           </div>
-          <div className="col-span-4 md:col-span-1 ">
-            <h2 className="text-orange-600 font-serif font-extrabold">
+          <div className="col-span-4 md:col-span-1  mb-1 ">
+            <h2 className="text-orange-600  font-bold">
               MOST SEARCHED
             </h2>
 
-            <p className="text-white font-bold ">Mobiles</p>
+            <p className="text-white  ">Mobiles</p>
 
-            <p className="text-white font-bold ">laptop</p>
+            <p className="text-white  ">laptop</p>
 
-            <p className="text-white font-bold ">TV accessories</p>
+            <p className="text-white  ">TV accessories</p>
           </div>
 
-          <div className="col-span-4 md:col-span-1">
-            <p className="text-gray-300 text-opacity-50">
-              Working days of all our branches , Daily / 10:00 am - 10:00 pm{" "}
+          <div className="col-span-4 md:col-span-1  mb-2">
+            <p className="text-gray-300 text-opacity-50 text-sm">
+              Stores Working Days
+            </p>
+            <p className="text-gray-300 text-opacity-50 text-sm">
+              Daily / 10:00 AM to 10:00 PM
             </p>
 
-            <p className="text-white font-bold ">Download the our app </p>
+            <p className="text-black font-bold text-sm  mb-2">Download the our app </p>
 
-            <div className="grid  grid-cols-2 mx-auto gap-y-3">
-              <div className=" max-w-[240px] ">
+            <div className="grid  grid-cols-2 mx-auto gap-x-4 gap-y-3">
+              <div className=" ">
                 <img src="../../public/apple_new.png"></img>
               </div>
-              <div className=" max-w-[240px] ">
+              <div className=" ">
                 <img src="../../public/google_new.png"></img>
               </div>
-              <div className=" max-w-[240px] ">
+              <div className=" ">
                 <img src="../../public/huawei_new.png"></img>
               </div>
             </div>
@@ -115,15 +115,7 @@ const Footer = () => {
         <section className="grid grid-cols-2 py-5 bg-[#0c0c0c]">
           <div className="col-span-2 md:col-span-1">
             <div className="flex gap-x-1 ">
-              <a href="https://eg.visamiddleeast.com/en_EG">
-                <FaCcVisa size={32} color="#FF662B" />
-              </a>
-              <a href="https://www.mastercard.us/en-us.html">
-                <FaCcMastercard size={32} color="#FF662B" />
-              </a>
-              <a href="https://www.parliament.uk/site-information/glossary/money-bills/">
-                <FaMoneyBill size={32} color="#FF662B" />
-              </a>
+              <img className="max-h-[28px]" src="https://smhttp-ssl-73217.nexcesscdn.net/pub/media/wysiwyg/smartwave/porto/footer/paymentsn.png" />
             </div>
           </div>
           <div className="col-span-2 md:col-span-1">
