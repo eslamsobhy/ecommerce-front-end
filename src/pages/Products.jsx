@@ -6,13 +6,6 @@ import axios, { all } from "axios";
 import { useSearchParams } from "react-router-dom";
 import PaginatedItems from "../components/PaginatedItems";
 
-// const productsData = [
-//   { id: 1, name: "Product 1", brand: "Brand A", price: 10 },
-//   { id: 2, name: "Product 2", brand: "Brand B", price: 20 },
-//   { id: 3, name: "Product 3", brand: "Brand A", price: 15 }
-//   // Add more products
-// ];
-
 const Products = () => {
   const [allProducts, setAllProducts] = useState(null);
   const [filteredProducts, setfilteredProducts] = useState(null);
