@@ -44,11 +44,7 @@ const Checkout = (props) => {
       { address: data.address },
       { headers: { Authorization: `${cookies.UserToken}`}})
 
-      const templateParams = {
-        ...data, // Include the form data
-        items: CartCTX.items.map((item) => item.name).join(", "),
-        amount: CartCTX.totalAmount, // Total amount
-      };
+
 
       emailjs.sendForm('service_97xavkg', 'template_6bes58a', form.current, 'ieyQAv01RBSvsmGou')
       .then((result) => {
@@ -93,7 +89,7 @@ const Checkout = (props) => {
                 id="name"
                 {...register("name", { required: true })}
                 defaultValue={`${cookies.User?.first_name} ${cookies.User?.last_name}`}
-                className="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring focus:border-orange-300 transition-colors"
+                className="w-full px-3 py-2 border rounded-md focus:outline-none  focus:border-orange-300 transition-colors"
               />
               {errors.name && (
                 <span className="text-red-500">This field is required</span>
@@ -108,7 +104,7 @@ const Checkout = (props) => {
                 id="phone"
                 defaultValue={`${cookies.User?.phone_number}`}
                 {...register("phone", { required: true })}
-                className="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring focus:border-orange-300 transition-colors"
+                className="w-full px-3 py-2 border rounded-md focus:outline-none  focus:border-orange-300 transition-colors"
               />
               {errors.phone && (
                 <span className="text-red-500">This field is required</span>
@@ -123,7 +119,7 @@ const Checkout = (props) => {
                 id="email"
                 {...register("email", { required: true, pattern: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i })}
                 defaultValue={`${cookies.User?.email}`}
-                className="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring focus:border-orange-300 transition-colors"
+                className="w-full px-3 py-2 border rounded-md focus:outline-none  focus:border-orange-300 transition-colors"
               />
               {errors.email && (
                 <span className="text-red-500">
@@ -147,7 +143,7 @@ const Checkout = (props) => {
                 id="address"
                 {...register("address", { required: true })}
                 defaultValue={`${cookies.User.address ? cookies.User.address : ""}`}
-                className="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring focus:border-orange-300 transition-colors"
+                className="w-full px-3 py-2 border rounded-md focus:outline-none  focus:border-orange-300 transition-colors"
               />
               {errors.address && (
                 <span className="text-red-500">This field is required</span>
@@ -161,7 +157,7 @@ const Checkout = (props) => {
               <select
                 id="paymentMethod"
                 {...register("paymentMethod", { required: true })}
-                className="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring focus:border-orange-300 transition-colors"
+                className="w-full px-3 py-2 border rounded-md focus:outline-none  focus:border-orange-300 transition-colors"
               >
                 <option value="">Select a payment method</option>
                 <option value="PayPal">PayPal Or Credit Card</option>
@@ -184,13 +180,13 @@ const Checkout = (props) => {
             <div className={cashclass}>
               <div className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-slate-200 p-4 rounded-lg shadow-md z-30 animate-slide-down">
                 <div className="flex justify-center m-auto">
-                  <BsFillCheckCircleFill size={30} color="#f37020" />
+                  <BsFillCheckCircleFill size={30} color="green" />
                 </div>
-                <h3 className="text-center font-serif text-2xl text-f37020 my-2">Congratulations</h3>
-                <p>We have received your order and our team is preparing it as soon as possible. Thank you for confirming the order.</p>
+                <h3 className="text-center font-serif text-2xl text-green-500 my-2">Congratulations</h3>
+                <p>We have received your order and our team is preparing it as soon as possible.Kindly check your email !</p>
                 <p></p>
                 <button onClick={closeHandler}>
-                  <img className="fixed -top-10 -left-10 w-10" src="../../public/close-button.svg" alt="close"></img>
+                  <img className="fixed -top-10 -left-10 w-10 " src="public\x.png" alt="close"></img>
                 </button>
               </div>
             </div>
