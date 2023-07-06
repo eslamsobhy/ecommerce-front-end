@@ -29,12 +29,21 @@ const Filter = () => {
 
   useEffect(() => {
     async function getAllBrands() {
-      const { data } = await axios.get("http://localhost:8000/brands");
+      if (selectedCategory === "All") {
+        const { data } = await axios.get("http://localhost:8000/brands");
+        console.log("brands", data);
+        setBrands(data);
+      } else {
+        const { data } = await axios.get(
+          `http://localhost:8000/brands?category_name=${selectedCategory}`
+        );
+        console.log("here brand 2");
 
-      setBrands(data);
+        setBrands(data);
+      }
     }
     getAllBrands();
-  }, []);
+  }, [selectedCategory]);
 
   useEffect(() => {
     async function getAllCategories() {
@@ -179,8 +188,9 @@ const Filter = () => {
               />
               <label htmlFor="all-brands">All</label>
             </div>
-            {brands &&
-              brands.map((brand) => (
+            {console.log(brands)}
+            {brands.length &&
+              brands?.map((brand) => (
                 <div key={brand._id} className="space-x-2">
                   <input
                     type="radio"
