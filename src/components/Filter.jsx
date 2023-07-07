@@ -9,11 +9,15 @@ const Filter = () => {
   // Filter Functionalities ///////////////////////////////////
   const [searchParams, setSearchParams] = useSearchParams();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isOpenOrderBy, setIsOpenOrderBy] = useState(false);
   const [isOpenCategory, setIsOpenCategory] = useState(false);
   const [isOpenBrand, setIsOpenBrand] = useState(false);
   const [isOpenPrice, setIsOpenPrice] = useState(false);
   const [selectedBrand, setSelectedBrand] = useState(
     searchParams.get("brand") ? searchParams.get("brand") : "All"
+  );
+  const [selectedOrderBy, setSelectedOrderBy] = useState(
+    searchParams.get("orderBy") ? searchParams.get("orderBy") : "bestSeller"
   );
   const [selectedCategory, setSelectedCategory] = useState(
     searchParams.get("category") ? searchParams.get("category") : "All"
@@ -58,6 +62,11 @@ const Filter = () => {
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
   };
+
+  const toggleOrderBySection = () => {
+    setIsOpenOrderBy(!isOpenOrderBy);
+  };
+
   const toggleCategorySection = () => {
     setIsOpenCategory(!isOpenCategory);
   };
@@ -88,6 +97,10 @@ const Filter = () => {
     setSelectedCategory(category);
   };
 
+  const handleOrderByChange = (order) => {
+    setSelectedOrderBy(order);
+  };
+
   const applyFilters = () => {
     const data = {};
 
@@ -96,6 +109,9 @@ const Filter = () => {
     }
     if (selectedCategory) {
       data.category = selectedCategory;
+    }
+    if (selectedOrderBy) {
+      data.orderBy = selectedOrderBy;
     }
     for (let key in priceRange) {
       if (priceRange[key] !== "") {
@@ -132,9 +148,48 @@ const Filter = () => {
             </span>
           </div>
         )}
-        {/* ------------------------------------- Categories ------------------------------- */}
+        {/* ------------------------------------- Order By ------------------------------- */}
         <button
           className="flex items-center justify-between w-full px-4 py-2 text-lg font-medium text-left bg-gray-200 focus:outline-none focus:bg-gray-300 rounded-md"
+          onClick={toggleOrderBySection}
+        >
+          Order By
+          <ArrowIcon isOpen={isOpenOrderBy} />
+        </button>
+        {isOpenOrderBy && (
+          <div className="mt-4">
+            <div className="space-x-2">
+              <input
+                type="radio"
+                checked={selectedOrderBy === "bestSeller"}
+                onChange={() => handleOrderByChange("bestSeller")}
+                name="best-seller"
+              />
+              <label htmlFor="best-seller">Best Seller</label>
+            </div>
+            <div className="space-x-2">
+              <input
+                type="radio"
+                checked={selectedOrderBy === "newArrival"}
+                onChange={() => handleOrderByChange("newArrival")}
+                name="new-arrival"
+              />
+              <label htmlFor="new-arrival">New Arrival</label>
+            </div>
+            <div className="space-x-2">
+              <input
+                type="radio"
+                checked={selectedOrderBy === "hasOffer"}
+                onChange={() => handleOrderByChange("hasOffer")}
+                name="has-offer"
+              />
+              <label htmlFor="has-offer">Has Offer</label>
+            </div>
+          </div>
+        )}
+        {/* ------------------------------------- Categories ------------------------------- */}
+        <button
+          className="flex items-center justify-between w-full mt-4 px-4 py-2 text-lg font-medium text-left bg-gray-200 focus:outline-none focus:bg-gray-300 rounded-md"
           onClick={toggleCategorySection}
         >
           Category
@@ -189,8 +244,8 @@ const Filter = () => {
               <label htmlFor="all-brands">All</label>
             </div>
             {console.log(brands)}
-            {brands.length &&
-              brands?.map((brand) => (
+            {[...brands].length &&
+              [...brands]?.map((brand) => (
                 <div key={brand._id} className="space-x-2">
                   <input
                     type="radio"
