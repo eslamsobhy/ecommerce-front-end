@@ -26,11 +26,23 @@ const Products = () => {
     if (allProducts) {
       // filter products
       let filtered = null;
+
+      if (searchParams.get("orderBy")) {
+        if (searchParams.get("orderBy") === "bestSeller") {
+          filtered = allProducts.sort((a, b) => b.best_seller - a.best_seller);
+        } else if (searchParams.get("orderBy") === "newArrival") {
+          filtered = allProducts.sort((a, b) => b.new_arrival - a.new_arrival);
+        } else if (searchParams.get("orderBy") === "hasOffer") {
+          filtered = allProducts.sort((a, b) => b.new_price - a.new_price);
+        }
+      }
+      console.log("before", filtered);
+
       if (
         searchParams.get("brand") === "All" &&
         searchParams.get("category") !== "All"
       ) {
-        filtered = allProducts.filter((product) => {
+        filtered = (filtered ? filtered : allProducts).filter((product) => {
           if (isInPriceRange(product) && hasMatchCategory(product)) {
             return product;
           }
@@ -39,7 +51,7 @@ const Products = () => {
         searchParams.get("category") === "All" &&
         searchParams.get("brand") !== "All"
       ) {
-        filtered = allProducts.filter((product) => {
+        filtered = (filtered ? filtered : allProducts).filter((product) => {
           if (hasMatchBrand(product) && isInPriceRange(product)) {
             return product;
           }
@@ -48,13 +60,13 @@ const Products = () => {
         searchParams.get("category") === "All" &&
         searchParams.get("brand") === "All"
       ) {
-        filtered = allProducts.filter((product) => {
+        filtered = (filtered ? filtered : allProducts).filter((product) => {
           if (isInPriceRange(product)) {
             return product;
           }
         });
       } else {
-        filtered = allProducts.filter((product) => {
+        filtered = (filtered ? filtered : allProducts).filter((product) => {
           if (
             hasMatchBrand(product) &&
             isInPriceRange(product) &&
@@ -64,6 +76,7 @@ const Products = () => {
           }
         });
       }
+      console.log(filtered);
       setfilteredProducts(filtered);
     }
   }, [allProducts, searchParams]);
