@@ -1,8 +1,9 @@
 import React from "react";
-import { BoltIcon, CartIcon, ClickIcon, SparklesIcon } from "./Icons";
 import { Link } from "react-router-dom";
 import { useContext } from "react";
 import CartContext from "../context/CartContext";
+import { BestSellerBadge, NewArrivalBadge, SaleBadge } from "./Badges";
+import { CartIcon } from "./Icons";
 
 const ProductsItem = ({ item }) => {
   const myCart = useContext(CartContext);
@@ -16,7 +17,6 @@ const ProductsItem = ({ item }) => {
       price: product.new_price ?? product.price
     });
   }
-  const bgImage = `bg-[url(${item.images[0].url})]`;
   return (
     <>
       <div className="p-3 m-2 border border-slate rounded-lg hover:shadow-lg transition-shadow duration-300">
@@ -29,32 +29,11 @@ const ProductsItem = ({ item }) => {
                 className="w-full rounded"
               />
               <div className="absolute top-0 left-0">
-                {item.bestseller && (
-                  <div className="flex items-center w-fit gap-1 bg-green-600 text-gray-100 mb-2 mx-[2px] h-7 px-2.5 py-0.5 rounded-xl">
-                    <ClickIcon></ClickIcon>
-                    <span className="text-sm font-semibold whitespace-nowrap">
-                      Best Seller
-                    </span>
-                  </div>
-                )}
+                {item.bestseller && <BestSellerBadge />}
 
-                {item.new_arrival && (
-                  <div className="flex items-center w-fit gap-1 bg-blue-700 text-gray-100 mb-2 mx-[2px] h-7 px-2.5 py-0.5 rounded-xl">
-                    <SparklesIcon></SparklesIcon>
-                    <span className="text-sm font-semibold whitespace-nowrap">
-                      New Arrival
-                    </span>
-                  </div>
-                )}
+                {item.new_arrival && <NewArrivalBadge />}
 
-                {item.new_price !== 0 && (
-                  <div className="flex items-center flex-w w-fit gap-1 bg-red-600 text-gray-100 mb-2 mx-[2px] h-7 px-2.5 py-0.5 rounded-xl">
-                    <BoltIcon></BoltIcon>
-                    <span className="text-sm font-semibold whitespace-nowrap">
-                      Sale
-                    </span>
-                  </div>
-                )}
+                {item.new_price !== 0 && <SaleBadge />}
               </div>
             </div>
 
