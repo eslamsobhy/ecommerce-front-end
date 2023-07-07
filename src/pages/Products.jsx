@@ -5,6 +5,7 @@ import Filter from "../components/Filter";
 import axios, { all } from "axios";
 import { useSearchParams } from "react-router-dom";
 import PaginatedItems from "../components/PaginatedItems";
+import { useRef } from "react";
 
 const Products = () => {
   const [allProducts, setAllProducts] = useState(null);
@@ -120,12 +121,11 @@ const Products = () => {
 
   return (
     <>
-      <div className="container flex  mx-auto ">
-        <div className="relative">
-          <Filter />
-        </div>
+      <div className="w-full flex relative">
+        <Filter />
+
         {/* Render your products using the filtered products */}
-        <div id="container">
+        <div>
           {filteredProducts && filteredProducts?.length !== 0 && (
             <PaginatedItems filteredProducts={filteredProducts} />
           )}

@@ -1,5 +1,5 @@
 import React from "react";
-import { CartIcon } from "./Icons";
+import { BoltIcon, CartIcon, ClickIcon, SparklesIcon } from "./Icons";
 import { Link } from "react-router-dom";
 import { useContext } from "react";
 import CartContext from "../context/CartContext";
@@ -16,37 +16,85 @@ const ProductsItem = ({ item }) => {
       price: product.new_price ?? product.price
     });
   }
+  const bgImage = `bg-[url(${item.images[0].url})]`;
   return (
     <>
-      <div className="item p-3 m-2 border border-slate rounded-lg hover:shadow-lg transition-shadow duration-300">
-        <Link to={`/products/${item.id}`}>
-          <div className="relative">
-            <img
-              src={item.images[0].url}
-              alt="Image not Found"
-              className="w-full rounded"
-            />
-            <span className="absolute bg-red-500 text-white top-2 right-2 rounded-full px-2">
-              {item.new_price ? "sale" : ""}
-            </span>
-            <span className="absolute bg-yellow-500 text-white bottom-2 left-2 rounded-full px-2">
-              {item.new_arrival ? "new" : ""}
-            </span>
+      <div className="p-3 m-2 border border-slate rounded-lg hover:shadow-lg transition-shadow duration-300">
+        <div className="flex flex-col justify-between text-center h-full">
+          <Link to={`/products/${item.id}`}>
+            <div className={`relative -z-30`}>
+              <img
+                src={item.images[0].url}
+                alt="Image Not Found"
+                className="w-full rounded"
+              />
+              <div className="absolute top-0 left-0">
+                {item.bestseller && (
+                  <div className="flex items-center w-fit gap-1 bg-green-600 text-gray-100 mb-2 mx-[2px] h-7 px-2.5 py-0.5 rounded-xl">
+                    <ClickIcon></ClickIcon>
+                    <span className="text-sm font-semibold whitespace-nowrap">
+                      Best Seller
+                    </span>
+                  </div>
+                )}
+
+                {item.new_arrival && (
+                  <div className="flex items-center w-fit gap-1 bg-blue-700 text-gray-100 mb-2 mx-[2px] h-7 px-2.5 py-0.5 rounded-xl">
+                    <SparklesIcon></SparklesIcon>
+                    <span className="text-sm font-semibold whitespace-nowrap">
+                      New Arrival
+                    </span>
+                  </div>
+                )}
+
+                {item.new_price !== 0 && (
+                  <div className="flex items-center flex-w w-fit gap-1 bg-red-600 text-gray-100 mb-2 mx-[2px] h-7 px-2.5 py-0.5 rounded-xl">
+                    <BoltIcon></BoltIcon>
+                    <span className="text-sm font-semibold whitespace-nowrap">
+                      Sale
+                    </span>
+                  </div>
+                )}
+              </div>
+            </div>
+
+            <h3 className="font-light my-2 hover:text-orange-500">
+              {item.name.length > 40
+                ? `${item.name.slice(0, 41)}...`
+                : item.name}
+            </h3>
+          </Link>
+          <div className="flex flex-col justify-center">
+            {!item.new_price && (
+              <>
+                <div className="flex gap-1 justify-center items-center">
+                  <span className="my-2 text-gray-700 text-center text-lg">
+                    EGP{item.price}
+                  </span>
+                </div>
+              </>
+            )}
+            {item.new_price !== 0 && (
+              <>
+                <div className="flex gap-1 justify-center items-center">
+                  <span className="my-2 line-through text-gray-400 text-center text-sm">
+                    EGP{item.price}
+                  </span>
+                  <span className="my-2 text-gray-700 text-center text-lg">
+                    EGP{item.new_price}
+                  </span>
+                </div>
+              </>
+            )}
+            <button
+              onClick={() => addItemToCart(item)}
+              className="flex justify-center items-center border border-slate rounded-lg p-2 bg-gray-100 hover:bg-orange-500 hover:text-white transition-all duration-300"
+            >
+              <CartIcon />
+              <span>Add to Cart</span>
+            </button>
           </div>
-          <h3 className=" font-light my-2 hover:text-orange-500">
-            {item.name}
-          </h3>
-          <h5 className="my-2 text-gray-700 text-center text-2xl">
-            EGP{item.price}
-          </h5>
-        </Link>
-        <button
-          onClick={() => addItemToCart(item)}
-          className="flex items-center border border-slate rounded-lg px-2 mx-auto bg-gray-100 hover:bg-orange-500 hover:text-white transition-all duration-300"
-        >
-          <CartIcon />
-          <span>Add to Cart</span>
-        </button>
+        </div>
       </div>
     </>
   );
