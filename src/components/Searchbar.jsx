@@ -14,8 +14,8 @@ const Searchbar = (props) => {
 
   return (
     <>
-      <div className="flex items-center justify-center">
-        <div className="flex space-x-1">
+      <div className="flex items-center  self-center w-full fixed m-auto z-40 justify-center">
+        <div className="flex justify-center align-middle items-center">
           <input
             onChange={changeHandler}
             type="text"
@@ -24,7 +24,7 @@ const Searchbar = (props) => {
           />
           <button
             onClick={(e) => clickHandler(e, props.searchText)}
-            className="text-white bg-orange-500 rounded-full "
+            className="text-white hover:text-orange-500 "
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"

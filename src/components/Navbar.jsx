@@ -55,7 +55,7 @@ const Navbar = (props) => {
 
   return (
     <>
-      <nav id="MainNav" className="bg-black text-white py-4 px-7 flex justify-between flex-wrap">
+      <nav id="MainNav" className="bg-black text-white py-4 my-30 h-20 fixed  top-0 w-full z-50 px-7 flex justify-between flex-wrap">
         {/* Logo */}
           <Link to={"/"}>
         <div className="flex items-center ">

@@ -97,8 +97,9 @@ const Subnav = () => {
 
   return (
     <>
-      <nav id="SubNav" className="bg-black bg-opacity-90">
-        <div className="flex justify-between items-center p-3">
+    <div className="fixed  z-30 m-auto   top-20  w-full   ">
+      <nav id="SubNav" className="bg-black  bg-opacity-90">
+        <div className="flex justify-between  items-center p-3">
           <div
             className={`${
               isOpen ? "block" : "hidden"
@@ -107,7 +108,7 @@ const Subnav = () => {
             <div
               className={`${
                 isOpen ? "block" : "hidden"
-              } sm:block sm:flex-grow sm:items-center sm:w-auto`}
+              }  sm:block sm:flex-grow  sm:items-center sm:w-auto `}
             >
               <Link
                 id="1"
@@ -203,6 +204,7 @@ const Subnav = () => {
       <div className={`relative  ${bgColor} `}>
         {isHovered && productId ? switchcase(productId) : ""}
         <div className={` absolute  top-0 left-0 `}></div>
+      </div>
       </div>
     </>
   );
