@@ -18,7 +18,9 @@ function App() {
 
   return (
     <>
-      <Navbar searchText={searchText} setSearchText={setSearchText} />
+      <div className="sticky block top-0 z-50">
+        <Navbar searchText={searchText} setSearchText={setSearchText} />
+      </div>
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/Techservices" element={<TechServices />} />

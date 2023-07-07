@@ -125,178 +125,180 @@ const Filter = () => {
 
   return (
     <>
-      <div className="md:hidden mt-5 top-5 sticky min-w-0 max-w-full block bottom-4 left-4">
+      <div className="md:hidden fixed min-w-0 max-w-full block top-[50%] left-3">
         <button
-          className="rounded-full bg-gray-200 p-3 focus:outline-none"
+          className="rounded-full bg-orange-500 p-3 focus:outline-none"
           onClick={toggleMenu}
         >
           <FilterIcon />
         </button>
       </div>
-      <div
-        className={
-          !isMenuOpen
-            ? "left-0 top-0 sticky min-w-0 max-w-full hidden md:block md:w-80 p-4 bg-white shadow-md rounded-md"
-            : "fixed z-10 left-0 top-0 h-screen w-64 p-4 bg-white shadow-lg"
-        }
-      >
-        {/* Add Close Button to Menu */}
-        {isMenuOpen && (
-          <div className="flex justify-end pb-3">
-            <span className="cursor-pointer" onClick={toggleMenu}>
-              <CloseIcon />
-            </span>
-          </div>
-        )}
-        {/* ------------------------------------- Order By ------------------------------- */}
-        <button
-          className="flex items-center justify-between w-full px-4 py-2 text-lg font-medium text-left bg-gray-200 focus:outline-none focus:bg-gray-300 rounded-md"
-          onClick={toggleOrderBySection}
+      <div className="md:border-r">
+        <div
+          className={
+            !isMenuOpen
+              ? "min-w-0 max-w-full hidden md:block md:w-72 p-4 sticky top-36"
+              : "fixed z-[900] left-0 top-0 h-screen w-64 p-4 bg-white shadow-lg"
+          }
         >
-          Order By
-          <ArrowIcon isOpen={isOpenOrderBy} />
-        </button>
-        {isOpenOrderBy && (
-          <div className="mt-4">
-            <div className="space-x-2">
-              <input
-                type="radio"
-                checked={selectedOrderBy === "bestSeller"}
-                onChange={() => handleOrderByChange("bestSeller")}
-                name="best-seller"
-              />
-              <label htmlFor="best-seller">Best Seller</label>
+          {/* Add Close Button to Menu */}
+          {isMenuOpen && (
+            <div className="flex justify-end pb-3">
+              <span className="cursor-pointer" onClick={toggleMenu}>
+                <CloseIcon />
+              </span>
             </div>
-            <div className="space-x-2">
-              <input
-                type="radio"
-                checked={selectedOrderBy === "newArrival"}
-                onChange={() => handleOrderByChange("newArrival")}
-                name="new-arrival"
-              />
-              <label htmlFor="new-arrival">New Arrival</label>
+          )}
+          {/* ------------------------------------- Order By ------------------------------- */}
+          <button
+            className="flex items-center justify-between w-full px-4 py-2 text-lg font-medium text-left bg-gray-200 focus:outline-none focus:bg-gray-300 rounded-md"
+            onClick={toggleOrderBySection}
+          >
+            Order By
+            <ArrowIcon isOpen={isOpenOrderBy} />
+          </button>
+          {isOpenOrderBy && (
+            <div className="mt-4">
+              <div className="space-x-2">
+                <input
+                  type="radio"
+                  checked={selectedOrderBy === "bestSeller"}
+                  onChange={() => handleOrderByChange("bestSeller")}
+                  name="best-seller"
+                />
+                <label htmlFor="best-seller">Best Seller</label>
+              </div>
+              <div className="space-x-2">
+                <input
+                  type="radio"
+                  checked={selectedOrderBy === "newArrival"}
+                  onChange={() => handleOrderByChange("newArrival")}
+                  name="new-arrival"
+                />
+                <label htmlFor="new-arrival">New Arrival</label>
+              </div>
+              <div className="space-x-2">
+                <input
+                  type="radio"
+                  checked={selectedOrderBy === "hasOffer"}
+                  onChange={() => handleOrderByChange("hasOffer")}
+                  name="has-offer"
+                />
+                <label htmlFor="has-offer">Has Offer</label>
+              </div>
             </div>
-            <div className="space-x-2">
-              <input
-                type="radio"
-                checked={selectedOrderBy === "hasOffer"}
-                onChange={() => handleOrderByChange("hasOffer")}
-                name="has-offer"
-              />
-              <label htmlFor="has-offer">Has Offer</label>
+          )}
+          {/* ------------------------------------- Categories ------------------------------- */}
+          <button
+            className="flex items-center justify-between w-full mt-4 px-4 py-2 text-lg font-medium text-left bg-gray-200 focus:outline-none focus:bg-gray-300 rounded-md"
+            onClick={toggleCategorySection}
+          >
+            Category
+            <ArrowIcon isOpen={isOpenCategory} />
+          </button>
+          {isOpenCategory && (
+            <div className="mt-4">
+              <div className="space-x-2">
+                <input
+                  type="radio"
+                  checked={selectedCategory === "All"}
+                  onChange={() => handleCategoryChange("All")}
+                  name="all-categories"
+                />
+                <label htmlFor="all-categories">All</label>
+              </div>
+              {categories &&
+                categories.map((category) => (
+                  <div key={category._id} className="space-x-2">
+                    <input
+                      type="radio"
+                      checked={selectedCategory === category.category_name}
+                      onChange={() =>
+                        handleCategoryChange(category.category_name)
+                      }
+                      name={category.category_name}
+                    />
+                    <label htmlFor={category.category_name}>
+                      {category.category_name}
+                    </label>
+                  </div>
+                ))}
             </div>
-          </div>
-        )}
-        {/* ------------------------------------- Categories ------------------------------- */}
-        <button
-          className="flex items-center justify-between w-full mt-4 px-4 py-2 text-lg font-medium text-left bg-gray-200 focus:outline-none focus:bg-gray-300 rounded-md"
-          onClick={toggleCategorySection}
-        >
-          Category
-          <ArrowIcon isOpen={isOpenCategory} />
-        </button>
-        {isOpenCategory && (
-          <div className="mt-4">
-            <div className="space-x-2">
-              <input
-                type="radio"
-                checked={selectedCategory === "All"}
-                onChange={() => handleCategoryChange("All")}
-                name="all-categories"
-              />
-              <label htmlFor="all-categories">All</label>
+          )}
+          {/* ------------------------------------- Brands ------------------------------- */}
+          <button
+            className="flex items-center justify-between w-full px-4 py-2 mt-4 text-lg font-medium text-left bg-gray-200 focus:outline-none focus:bg-gray-300 rounded-md"
+            onClick={toggleBrandSection}
+          >
+            Brands
+            <ArrowIcon isOpen={isOpenBrand} />
+          </button>
+          {isOpenBrand && (
+            <div className="mt-4">
+              <div className="space-x-2">
+                <input
+                  type="radio"
+                  checked={selectedBrand === "All"}
+                  onChange={() => handleBrandChange("All")}
+                  name="all-brands"
+                />
+                <label htmlFor="all-brands">All</label>
+              </div>
+              {console.log(brands)}
+              {[...brands].length &&
+                [...brands]?.map((brand) => (
+                  <div key={brand._id} className="space-x-2">
+                    <input
+                      type="radio"
+                      checked={selectedBrand === brand.brand_name}
+                      onChange={() => handleBrandChange(brand.brand_name)}
+                      name={brand.brand_name}
+                    />
+                    <label htmlFor={brand.brand_name}>{brand.brand_name}</label>
+                  </div>
+                ))}
             </div>
-            {categories &&
-              categories.map((category) => (
-                <div key={category._id} className="space-x-2">
-                  <input
-                    type="radio"
-                    checked={selectedCategory === category.category_name}
-                    onChange={() =>
-                      handleCategoryChange(category.category_name)
-                    }
-                    name={category.category_name}
-                  />
-                  <label htmlFor={category.category_name}>
-                    {category.category_name}
-                  </label>
-                </div>
-              ))}
-          </div>
-        )}
-        {/* ------------------------------------- Brands ------------------------------- */}
-        <button
-          className="flex items-center justify-between w-full px-4 py-2 mt-4 text-lg font-medium text-left bg-gray-200 focus:outline-none focus:bg-gray-300 rounded-md"
-          onClick={toggleBrandSection}
-        >
-          Brands
-          <ArrowIcon isOpen={isOpenBrand} />
-        </button>
-        {isOpenBrand && (
-          <div className="mt-4">
-            <div className="space-x-2">
-              <input
-                type="radio"
-                checked={selectedBrand === "All"}
-                onChange={() => handleBrandChange("All")}
-                name="all-brands"
-              />
-              <label htmlFor="all-brands">All</label>
+          )}
+          <button
+            className="flex items-center justify-between w-full px-4 py-2 mt-4 text-lg font-medium text-left bg-gray-200 focus:outline-none focus:bg-gray-300 rounded-md"
+            onClick={togglePriceSection}
+          >
+            Price Range
+            <ArrowIcon isOpen={isOpenPrice} />
+          </button>
+          {isOpenPrice && (
+            <div className="mt-4">
+              <div className="flex space-x-2">
+                <input
+                  type="number"
+                  placeholder="Min"
+                  min={0}
+                  value={priceRange.min}
+                  onChange={(e) => handlePriceChange(e, "min")}
+                  className="w-1/2 px-2 py-1 text-sm border rounded-md"
+                />
+                <input
+                  type="number"
+                  placeholder="Max"
+                  min={0}
+                  value={priceRange.max}
+                  onChange={(e) => handlePriceChange(e, "max")}
+                  className="w-1/2 px-2 py-1 text-sm border rounded-md"
+                />
+              </div>
             </div>
-            {console.log(brands)}
-            {[...brands].length &&
-              [...brands]?.map((brand) => (
-                <div key={brand._id} className="space-x-2">
-                  <input
-                    type="radio"
-                    checked={selectedBrand === brand.brand_name}
-                    onChange={() => handleBrandChange(brand.brand_name)}
-                    name={brand.brand_name}
-                  />
-                  <label htmlFor={brand.brand_name}>{brand.brand_name}</label>
-                </div>
-              ))}
-          </div>
-        )}
-        <button
-          className="flex items-center justify-between w-full px-4 py-2 mt-4 text-lg font-medium text-left bg-gray-200 focus:outline-none focus:bg-gray-300 rounded-md"
-          onClick={togglePriceSection}
-        >
-          Price Range
-          <ArrowIcon isOpen={isOpenPrice} />
-        </button>
-        {isOpenPrice && (
-          <div className="mt-4">
-            <div className="flex space-x-2">
-              <input
-                type="number"
-                placeholder="Min"
-                min={0}
-                value={priceRange.min}
-                onChange={(e) => handlePriceChange(e, "min")}
-                className="w-1/2 px-2 py-1 text-sm border rounded-md"
-              />
-              <input
-                type="number"
-                placeholder="Max"
-                min={0}
-                value={priceRange.max}
-                onChange={(e) => handlePriceChange(e, "max")}
-                className="w-1/2 px-2 py-1 text-sm border rounded-md"
-              />
-            </div>
-          </div>
-        )}
-        <button
-          className="w-full px-4 py-2 mt-4 text-sm font-medium text-white bg-orange-500 rounded-md hover:bg-orange-600"
-          onClick={applyFilters}
-        >
-          Apply Filters
-        </button>
+          )}
+          <button
+            className="w-full px-4 py-2 mt-4 text-sm font-medium text-white bg-orange-500 rounded-md hover:bg-orange-600"
+            onClick={applyFilters}
+          >
+            Apply Filters
+          </button>
+        </div>
       </div>
       {isMenuOpen && (
         <div
-          className="fixed z-10 inset-y-0 right-0 w-[calc(100%-16rem)] bg-gray-900 opacity-50"
+          className="fixed z-[900] inset-y-0 right-0 w-[calc(100%-16rem)] bg-gray-900 opacity-50"
           onClick={handleBackdropClick}
         />
       )}

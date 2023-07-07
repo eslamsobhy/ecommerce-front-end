@@ -1,12 +1,7 @@
 import React from "react";
 import Counter from "../Counter";
-import {
-  BoltIcon,
-  CartIcon,
-  ClickIcon,
-  FilledRatingStarIcon,
-  SparklesIcon
-} from "../Icons";
+import { CartIcon, FilledRatingStarIcon } from "../Icons";
+import { BestSellerBadge, NewArrivalBadge, SaleBadge } from "../Badges";
 
 const ProductDetails = ({
   count,
@@ -21,32 +16,11 @@ const ProductDetails = ({
         <div className="border-b pb-4">
           {/* Tags */}
           <div className="flex flex-wrap">
-            {product.bestseller && (
-              <div className="flex items-center w-fit gap-1 bg-green-600 text-gray-100 mb-2 mx-[2px] h-7 px-2.5 py-0.5 rounded-xl">
-                <ClickIcon></ClickIcon>
-                <span className="text-sm font-semibold whitespace-nowrap">
-                  Best Seller
-                </span>
-              </div>
-            )}
+            {product.bestseller && <BestSellerBadge />}
 
-            {product.new_arrival && (
-              <div className="flex items-center w-fit gap-1 bg-blue-700 text-gray-100 mb-2 mx-[2px] h-7 px-2.5 py-0.5 rounded-xl">
-                <SparklesIcon></SparklesIcon>
-                <span className="text-sm font-semibold whitespace-nowrap">
-                  New Arrival
-                </span>
-              </div>
-            )}
+            {product.new_arrival && <NewArrivalBadge />}
 
-            {product.new_price && (
-              <div className="flex items-center flex-w w-fit gap-1 bg-red-600 text-gray-100 mb-2 mx-[2px] h-7 px-2.5 py-0.5 rounded-xl">
-                <BoltIcon></BoltIcon>
-                <span className="text-sm font-semibold whitespace-nowrap">
-                  Sale
-                </span>
-              </div>
-            )}
+            {product.new_price !== 0 && <SaleBadge />}
           </div>
           <a href="#brand">
             <div className="uppercase text-lg text-gray-400">
@@ -70,7 +44,7 @@ const ProductDetails = ({
             </div>
           )}
         </div>
-        <div className="flex flex-wrap items-center border-b py-4">
+        <div className="flex flex-wrap items-center gap-5 border-b py-4">
           <div className="flex items-end gap-2 text-gray-800">
             <span>Now:</span>
             {!product.new_price && (
@@ -78,7 +52,7 @@ const ProductDetails = ({
                 EGP {product.price}
               </div>
             )}
-            {product.new_price && (
+            {product.new_price !== 0 && (
               <>
                 <div className="line-through text-gray-400 text-xs font-bold whitespace-nowrap">
                   EGP {product.price}

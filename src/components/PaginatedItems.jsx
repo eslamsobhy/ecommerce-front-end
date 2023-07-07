@@ -24,7 +24,7 @@ function PaginatedItems({ filteredProducts }) {
 
   return (
     <>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 ">
+      <div className="w-full grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
         {currentItems.map((item, index) => (
           <ProductsItem key={index} item={item} />
         ))}
@@ -37,12 +37,12 @@ function PaginatedItems({ filteredProducts }) {
         marginPagesDisplayed={2}
         pageRangeDisplayed={5}
         onPageChange={handlePageClick}
-        containerClassName="flex justify-center"
+        containerClassName="flex justify-center py-10"
         pageClassName="mx-2 py-2 px-4 rounded hover:bg-orange-500 transition duration-100"
-        previousClassName="mx-2 py-2 px-4 rounded hover:bg-orange-500 transition duration-100"
-        nextClassName="mx-2 py-2 px-4 rounded hover:bg-orange-500 transition duration-100"
-        activeClassName="bg-orange-500 text-white"
-        disabledClassName="text-gray-400 cursor-not-allowed"
+        previousClassName="mx-2 py-2 px-4 rounded transition duration-100"
+        nextClassName="mx-2 py-2 px-4 rounded transition duration-100"
+        activeClassName="bg-orange-500 hover:bg-orange-500 text-white"
+        disabledClassName="text-gray-400 cursor-default"
         initialPage={0}
         renderOnZeroPageCount={null}
       />
