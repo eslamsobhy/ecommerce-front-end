@@ -2,10 +2,9 @@
 /* eslint-disable no-unused-vars */
 import React, { useEffect, useState } from "react";
 import Filter from "../components/Filter";
-import axios, { all } from "axios";
+import axios from "axios";
 import { useSearchParams } from "react-router-dom";
 import PaginatedItems from "../components/PaginatedItems";
-import { useRef } from "react";
 
 const Products = () => {
   const [allProducts, setAllProducts] = useState(null);
