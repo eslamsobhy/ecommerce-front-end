@@ -12,14 +12,16 @@ import NotFound from "./pages/NotFound.jsx";
 import Products from "./pages/Products.jsx";
 import ProductPage from "./pages/ProductPage";
 import About from "./pages/About.jsx";
+import Subnav from "./components/Subnav.jsx";
 
 function App() {
   const [searchText, setSearchText] = useState("");
 
   return (
     <>
+      <Navbar searchText={searchText} setSearchText={setSearchText} />
       <div className="sticky block top-0 z-50">
-        <Navbar searchText={searchText} setSearchText={setSearchText} />
+        <Subnav />
       </div>
       <Routes>
         <Route path="/" element={<Home />} />

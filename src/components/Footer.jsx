@@ -124,16 +124,16 @@ const Footer = () => {
         <section className="grid grid-cols-4 py-5 gap-7  px-12 mx-10">
           <div className="col-span-4 md:col-span-1">
             <div className="flex gap-x-1 mr-1">
-              <a href="https://www.facebook.com/" className="bg-[#33332f] hover:bg-[#4267B2] p-2 rounded">
-                <FaFacebook size={20} color="white" />
+              <a href="https://www.facebook.com/" className="bg-[#33332f] hover:bg-[#4267B2] p-2 rounded-full">
+                <FaFacebook size={20} color="white"  />
               </a>
-              <a href="https://twitter.com/" className=" bg-[#33332f] hover:bg-[#1DA1F2] p-2 rounded">
+              <a href="https://twitter.com/" className=" bg-[#33332f] hover:bg-[#1DA1F2] p-2 rounded-full">
                 <FaTwitter size={20} color="white" />
               </a>
-              <a href="https://www.linkedin.com/" className="bg-[#33332f] hover:bg-[#2867B2] p-2 rounded">
+              <a href="https://www.linkedin.com/" className="bg-[#33332f] hover:bg-[#2867B2] p-2 rounded-full">
                 <FaLinkedin size={20} color="white" />
               </a>
-              <a href="https://www.instagram.com/" className="bg-[#33332f] hover:bg-gradient-to-br from-pink-500 via-purple-600 to-yellow-400 p-2 rounded">
+              <a href="https://www.instagram.com/" className="bg-[#33332f] hover:bg-gradient-to-br from-pink-500 via-purple-600 to-yellow-400 p-2 rounded-full">
                 <FaInstagram size={20} color="white" />
               </a>
             </div>
