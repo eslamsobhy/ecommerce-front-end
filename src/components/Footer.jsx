@@ -123,7 +123,7 @@ const Footer = () => {
         </section>
         <section className="grid grid-cols-4 py-5 gap-7  px-12 mx-10">
           <div className="col-span-4 md:col-span-1">
-            <div className="flex gap-x-1 ">
+            <div className="flex gap-x-1 mr-1">
               <a href="https://www.facebook.com/" className="bg-[#33332f] hover:bg-[#4267B2] p-2 rounded">
                 <FaFacebook size={20} color="white" />
               </a>
