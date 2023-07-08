@@ -1,3 +1,5 @@
+import Counter from "./Counter";
+
 /* eslint-disable react/prop-types */
 const CartItem = ({item, onAdd , onRemove}) => {
 
@@ -21,9 +23,7 @@ const CartItem = ({item, onAdd , onRemove}) => {
             <p className="my-1">details here</p>
       
             <div className="flex gap-2">
-              <button className="bg-gray-400 px-4 py-1 rounded-lg" onClick={onRemove}>-</button>
-              <span>{item.amount}</span>
-              <button className="bg-orange-500 px-4 py-1 rounded-lg" onClick={onAdd}>+</button>
+              <Counter count={item.amount} handleCounterDecrement={onRemove} handleCounterIncrement={onAdd} />
             </div>
           </div>
         </div>

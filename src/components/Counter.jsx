@@ -9,7 +9,7 @@ const Counter = ({ count, handleCounterDecrement, handleCounterIncrement }) => {
       >
         <MinusIcon></MinusIcon>
       </button>
-      <p className="py-[7px] px-4 border-r border-l">{count}</p>
+      <p className="py-[7px] px-4 border-r border-l text-bold">{count}</p>
       <button
         className="hover:text-orange-500 px-1"
         onClick={handleCounterIncrement}
