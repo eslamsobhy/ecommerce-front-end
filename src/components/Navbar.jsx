@@ -104,7 +104,7 @@ const Navbar = (props) => {
                 )}
               </div>
             ) : (
-              <button onClick={userCTX.toggleModal}>SignIn</button>
+              <button className="hover:text-gray-400" onClick={userCTX.toggleModal}>SignIn</button>
             )}
           </li>
           <li className="sm:mx-3 mx-1">

@@ -169,7 +169,7 @@ const Footer = () => {
             </div>
           </div>
           <div className="col-span-1 md:col-span-1 ml-12 ">
-            <p className="text-white">©Copyright 2021 by 2B Computer. All Rights Reserved.</p>
+            <p className="text-white">©Copyright 2023 by ITI ELECTRONIX TEAM. All Rights Reserved.</p>
           </div>
         </section>
       </footer>
