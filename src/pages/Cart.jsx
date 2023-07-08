@@ -47,9 +47,9 @@ const Cart = () => {
 
   return (
     <>
-      <div className="container mx-12 my-10">
+      <div className="container mx-11 my-10">
         <div className="grid grid-cols-5 gap-4">
-          <section className="col-span-5 lg:col-span-3">
+          <section className="col-span-4 lg:col-span-3 mr-4">
             {/* cart header */}
             <div className="relative p-6 border-b-2">
               <h1 className="font-semibold text-2xl">Shopping Cart</h1>

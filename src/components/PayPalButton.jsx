@@ -6,12 +6,14 @@ import {
   usePayPalScriptReducer,
 } from "@paypal/react-paypal-js";
 import CartContext from "../context/CartContext.jsx";
+import emailjs from 'emailjs-com';
 
 const ButtonWrapper = ({ currency, showSpinner }) => {
   const [{ options, isPending }, dispatch] = usePayPalScriptReducer();
   const CartCTX = useContext(CartContext);
   const [amount, setAmount] = useState("");
   const style = { layout: "vertical" };
+  emailjs.init('ieyQAv01RBSvsmGou');
 
   useEffect(() => {
     dispatch({
@@ -49,10 +51,18 @@ const ButtonWrapper = ({ currency, showSpinner }) => {
               return orderId;
             });
         }}
-        onApprove={function (data, actions) {
-          return actions.order.capture().then(function () {
-            // Your code here after capture the order
-          });
+        onApprove={async function (data, actions) {
+          await actions.order.capture();
+          emailjs.sendForm('service_97xavkg', 'template_6bes58a', data, 'ieyQAv01RBSvsmGou');
+          window.localStorage.setItem("purchasedItems", JSON.stringify(CartCTX.items));
+          CartCTX.clearCart();
+          window.localStorage.setItem("cartItems", "");
+          window.localStorage.setItem("totalAmount", "")
+            .then((result_2) => {
+              console.log(result_2.text);
+            }, (error) => {
+              console.log(error.text);
+            });
         }}
       />
     </>

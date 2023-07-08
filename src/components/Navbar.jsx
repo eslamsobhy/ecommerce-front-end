@@ -5,7 +5,6 @@ import { Link } from "react-router-dom";
 import Login from "./Login";
 import Signup from "./Signup";
 import Searchbar from "./Searchbar.jsx";
-import Subnav from "./Subnav.jsx";
 import { useContext, useEffect, useState } from "react";
 import UserContext from "../context/UserContext";
 import { useCookies } from "react-cookie";
@@ -55,17 +54,17 @@ const Navbar = (props) => {
     <>
       <nav
         id="MainNav"
-        className="bg-black text-white py-4 my-30 h-20 w-full z-50 px-7 flex justify-between flex-wrap"
+        className="bg-black text-white py-4 my-30 h-20 w-full z-50 sm:px-7 px-3 flex justify-between "
       >
+        
         {/* Logo */}
         <Link to={"/"}>
-          <div className="flex items-center ">
+          <div className="flex items-center mr-1 ">
             <img
               className="w-10 mr-3 bg-orange-500"
               src="/LOGO.png"
               alt="logo"
             />
-            <h1 className="text-orange-500  ">Project</h1>
           </div>
         </Link>
 
@@ -78,11 +77,11 @@ const Navbar = (props) => {
 
         {/* Navigation */}
         <ul className="flex items-center justify-end">
-          <li className="text-white hover:text-gray-200 text-sm:10 pr-6 ">
+          <li className="text-white hover:text-gray-200 text-sm:10 sm:pr-6 ml-1">
             {userStatus ? (
-              <div className="relative">
+              <div className="relative  border-black">
                 <img
-                  className="max-w-[40px] rounded-full cursor-pointer"
+                  className="max-w-[40px] rounded-full cursor-pointer border-inner border-black"
                   src={CurrUser.avatar}
                   onMouseEnter={handleMouseEnter}
                   onMouseLeave={handleMouseLeave}
@@ -93,11 +92,11 @@ const Navbar = (props) => {
                   <div
                     onMouseEnter={handleDropdownMouseEnter}
                     onMouseLeave={handleDropdownMouseLeave}
-                    className="absolute right-0  py-2 w-40 bg-white rounded shadow-lg z-10"
+                    className="absolute right-9 top-4  py-1 w-[100px] bg-white rounded-tl-full rounded-bl-full rounded-br-full shadow-lg"
                   >
                     <button
                       onClick={signoutHandler}
-                      className="block w-[160px] px-4 py-2 text-gray-800 hover:bg-gray-200"
+                      className="block w-full text-sm px-4 py-1 font-semibold text-gray-800 rounded-full hover:text-f37020"
                     >
                       Sign Out{" "}
                     </button>
@@ -108,12 +107,12 @@ const Navbar = (props) => {
               <button onClick={userCTX.toggleModal}>SignIn</button>
             )}
           </li>
-          <li className="mx-3 ">
+          <li className="sm:mx-3 mx-1">
             <Link
-              className="text-white flex items-center hover:text-gray-200 relative"
+              className="text-white flex items-center hover:text-gray-400 relative"
               to="/cart"
             >
-              <span className="mr-2 text-md"> Cart </span>{" "}
+              <span className="mr-2 text-md hidden sm:inline-block"> Cart </span>{" "}
               <FaShoppingCart className="" />
               {cartCTX.totalItemsNum > 0 && (
                 <span className="ml-1 bg-f37020 text-white rounded-full px-[7px] py-[1px] text-[14px] absolute right-[-20px] top-[-17px]">
@@ -125,8 +124,6 @@ const Navbar = (props) => {
         </ul>
       </nav>
 
-      {/* Subnav */}
-      <Subnav />
     </>
   );
 };

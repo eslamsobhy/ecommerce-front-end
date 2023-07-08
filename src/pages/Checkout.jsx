@@ -45,21 +45,25 @@ const Checkout = (props) => {
       { headers: { Authorization: `${cookies.UserToken}`}})
 
 
+      if(data.paymentMethod == "Cash"){
+        // emailjs.sendForm('service_97xavkg', 'template_6bes58a', form.current, 'ieyQAv01RBSvsmGou')
 
-      emailjs.sendForm('service_97xavkg', 'template_6bes58a', form.current, 'ieyQAv01RBSvsmGou')
-      .then((result) => {
-          console.log(result.text);
-      }, (error) => {
-          console.log(error.text);
-      });
+        window.localStorage.setItem("purchasedItems", JSON.stringify(CartCTX.items))
+        CartCTX.clearCart()
+        window.localStorage.setItem("cartItems","")
+        window.localStorage.setItem("totalAmount","")
+        console.log(form.current)
+        .then((result) => {
+            console.log(result.text);
+        }, (error) => {
+            console.log(error.text);
+        });
+      }
 
     }catch(error){
       toast.error(error)
     }
-    window.localStorage.setItem("purchasedItems", JSON.stringify(CartCTX.items))
-    CartCTX.clearCart()
-    window.localStorage.setItem("cartItems","")
-    window.localStorage.setItem("totalAmount","")
+
   };
 
 

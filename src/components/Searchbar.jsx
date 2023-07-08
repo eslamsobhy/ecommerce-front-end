@@ -14,11 +14,11 @@ const Searchbar = (props) => {
 
   return (
     <>
-      <div className="flex items-center justify-center gap-2">
+      <div className="flex items-center justify-center gap-2  lg:w-[600px] md:w-[400px]">
         <input
           onChange={changeHandler}
           type="text"
-          className="px-5  w-full text-orange-500 bg-white border rounded-full focus:border-orange-400 focus:ring-orange-400 focus:outline-none focus:ring focus:ring-opacity-40"
+          className="px-5 py-1  w-full text-orange-500 bg-white border rounded-lg focus:border-orange-400 focus:ring-orange-400 focus:outline-none focus:ring focus:ring-opacity-40"
           placeholder="Search..."
         />
         <button
