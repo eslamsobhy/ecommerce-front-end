@@ -104,7 +104,7 @@ const Navbar = (props) => {
                 )}
               </div>
             ) : (
-              <button onClick={userCTX.toggleModal}>SignIn</button>
+              <button className="hover:text-gray-400" onClick={userCTX.toggleModal}>SignIn</button>
             )}
           </li>
           <li className="sm:mx-3 mx-1">
@@ -112,7 +112,7 @@ const Navbar = (props) => {
               className="text-white flex items-center hover:text-gray-400 relative"
               to="/cart"
             >
-              <span className="mr-2 text-md hidden sm:inline-block"> Cart </span>{" "}
+              <span className="mr-2 text-md  sm:inline-block"> Cart </span>{" "}
               <FaShoppingCart className="" />
               {cartCTX.totalItemsNum > 0 && (
                 <span className="ml-1 bg-f37020 text-white rounded-full px-[7px] py-[1px] text-[14px] absolute right-[-20px] top-[-17px]">
