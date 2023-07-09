@@ -46,7 +46,7 @@ const Checkout = (props) => {
 
 
       if(data.paymentMethod == "Cash"){
-        // emailjs.sendForm('service_97xavkg', 'template_6bes58a', form.current, 'ieyQAv01RBSvsmGou')
+        emailjs.sendForm('service_97xavkg', 'template_6bes58a', form.current, 'ieyQAv01RBSvsmGou')
 
         window.localStorage.setItem("purchasedItems", JSON.stringify(CartCTX.items))
         CartCTX.clearCart()

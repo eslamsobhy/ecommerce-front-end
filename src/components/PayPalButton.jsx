@@ -26,6 +26,21 @@ const ButtonWrapper = ({ currency, showSpinner }) => {
     setAmount(Math.round(CartCTX.totalAmount /30))
   }, [currency, showSpinner]);
 
+  async function sendEmail(data) {
+    try {
+      await emailjs.sendForm(
+        'service_97xavkg',
+        'template_6bes58a',
+        data,
+        'ieyQAv01RBSvsmGou'
+      );
+      console.log('Email sent successfully');
+    } catch (error) {
+      console.error('Failed to send email:', error);
+    }
+  }
+
+
   return (
     <>
       {showSpinner && isPending && <div className="spinner" />}
@@ -53,7 +68,7 @@ const ButtonWrapper = ({ currency, showSpinner }) => {
         }}
         onApprove={async function (data, actions) {
           await actions.order.capture();
-          emailjs.sendForm('service_97xavkg', 'template_6bes58a', data, 'ieyQAv01RBSvsmGou');
+          sendEmail(data);
           window.localStorage.setItem("purchasedItems", JSON.stringify(CartCTX.items));
           CartCTX.clearCart();
           window.localStorage.setItem("cartItems", "");
