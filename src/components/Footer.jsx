@@ -74,7 +74,6 @@ const Footer = () => {
 
             <p className="text-white  ">Contact us</p>
             <p className="text-white  ">PHONE: 16420</p>
-            <p className="text-white  ">EMAIL: INFO@2B.COM.EG</p>
 
           </div>
           <div className="col-span-4 md:col-span-1  mb-2">
@@ -159,7 +158,7 @@ const Footer = () => {
             </div>
           </div>
           <div className="col-span-2 md:col-span-1 mt-2 md:mt-0">
-            <p className="text-white">©Copyright 2021 by 2B Computer. All Rights Reserved.</p>
+            <p className="text-white">©Copyright 2023 by ITI ELECTRONIX TEAM. All Rights Reserved.</p>
           </div>
         </section>
       </footer>
