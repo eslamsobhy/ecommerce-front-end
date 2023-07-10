@@ -158,7 +158,7 @@ const Footer = () => {
               <img className="max-h-[28px]" src="https://smhttp-ssl-73217.nexcesscdn.net/pub/media/wysiwyg/smartwave/porto/footer/paymentsn.png" />
             </div>
           </div>
-          <div className="col-span-2 md:col-span-1">
+          <div className="col-span-2 md:col-span-1 mt-2 md:mt-0">
             <p className="text-white">©Copyright 2021 by 2B Computer. All Rights Reserved.</p>
           </div>
         </section>
