@@ -66,14 +66,11 @@ const Navbar = (props) => {
             />
           </div>
         </Link>
-
         {/* sign in  */}
         {userCTX.modalIsShown && userCTX.loginModalStatus && <Login />}
         {userCTX.modalIsShown && userCTX.signUpModalStatus && <Signup />}
-
         {/* Searchbar */}
         <Searchbar {...props} />
-
         {/* Navigation */}
         <ul className="flex items-center justify-end">
           <li className="text-white hover:text-gray-200 text-sm:10 sm:pr-6 ml-1">
@@ -104,7 +101,7 @@ const Navbar = (props) => {
               </div>
             ) : (
               <button
-                className="hover:text-gray-400"
+                className="hover:text-gray-400 whitespace-nowrap"
                 onClick={userCTX.toggleModal}
               >
                 Sign in
