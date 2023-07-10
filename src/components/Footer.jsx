@@ -37,9 +37,9 @@ const Footer = () => {
     <>
       <footer className="bg-[#191919]">
         <header className=" flex flex-col justify-center py-5 mx-2 gap-5 ">
-          <h1 className="text-center text-white font-extrabold ">
+          <h2 className="text-center text-white font-extrabold ">
             BE THE FIRST TO KNOW
-          </h1>
+          </h2>
 
           <h3 className="text-white font-bold text-center ">
             Subscribe and know all the new offers and news now
@@ -65,21 +65,20 @@ const Footer = () => {
         </header>
         <section className="grid grid-cols-4 pb-5 border-b  border-[#3d3d38] px-12 mx-12 ">
           <div className="col-span-4 md:col-span-1 mb-2">
-            <h2 className="text-orange-600  font-bold">
+            <h4 className="text-orange-600  font-bold">
               CONTACT
-            </h2>
-            <Link to={"/about"}>
-              <p className="text-white  ">About</p>
+            </h4>
+            <Link to={"/about"} className="text-white hover:text-orange-600">
+              About us
             </Link>
-
             <p className="text-white  ">Contact us</p>
             <p className="text-white  ">PHONE: 16420</p>
 
           </div>
           <div className="col-span-4 md:col-span-1  mb-2">
-            <h2 className="text-orange-600  font-bold">
+            <h4 className="text-orange-600  font-bold">
               MY ACCOUNT
-            </h2>
+            </h4>
 
             <p className="text-white  ">Profile</p>
 
@@ -88,9 +87,9 @@ const Footer = () => {
             <p className="text-white  ">Track your order</p>
           </div>
           <div className="col-span-4 md:col-span-1  mb-2 ">
-            <h2 className="text-orange-600  font-bold">
+            <h4 className="text-orange-600  font-bold">
               MOST RESEARCHED
-            </h2>
+            </h4>
             <p className="text-white  ">Laptop</p>
             <p className="text-white  ">Mobile Devices</p>
             <p className="text-white  ">Wearbles</p>
