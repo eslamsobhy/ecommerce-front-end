@@ -137,7 +137,7 @@ const Filter = () => {
         <div
           className={
             !isMenuOpen
-              ? "min-w-0 max-w-full hidden md:block md:w-72 p-4 sticky top-36"
+              ? "min-w-0 max-w-full hidden md:block md:w-72 p-4 sticky top-12"
               : "fixed z-[900] left-0 top-0 h-screen w-64 p-4 bg-white shadow-lg"
           }
         >

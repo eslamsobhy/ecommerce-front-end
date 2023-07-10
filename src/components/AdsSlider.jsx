@@ -1,15 +1,15 @@
-import { Navigation, Pagination, Autoplay } from 'swiper';
-import { Swiper, SwiperSlide } from 'swiper/react';
-import 'swiper/css';
-import 'swiper/css/navigation';
-import 'swiper/css/pagination';
-import 'swiper/css/scrollbar';
+import { Navigation, Pagination, Autoplay } from "swiper";
+import { Swiper, SwiperSlide } from "swiper/react";
+import "swiper/css";
+import "swiper/css/navigation";
+import "swiper/css/pagination";
+import "swiper/css/scrollbar";
 
 const ads = [
   "https://smhttp-ssl-73217.nexcesscdn.net/pub/media/wysiwyg/june_2023/anker_mainbanner_web_en.jpg",
   "public/intel_mainbanner_web_ar_new.jpg",
   "public/bank_mainbanner_ar_web_new.jpg",
-  "public/intelbanner_web_ar.jpg",
+  "public/intelbanner_web_ar.jpg"
 ];
 
 const AdsSlider = () => {
@@ -20,18 +20,18 @@ const AdsSlider = () => {
         style={{
           "--swiper-navigation-color": "#fff",
           "--swiper-pagination-color": "#fff",
-          width: "75%",
-          margin: "0 auto",
+          width: "90%",
+          margin: "0 auto"
         }}
         spaceBetween={30}
         centeredSlides={true}
         loop={true}
         autoplay={{
           delay: 2000,
-          disableOnInteraction: false,
+          disableOnInteraction: false
         }}
         pagination={{
-          clickable: true,
+          clickable: true
         }}
         navigation={true}
         modules={[Autoplay, Pagination, Navigation]}

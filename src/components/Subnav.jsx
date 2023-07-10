@@ -42,7 +42,7 @@ const Subnav = () => {
             onMouseLeave={handleMouseLeave}
             className=" absolute bg-slate-200 bg-opacity-100  z-10 w-full m-auto h-fit "
           >
-            <Accessories />
+            <Mobile />
           </div>
         );
       case "4":
@@ -60,7 +60,7 @@ const Subnav = () => {
             onMouseLeave={handleMouseLeave}
             className=" absolute bg-slate-200 bg-opacity-100 w-full z-10 m-auto h-fit"
           >
-            <Mobile />
+            <Accessories />
           </div>
         );
       case "6":
@@ -115,10 +115,10 @@ const Subnav = () => {
                   onMouseEnter={(e) => {
                     handleMouseEnter(e);
                   }}
-                  to="/products"
+                  to="/products?category=TVs"
                   className="block  sm:inline-block text-white hover:text-gray-200 sm:mx-4"
                 >
-                  Mobile
+                  TVs
                 </Link>
 
                 <Link
@@ -126,50 +126,41 @@ const Subnav = () => {
                   onMouseEnter={(e) => {
                     handleMouseEnter(e);
                   }}
-                  to="/products"
+                  to="/products?category=Laptops"
                   className="block sm:inline-block text-white hover:text-gray-200 sm:mx-4"
                 >
-                  Laptop
+                  Laptops
                 </Link>
+
                 <Link
                   id="3"
                   onMouseEnter={(e) => {
                     handleMouseEnter(e);
                   }}
-                  to="/products"
+                  to="/products?category=Mobiles"
                   className="block sm:inline-block text-white hover:text-gray-200 sm:mx-4"
                 >
-                  Accessories
+                  Mobiles
                 </Link>
                 <Link
                   id="4"
                   onMouseEnter={(e) => {
                     handleMouseEnter(e);
                   }}
-                  to="/products"
+                  to="/products?category=Gaming"
                   className="block sm:inline-block text-white hover:text-gray-200 sm:mx-4"
                 >
-                  Games
+                  Gaming
                 </Link>
                 <Link
                   id="5"
                   onMouseEnter={(e) => {
                     handleMouseEnter(e);
                   }}
-                  to="/products"
+                  to="/products?category=Accessories"
                   className="block sm:inline-block text-white hover:text-gray-200 sm:mx-4"
                 >
-                  Product
-                </Link>
-                <Link
-                  id="6"
-                  onMouseEnter={(e) => {
-                    handleMouseEnter(e);
-                  }}
-                  to="/products"
-                  className="block sm:inline-block text-white hover:text-gray-200 sm:mx-4"
-                >
-                  Product
+                  Accessories
                 </Link>
               </div>
             </div>

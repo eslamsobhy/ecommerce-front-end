@@ -56,25 +56,21 @@ const Navbar = (props) => {
         id="MainNav"
         className="bg-black text-white py-4 my-30 h-20 w-full z-50 sm:px-7 px-3 flex justify-between "
       >
-        
         {/* Logo */}
         <Link to={"/"}>
-          <div className="flex items-center mr-1 ">
+          <div className="flex items-center mr-10 w-56">
             <img
-              className="w-10 mr-3 bg-orange-500"
-              src="/LOGO.png"
-              alt="logo"
+              className="pt-1"
+              src="/public/assets/logo/main-orange-and-white.png"
+              alt="Electronix"
             />
           </div>
         </Link>
-
         {/* sign in  */}
         {userCTX.modalIsShown && userCTX.loginModalStatus && <Login />}
         {userCTX.modalIsShown && userCTX.signUpModalStatus && <Signup />}
-
         {/* Searchbar */}
         <Searchbar {...props} />
-
         {/* Navigation */}
         <ul className="flex items-center justify-end">
           <li className="text-white hover:text-gray-200 text-sm:10 sm:pr-6 ml-1">
@@ -104,7 +100,12 @@ const Navbar = (props) => {
                 )}
               </div>
             ) : (
-              <button className="hover:text-gray-400" onClick={userCTX.toggleModal}>SignIn</button>
+              <button
+                className="hover:text-gray-400 whitespace-nowrap"
+                onClick={userCTX.toggleModal}
+              >
+                Sign in
+              </button>
             )}
           </li>
           <li className="sm:mx-3 mx-1">
@@ -123,7 +124,6 @@ const Navbar = (props) => {
           </li>
         </ul>
       </nav>
-
     </>
   );
 };
