@@ -56,7 +56,6 @@ const Navbar = (props) => {
         id="MainNav"
         className="bg-black text-white py-4 my-30 h-20 w-full z-50 sm:px-7 px-3 flex justify-between "
       >
-        
         {/* Logo */}
         <Link to={"/"}>
           <div className="flex items-center mr-1 ">
@@ -104,7 +103,12 @@ const Navbar = (props) => {
                 )}
               </div>
             ) : (
-              <button className="hover:text-gray-400" onClick={userCTX.toggleModal}>SignIn</button>
+              <button
+                className="hover:text-gray-400"
+                onClick={userCTX.toggleModal}
+              >
+                Sign in
+              </button>
             )}
           </li>
           <li className="sm:mx-3 mx-1">
@@ -123,7 +127,6 @@ const Navbar = (props) => {
           </li>
         </ul>
       </nav>
-
     </>
   );
 };
