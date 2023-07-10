@@ -51,7 +51,7 @@ const ProductPage = () => {
   return (
     <>
       <div>
-        <div className="flex flex-col gap-5 bg-gray-300 p-5">
+        <div className="flex flex-col gap-5 bg-gray-100 p-5">
           {product && (
             <>
               <div className="bg-white flex px-5">
