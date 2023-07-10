@@ -88,7 +88,7 @@ const Footer = () => {
 
             <p className="text-white  ">Track your order</p>
           </div>
-          <div className="col-span-4 md:col-span-1  mb-1 ">
+          <div className="col-span-4 md:col-span-1  mb-2 ">
             <h2 className="text-orange-600  font-bold">
               MOST RESEARCHED
             </h2>
@@ -123,7 +123,7 @@ const Footer = () => {
           </div>
         </section>
         <section className="grid grid-cols-4 py-5 px-12 mx-12">
-          <div className="col-span-4 md:col-span-1">
+          <div className="col-span-4 md:col-span-1 mb-3">
             <div className="flex gap-x-1 ">
               <a href="https://www.facebook.com/" className="bg-[#33332f] hover:bg-[#4267B2] p-3 rounded">
                 <FaFacebookF size={15} color="white" />
@@ -134,24 +134,21 @@ const Footer = () => {
               <a href="https://www.linkedin.com/" className="bg-[#33332f] hover:bg-[#2867B2] p-3 rounded">
                 <FaLinkedin size={15} color="white" />
               </a>
-              <a href="https://www.instagram.com/" className="bg-[#33332f] hover:bg-gradient-to-tr from-[#feda75] via-[#fa7e1e] via-[#d62976] via-[#962fbf] to-[#4f5bd5] p-3 rounded">
+              <a href="https://www.instagram.com/" className="bg-[#33332f] hover:bg-gradient-to-tr from-yellow-400 via-red-500 to-purple-600 p-3 rounded">
                 <FaInstagram size={15} color="white" />
               </a>
             </div>
           </div>
-          <div className="col-span-4 md:col-span-1">
-            <p className=" text-[#A8A8A8] text-sm">Main Features</p>
+          <div className="col-span-4 md:col-span-1 mb-3">
+            <p className=" text-[#A8A8A8]">Main Features</p>
           </div>
-          <div className="col-span-4 md:col-span-1">
-            <p className=" text-[#A8A8A8] text-sm">Super Fast Shipping</p>
-            <br />
+          <div className="col-span-4 md:col-span-1 mb-3">
+            <p className=" text-[#A8A8A8] text-sm md:mb-2">Super Fast Shipping</p>
             <p className=" text-white">Return and exchange service ”T & C applied”</p>
           </div>
           <div className="col-span-4 md:col-span-1">
-            <p className=" text-[#A8A8A8] text-sm">Maintenance Center to help you</p>
-            <br />
-            <p className=" text-[#A8A8A8] text-sm">More than 50 Stores at your service anywhere</p>
-            <br />
+            <p className=" text-[#A8A8A8] text-sm md:mb-2">Maintenance Center to help you</p>
+            <p className=" text-[#A8A8A8] text-sm md:mb-2">More than 50 Stores at your service anywhere</p>
             <p className=" text-[#A8A8A8] text-sm">Buy Online or Pickup in Store </p>
           </div>
         </section>
