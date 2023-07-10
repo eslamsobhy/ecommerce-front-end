@@ -66,21 +66,23 @@ const Footer = () => {
         <section className="grid grid-cols-4 pb-5 border-b  border-[#3d3d38] px-12 mx-12 ">
           <div className="col-span-4 md:col-span-1 mb-2">
             <h2 className="text-orange-600  font-bold">
-              CONNECT WITH US
+              CONTACT
             </h2>
             <Link to={"/about"}>
-              <p className="text-white  ">About company</p>
+              <p className="text-white  ">About</p>
             </Link>
 
-            <p className="text-white  ">call us: 442266</p>
+            <p className="text-white  ">Contact us</p>
+            <p className="text-white  ">PHONE: 16420</p>
+            <p className="text-white  ">EMAIL: INFO@2B.COM.EG</p>
 
           </div>
           <div className="col-span-4 md:col-span-1  mb-2">
             <h2 className="text-orange-600  font-bold">
-              ARITHMETIC
+              MY ACCOUNT
             </h2>
 
-            <p className="text-white  ">my personal account</p>
+            <p className="text-white  ">Profile</p>
 
             <p className="text-white  ">Order history</p>
 
@@ -88,21 +90,20 @@ const Footer = () => {
           </div>
           <div className="col-span-4 md:col-span-1  mb-1 ">
             <h2 className="text-orange-600  font-bold">
-              MOST SEARCHED
+              MOST RESEARCHED
             </h2>
-
-            <p className="text-white  ">Mobiles</p>
-
-            <p className="text-white  ">laptop</p>
-
-            <p className="text-white  ">TV accessories</p>
+            <p className="text-white  ">Laptop</p>
+            <p className="text-white  ">Mobile Devices</p>
+            <p className="text-white  ">Wearbles</p>
+            <p className="text-white  ">Personal Care For Him</p>
+            <p className="text-white  ">TV Accessories</p>
           </div>
 
           <div className="col-span-4 md:col-span-1  mb-2">
-            <p className="text-gray-300 text-opacity-50 text-sm">
+            <p className="text-[#A8A8A8] text-sm">
               Stores Working Days
             </p>
-            <p className="text-gray-300 text-opacity-50 text-sm">
+            <p className="text-[#A8A8A8] text-sm">
               Daily / 10:00 AM to 10:00 PM
             </p>
 
@@ -139,19 +140,19 @@ const Footer = () => {
             </div>
           </div>
           <div className="col-span-4 md:col-span-1">
-            <p className=" text-[#A8A8A8]">Main Features</p>
+            <p className=" text-[#A8A8A8] text-sm">Main Features</p>
           </div>
           <div className="col-span-4 md:col-span-1">
-            <p className=" text-[#A8A8A8]">Super Fast Shipping</p>
+            <p className=" text-[#A8A8A8] text-sm">Super Fast Shipping</p>
             <br />
             <p className=" text-white">Return and exchange service ”T & C applied”</p>
           </div>
           <div className="col-span-4 md:col-span-1">
-            <p className=" text-[#A8A8A8]">Maintenance Center to help you</p>
+            <p className=" text-[#A8A8A8] text-sm">Maintenance Center to help you</p>
             <br />
-            <p className=" text-[#A8A8A8]">More than 50 Stores at your service anywhere</p>
+            <p className=" text-[#A8A8A8] text-sm">More than 50 Stores at your service anywhere</p>
             <br />
-            <p className=" text-[#A8A8A8]">Buy Online or Pickup in Store </p>
+            <p className=" text-[#A8A8A8] text-sm">Buy Online or Pickup in Store </p>
           </div>
         </section>
         <section className="grid grid-cols-2 py-5 bg-[#0c0c0c] px-24">
