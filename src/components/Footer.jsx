@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import BackToTopButton from "./BackToTopButton.jsx";
 import emailjs from 'emailjs-com';
 import {
-  FaFacebook,
+  FaFacebookF,
   FaTwitter,
   FaLinkedin,
   FaInstagram
@@ -124,17 +124,17 @@ const Footer = () => {
         <section className="grid grid-cols-4 py-5 px-12 mx-12">
           <div className="col-span-4 md:col-span-1">
             <div className="flex gap-x-1 ">
-              <a href="https://www.facebook.com/" className="bg-[#33332f] hover:bg-[#4267B2] p-2 rounded">
-                <FaFacebook size={20} color="white" />
+              <a href="https://www.facebook.com/" className="bg-[#33332f] hover:bg-[#4267B2] p-3 rounded">
+                <FaFacebookF size={15} color="white" />
               </a>
-              <a href="https://twitter.com/" className=" bg-[#33332f] hover:bg-[#1DA1F2] p-2 rounded">
-                <FaTwitter size={20} color="white" />
+              <a href="https://twitter.com/" className=" bg-[#33332f] hover:bg-[#1DA1F2] p-3 rounded">
+                <FaTwitter size={15} color="white" />
               </a>
-              <a href="https://www.linkedin.com/" className="bg-[#33332f] hover:bg-[#2867B2] p-2 rounded">
-                <FaLinkedin size={20} color="white" />
+              <a href="https://www.linkedin.com/" className="bg-[#33332f] hover:bg-[#2867B2] p-3 rounded">
+                <FaLinkedin size={15} color="white" />
               </a>
-              <a href="https://www.instagram.com/" className="bg-[#33332f] hover:bg-gradient-to-br from-pink-500 via-purple-600 to-yellow-400 p-2 rounded">
-                <FaInstagram size={20} color="white" />
+              <a href="https://www.instagram.com/" className="bg-[#33332f] hover:bg-gradient-to-tr from-[#feda75] via-[#fa7e1e] via-[#d62976] via-[#962fbf] to-[#4f5bd5] p-3 rounded">
+                <FaInstagram size={15} color="white" />
               </a>
             </div>
           </div>
