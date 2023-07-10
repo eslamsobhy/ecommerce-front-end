@@ -22,22 +22,6 @@ const ProductReviewsPanel = ({ product, checkActive }) => {
     (review) => review.rating == 5
   );
 
-  const oneStarRatingsWidthPercentage = `w-[${
-    (reviewsWithOneStarRatings.length / product.reviews.length) * 100 || 0
-  }%]`;
-  const twoStarRatingsWidthPercentage = `w-[${
-    (reviewsWithTwoStarRatings.length / product.reviews.length) * 100 || 0
-  }%]`;
-  const threeStarRatingsWidthPercentage = `w-[${
-    (reviewsWithThreeStarRatings.length / product.reviews.length) * 100 || 0
-  }%]`;
-  const fourStarRatingsWidthPercentage = `w-[${
-    (reviewsWithFourStarRatings.length / product.reviews.length) * 100 || 0
-  }%]`;
-  const fiveStarRatingsWidthPercentage = `w-[${
-    (reviewsWithFiveStarRatings.length / product.reviews.length) * 100 || 0
-  }%]`;
-
   // Normal Percentages
   const oneStarRatingsPercentage =
     (reviewsWithOneStarRatings.length / product.reviews.length) * 100 || 0;
@@ -142,7 +126,8 @@ const ProductReviewsPanel = ({ product, checkActive }) => {
               </div>
               <div className=" w-2/5 h-1.5 mx-2 bg-gray-200 rounded">
                 <div
-                  className={`h-1.5 bg-yellow-400 rounded ${fiveStarRatingsWidthPercentage}`}
+                  style={{ width: `${fiveStarRatingsPercentage}%` }}
+                  className="h-1.5 bg-yellow-400 rounded"
                 ></div>
               </div>
               <span className="text-sm font-medium text-gray-600">
@@ -157,7 +142,8 @@ const ProductReviewsPanel = ({ product, checkActive }) => {
               </div>
               <div className=" w-2/5 h-1.5 mx-2 bg-gray-200 rounded">
                 <div
-                  className={`h-1.5 bg-yellow-400 rounded ${fourStarRatingsWidthPercentage}`}
+                  style={{ width: `${fourStarRatingsPercentage}%` }}
+                  className="h-1.5 bg-yellow-400 rounded"
                 ></div>
               </div>
               <span className="text-sm font-medium text-gray-600">
@@ -172,7 +158,8 @@ const ProductReviewsPanel = ({ product, checkActive }) => {
               </div>
               <div className=" w-2/5 h-1.5 mx-2 bg-gray-200 rounded">
                 <div
-                  className={`h-1.5 bg-yellow-400 rounded ${threeStarRatingsWidthPercentage}`}
+                  style={{ width: `${threeStarRatingsPercentage}%` }}
+                  className="h-1.5 bg-yellow-400 rounded"
                 ></div>
               </div>
               <span className="text-sm font-medium text-gray-600">
@@ -187,7 +174,8 @@ const ProductReviewsPanel = ({ product, checkActive }) => {
               </div>
               <div className=" w-2/5 h-1.5 mx-2 bg-gray-200 rounded">
                 <div
-                  className={`h-1.5 bg-yellow-400 rounded ${twoStarRatingsWidthPercentage}`}
+                  style={{ width: `${twoStarRatingsPercentage}%` }}
+                  className="h-1.5 bg-yellow-400 rounded"
                 ></div>
               </div>
               <span className="text-sm font-medium text-gray-600">
@@ -202,7 +190,8 @@ const ProductReviewsPanel = ({ product, checkActive }) => {
               </div>
               <div className=" w-2/5 h-1.5 mx-2 bg-gray-200 rounded">
                 <div
-                  className={`h-1.5 bg-yellow-400 rounded ${oneStarRatingsWidthPercentage}`}
+                  style={{ width: `${oneStarRatingsPercentage}%` }}
+                  className="h-1.5 bg-yellow-400 rounded"
                 ></div>
               </div>
               <span className="text-sm font-medium text-gray-600">
