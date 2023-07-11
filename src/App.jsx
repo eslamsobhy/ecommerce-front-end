@@ -5,7 +5,7 @@ import Footer from "../src/components/Footer";
 import Home from "./pages/Home.jsx";
 import FreeShipping from "./pages/FreeShipping.jsx";
 import TechServices from "./pages/TechServices.jsx";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Navbar from "./components/Navbar.jsx";
 import { Route, Routes } from "react-router";
 import NotFound from "./pages/NotFound.jsx";
@@ -13,9 +13,16 @@ import Products from "./pages/Products.jsx";
 import ProductPage from "./pages/ProductPage";
 import About from "./pages/About.jsx";
 import Subnav from "./components/Subnav.jsx";
+import { useGlobalContext } from "./context/ProductsContext.jsx";
 
 function App() {
   const [searchText, setSearchText] = useState("");
+
+  const { fetchProducts } = useGlobalContext();
+
+  useEffect(() => {
+    fetchProducts();
+  }, []);
 
   return (
     <>

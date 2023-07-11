@@ -5,14 +5,17 @@ import { BrowserRouter } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import CartProvider from "./context/CartProvider";
 import UserProvider from "./context/UserProvider";
+import { ProductProvider } from "./context/ProductsContext";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
-  <BrowserRouter>
-  <UserProvider>
-    <CartProvider>
-      <ToastContainer />
-      <App />
-    </CartProvider>
-  </UserProvider>
-  </BrowserRouter>
+  <ProductProvider>
+    <BrowserRouter>
+      <UserProvider>
+        <CartProvider>
+          <ToastContainer />
+          <App />
+        </CartProvider>
+      </UserProvider>
+    </BrowserRouter>
+  </ProductProvider>
 );
