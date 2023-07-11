@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 import Slider from "../UI/Slider";
 
-import { useGlobalContext } from "../context/ProductsContext";
+// import { useGlobalContext } from "../context/ProductsContext";
 
 /*
   Instead of prop drilling you can access the global state here to get all the 
@@ -15,7 +15,7 @@ import { useGlobalContext } from "../context/ProductsContext";
 */
 
 function DealsSlider({ products }) {
-  const { products } = useGlobalContext();
+  // const { products } = useGlobalContext();
   // here filter the products to get only the products that have deals,
   // and send the filtered products as a prop to the Slider component
 

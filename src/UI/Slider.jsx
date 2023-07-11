@@ -13,13 +13,13 @@ import { useContext, useEffect, useState } from "react";
 import { BiBasket } from "react-icons/bi";
 import CartContext from "../context/CartContext";
 
-import { useGlobalContext } from "../context/ProductsContext";
+// import { useGlobalContext } from "../context/ProductsContext";
 
 // import required modules
 
 const Slider = () => {
   // you will need this variable to return a loading indicator  while fetching the products
-  const { loading } = useGlobalContext();
+  // const { loading } = useGlobalContext();
 
   const myCart = useContext(CartContext);
   const [products, setProducts] = useState([

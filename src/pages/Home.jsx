@@ -10,7 +10,7 @@ import AdsSlider from "../components/AdsSlider";
 import { useCookies } from "react-cookie";
 
 // the global state
-import { useGlobalContext } from "../context/ProductsContext";
+// import { useGlobalContext } from "../context/ProductsContext";
 
 export default function Home() {
   const [cookies, setCookies, removeCookie] = useCookies(["User"]);
