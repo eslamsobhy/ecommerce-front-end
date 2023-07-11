@@ -1,4 +1,3 @@
-/* eslint-disable react/prop-types */
 import { useContext, useEffect, useState } from "react";
 import {
   PayPalScriptProvider,
@@ -23,7 +22,7 @@ const ButtonWrapper = ({ currency, showSpinner }) => {
         currency: currency,
       },
     });
-    setAmount(Math.round(CartCTX.totalAmount /30))
+    setAmount((CartCTX.totalAmount / 30).toFixed(2));
   }, [currency, showSpinner]);
 
   async function sendEmail(data) {
@@ -40,6 +39,17 @@ const ButtonWrapper = ({ currency, showSpinner }) => {
     }
   }
 
+  function handleCapture(actions) {
+    return new Promise((resolve, reject) => {
+      actions.order.capture().then(details => {
+        console.log(details);
+        resolve(details);
+      }).catch(err => {
+        console.error(err);
+        reject(err);
+      });
+    });
+  }
 
   return (
     <>
@@ -66,18 +76,18 @@ const ButtonWrapper = ({ currency, showSpinner }) => {
               return orderId;
             });
         }}
-        onApprove={async function (data, actions) {
-          await actions.order.capture();
-          sendEmail(data);
-          window.localStorage.setItem("purchasedItems", JSON.stringify(CartCTX.items));
-          CartCTX.clearCart();
-          window.localStorage.setItem("cartItems", "");
-          window.localStorage.setItem("totalAmount", "")
-            .then((result_2) => {
-              console.log(result_2.text);
-            }, (error) => {
-              console.log(error.text);
-            });
+        onApprove={(data, actions) => {
+          handleCapture(actions).then(() => {
+            console.log("Payment successful!");
+            sendEmail(data);
+            window.localStorage.setItem("purchasedItems", JSON.stringify(CartCTX.items));
+            CartCTX.clearCart();
+            window.localStorage.setItem("cartItems", "");
+            window.localStorage.setItem("totalAmount", "");
+            console.log("Items purchased and cart cleared");
+          }).catch((error) => {
+            console.error("Error capturing transaction:", error);
+          });
         }}
       />
     </>
