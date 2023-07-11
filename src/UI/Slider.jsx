@@ -13,10 +13,15 @@ import { useContext, useEffect, useState } from "react";
 import { BiBasket } from "react-icons/bi";
 import CartContext from "../context/CartContext";
 
+import { useGlobalContext } from "../context/ProductsContext";
+
 // import required modules
 
 const Slider = () => {
-  const myCart = useContext(CartContext)
+  // you will need this variable to return a loading indicator  while fetching the products
+  const { loading } = useGlobalContext();
+
+  const myCart = useContext(CartContext);
   const [products, setProducts] = useState([
     {
       _id: 1,
@@ -148,16 +153,15 @@ const Slider = () => {
 
   const [slidesPerView, setSlidesPerView] = useState(5);
 
-  async function addItemToCart(product){
+  async function addItemToCart(product) {
     myCart.addItem({
-      key :product._id,
+      key: product._id,
       id: product._id,
       name: product.name,
-      image : product.image,
-      amount :1,
-      price: product.price
-    })
-    
+      image: product.image,
+      amount: 1,
+      price: product.price,
+    });
   }
 
   useEffect(() => {
@@ -200,7 +204,8 @@ const Slider = () => {
           <SwiperSlide key={index}>
             <div
               key={product._id}
-              className="card border   px-4 py-1 bg-white  shadow-md rounded-lg" >
+              className="card border   px-4 py-1 bg-white  shadow-md rounded-lg"
+            >
               <figure>
                 <img src={product.image} />
               </figure>
@@ -229,7 +234,10 @@ const Slider = () => {
                   <div className="badge badge-outline text-gray-500">
                     {product.price}LE
                   </div>
-                  <button onClick={()=>addItemToCart(product)} className="flex items-center gap-3 border p-2 rounded-lg mx-auto my-3 hover:bg-orange-500 hover:text-white text-sm">
+                  <button
+                    onClick={() => addItemToCart(product)}
+                    className="flex items-center gap-3 border p-2 rounded-lg mx-auto my-3 hover:bg-orange-500 hover:text-white text-sm"
+                  >
                     Add to cart <BiBasket />
                   </button>
                 </div>
