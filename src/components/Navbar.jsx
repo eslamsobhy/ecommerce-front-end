@@ -61,7 +61,7 @@ const Navbar = (props) => {
           <div className="flex items-center mr-10 w-56">
             <img
               className="flex items-center -mt-3"
-              src="/public/assets/logo/main 2.png"
+              src="/assets/logo/main 2.png"
               alt="Electronix"
             />
           </div>
