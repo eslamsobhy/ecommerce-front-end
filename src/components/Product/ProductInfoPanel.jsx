@@ -3,7 +3,7 @@ const ProductInfoPanel = ({ product, checkActive }) => {
   return (
     <>
       <div className={`panel ${checkActive(1, "active")}`}>
-        <div className="flex flex-col md:flex-row md:items-start items-center py-5">
+        <div className="flex flex-col gap-0 md:gap-10 md:flex-row md:items-start items-center py-5">
           {detailsArr.length <= 5 && (
             <table className="table-fixed text-left p-5 md:w-[50%]">
               <tbody>
