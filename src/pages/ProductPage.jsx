@@ -23,7 +23,7 @@ const ProductPage = () => {
       name: product.name,
       image: product.images[0].url,
       amount: count,
-      price: product.new_price ?? product.price
+      price: product.new_price ?? product.price,
     });
   };
 
@@ -38,6 +38,8 @@ const ProductPage = () => {
     setCount((prevState) => prevState + 1);
   };
 
+  // HERE INSTEAD OF FETCHING THE DATA, MAKE USE OF THE ONE IN THE GLOBAL CONTEXT
+  // AND DON'T FORGET ABOUT THE LOADING FUNCTIONALITY! (-_-)
   useEffect(() => {
     async function getProduct() {
       const { data } = await axios.get(`http://localhost:8000/products/${id}`);
