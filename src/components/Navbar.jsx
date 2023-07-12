@@ -54,13 +54,13 @@ const Navbar = (props) => {
     <>
       <nav
         id="MainNav"
-        className="bg-black text-white py-4 my-30 h-20 w-full z-50 sm:px-7 px-3 flex justify-between "
+        className="bg-black text-white py-4 my-30 h-20 w-full z-50 sm:px-7 px-4 flex justify-between "
       >
         {/* Logo */}
         <Link to={"/"}>
-          <div className="flex items-baseline mr-10 w-56">
+          <div className="flex items-baseline mr-5 w-44 sm:w-56">
             <img
-              className="mt-1"
+              className="mt-2 sm:mt-1"
               src="/assets/logo/main-orange-and-white.png"
               alt="Electronix"
             />
@@ -113,7 +113,7 @@ const Navbar = (props) => {
               className="text-white flex items-center hover:text-gray-400 relative"
               to="/cart"
             >
-              <span className="mr-2 text-md  sm:inline-block"> Cart </span>{" "}
+              <span className="mr-2 text-md hidden sm:inline-block"> Cart </span>{" "}
               <FaShoppingCart className="" />
               {cartCTX.totalItemsNum > 0 && (
                 <span className="ml-1 bg-f37020 text-white rounded-full px-[7px] py-[1px] text-[14px] absolute right-[-20px] top-[-17px]">

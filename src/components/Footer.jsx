@@ -204,13 +204,13 @@ const Footer = () => {
           <div className="col-span-3 md:col-span-1 mx-12 gap-3 ">
             <div className="flex gap-x-1 ">
               <a href="https://eg.visamiddleeast.com/en_EG">
-                <FaCcVisa size={32} color="#FF662B" />
-              </a>
-              <a href="https://www.mastercard.us/en-us.html">
-                <FaCcMastercard size={32} color="#FF662B" />
+                <FaCcVisa size={32} color="gray" />
               </a>
               <a href="https://www.parliament.uk/site-information/glossary/money-bills/">
-                <FaMoneyBill size={32} color="#FF662B" />
+                <FaMoneyBill size={32} color="gray" />
+              </a>
+              <a href="https://www.mastercard.us/en-us.html">
+                <FaCcMastercard size={32} color="gray" />
               </a>
             </div>
           </div>
