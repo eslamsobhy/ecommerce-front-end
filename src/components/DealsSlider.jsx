@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 import Slider from "../UI/Slider";
 
-// import { useGlobalContext } from "../context/ProductsContext";
+import { useGlobalContext } from "../context/ProductsContext";
 
 /*
   Instead of prop drilling you can access the global state here to get all the 
@@ -14,15 +14,19 @@ import Slider from "../UI/Slider";
   as a prop the filtered data
 */
 
-function DealsSlider({ products }) {
-  // const { products } = useGlobalContext();
+function DealsSlider() {
+  const { products } = useGlobalContext();
   // here filter the products to get only the products that have deals,
   // and send the filtered products as a prop to the Slider component
 
+  const filteredProducts = products.filter(
+    (product) => product.new_price !== 0
+  );
+
   return (
-    <div className="mt-auto mx-12">
-      <h1 className="mx-12 font-bold text-3xl">Deals</h1>
-      <Slider products={products} />
+    <div className="mt-5 mx-12">
+      <h1 className="font-bold text-3xl">Deals</h1>
+      <Slider products={filteredProducts} />
     </div>
   );
 }
