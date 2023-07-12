@@ -10,7 +10,7 @@ import AdsSlider from "../components/AdsSlider";
 import { useCookies } from "react-cookie";
 
 // the global state
-// import { useGlobalContext } from "../context/ProductsContext";
+import { useGlobalContext } from "../context/ProductsContext";
 
 export default function Home() {
   const [cookies, setCookies, removeCookie] = useCookies(["User"]);
@@ -30,7 +30,7 @@ export default function Home() {
    */
 
   //  THAT IS HOW TO ACCESS ANYTHING FROM THE GLOBAL STATE
-  //  const {loading, products} = useGlobalContext()
+  const { loading, products } = useGlobalContext();
 
   useEffect(() => {
     // async function getProducts(){
@@ -45,7 +45,7 @@ export default function Home() {
         const response = await axios.get(
           `http://localhost:3000/users/${cookies.User._id}`,
           {
-            headers: { Authorization: cookies.UserToken },
+            headers: { Authorization: cookies.UserToken }
           }
         );
         console.log(response);
@@ -59,135 +59,6 @@ export default function Home() {
       getUserData();
     }
   }, []);
-
-  const [products, setProducts] = useState([
-    {
-      _id: 1,
-      image: "public/images/pTest.png",
-      name: "test1",
-      price: 99,
-      rate: "4.5",
-    },
-    {
-      _id: 2,
-      image: "public/images/pTest.png",
-      name: "test2",
-      price: 62,
-      rate: "3.5",
-    },
-    {
-      _id: 3,
-      image: "public/images/pTest.png",
-      name: "test3",
-      price: 81,
-      rate: "2",
-    },
-    {
-      _id: 4,
-      image: "public/images/pTest.png",
-      name: "test4",
-      price: 42,
-      rate: "5",
-    },
-    {
-      _id: 5,
-      image: "public/images/pTest.png",
-      name: "test5",
-      price: 85,
-      rate: "3.5",
-    },
-    {
-      _id: 6,
-      image: "public/images/pTest.png",
-      name: "test6",
-      price: 37,
-      rate: "4.5",
-    },
-    {
-      _id: 7,
-      image: "public/images/pTest.png",
-      name: "test7",
-      price: 33,
-      rate: "2.5",
-    },
-    {
-      _id: 8,
-      image: "public/images/pTest.png",
-      name: "test8",
-      price: 75,
-      rate: "1.5",
-    },
-    {
-      _id: 9,
-      image: "public/images/pTest.png",
-      name: "test9",
-      price: 22,
-      rate: "3",
-    },
-    {
-      _id: 10,
-      image: "public/images/pTest.png",
-      name: "test10",
-      price: 90,
-      rate: "1",
-    },
-    {
-      _id: 11,
-      image: "public/images/pTest.png",
-      name: "test11",
-      price: 27,
-      rate: "4",
-    },
-    {
-      _id: 12,
-      image: "public/images/pTest.png",
-      name: "test12",
-      price: 34,
-      rate: "4.5",
-    },
-    {
-      _id: 13,
-      image: "public/images/pTest.png",
-      name: "test13",
-      price: 99,
-      rate: "4.5",
-    },
-    {
-      _id: 14,
-      image: "public/images/pTest.png",
-      name: "test14",
-      price: 62,
-      rate: "3.5",
-    },
-    {
-      _id: 15,
-      image: "public/images/pTest.png",
-      name: "test15",
-      price: 81,
-      rate: "2",
-    },
-    {
-      _id: 16,
-      image: "public/images/pTest.png",
-      name: "test16",
-      price: 42,
-      rate: "5",
-    },
-    {
-      _id: 17,
-      image: "public/images/pTest.png",
-      name: "test17",
-      price: 85,
-      rate: "3.5",
-    },
-    {
-      _id: 18,
-      image: "public/images/pTest.png",
-      name: "test18",
-      price: 37,
-      rate: "4.5",
-    },
-  ]);
 
   return (
     <>
