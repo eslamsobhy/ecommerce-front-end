@@ -2,7 +2,12 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { useContext } from "react";
 import CartContext from "../context/CartContext";
-import { BestSellerBadge, NewArrivalBadge, SaleBadge } from "./Badges";
+import {
+  BestSellerBadge,
+  NewArrivalBadge,
+  RatingBadge,
+  SaleBadge
+} from "./Badges";
 import { CartIcon } from "./Icons";
 
 const ProductsItem = ({ item }) => {
@@ -43,7 +48,9 @@ const ProductsItem = ({ item }) => {
                 : item.name}
             </h3>
           </Link>
-          <div className="flex flex-col justify-center">
+          <div className="flex flex-col justify-center items-center">
+            <RatingBadge avg_rating={item.avg_rating} />
+
             {!item.new_price && (
               <>
                 <div className="flex gap-1 justify-center items-center">
@@ -65,14 +72,14 @@ const ProductsItem = ({ item }) => {
                 </div>
               </>
             )}
-            <button
-              onClick={() => addItemToCart(item)}
-              className="flex justify-center items-center border border-slate rounded-lg p-2 bg-gray-100 hover:bg-orange-500 hover:text-white transition-all duration-300"
-            >
-              <CartIcon />
-              <span>Add to Cart</span>
-            </button>
           </div>
+          <button
+            onClick={() => addItemToCart(item)}
+            className="flex justify-center items-center border border-slate rounded-lg p-2 bg-gray-100 hover:bg-orange-500 hover:text-white transition-all duration-300"
+          >
+            <CartIcon />
+            <span>Add to Cart</span>
+          </button>
         </div>
       </div>
     </>
