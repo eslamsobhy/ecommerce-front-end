@@ -65,9 +65,9 @@ export default function Home() {
       <AdsSlider />
       <OtherServices />
       <Circles />
-      <NewArrivalsSlider products={products} />
+      <NewArrivalsSlider />
       <Categories />
-      <DealsSlider products={products} />
+      <DealsSlider />
     </>
   );
 }
