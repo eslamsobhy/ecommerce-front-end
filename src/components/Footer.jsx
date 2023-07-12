@@ -90,18 +90,18 @@ const Footer = () => {
             </div>
           )}
           <img
-            className="flex items-center w-36 m-auto"
-            src="/assets/logo/main 2.png"
+            className="flex items-center w-36 my-6 mx-auto"
+            src="/assets/logo/main-gray.png"
             alt="Electronix"
           />
         </header>
         <section className="grid grid-cols-4 pb-5 border-b gap-7 border-[#3d3d38]  px-12 mx-12">
           <div className="col-span-4 md:col-span-1">
-            <h2 className="text-f37020 font-serif font-semibold">
+            <h2 className="text-orange-500 font-serif font-semibold">
               CONNECT WITH US
             </h2>
             <Link to={"/about"}>
-              <p className="text-white  hover:text-f37020  text-sm">
+              <p className="text-white  hover:text-orange-500  text-sm">
                 About company
               </p>
             </Link>
@@ -109,7 +109,7 @@ const Footer = () => {
             <p className="text-white  text-sm">call us: 442266</p>
           </div>
           <div className="col-span-4 md:col-span-1">
-            <h2 className="text-orange-600 font-serif font-semibold">
+            <h2 className="text-orange-500 font-serif font-semibold">
               ARITHMETIC
             </h2>
 
@@ -120,7 +120,7 @@ const Footer = () => {
             <p className="text-white  text-sm mb-1">Track your order</p>
           </div>
           <div className="col-span-4 md:col-span-1 ">
-            <h2 className="text-orange-600 font-serif font-semibold">
+            <h2 className="text-orange-500 font-serif font-semibold">
               MOST SEARCHED
             </h2>
 

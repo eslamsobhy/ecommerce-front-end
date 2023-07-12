@@ -58,10 +58,10 @@ const Navbar = (props) => {
       >
         {/* Logo */}
         <Link to={"/"}>
-          <div className="flex items-center mr-10 w-56">
+          <div className="flex items-baseline mr-10 w-56">
             <img
-              className="flex items-center -mt-3"
-              src="/assets/logo/main 2.png"
+              className="mt-1"
+              src="/assets/logo/main-orange-and-white.png"
               alt="Electronix"
             />
           </div>
