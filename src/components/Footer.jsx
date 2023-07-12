@@ -61,7 +61,11 @@ const Footer = () => {
               <span className="ml-2">Kindly check your email !</span>
             </div>
           )}
-
+          <img
+            className="flex items-center w-36 m-auto"
+            src="/public/assets/logo/main 2.png"
+            alt="Electronix"
+          />
         </header>
         <section className="grid grid-cols-4 pb-5 border-b  border-[#3d3d38] px-12 mx-12 ">
           <div className="col-span-4 md:col-span-1 mb-2">
