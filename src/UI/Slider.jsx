@@ -83,7 +83,7 @@ const Slider = ({ products }) => {
               to={`products/${product._id}`}
               className="flex flex-col border px-4 py-3 bg-white rounded-lg"
             >
-              <div className="flex flex-col gap-2">
+              <div className="flex flex-col justify-center items-center gap-2">
                 <figure className="relative">
                   <img src={product.images[0].url} />
 
@@ -96,7 +96,7 @@ const Slider = ({ products }) => {
                   </div>
                 </figure>
 
-                <span className="font-semibold tracking-tight text-gray-800">
+                <span className="font-semibold tracking-tight text-center text-gray-800">
                   {product.name.slice(0, 45)}...
                 </span>
                 <div className="flex items-center border-2 bg-gray-50 border-yellow-500 rounded-full w-fit px-2">
