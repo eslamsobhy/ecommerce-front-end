@@ -7,9 +7,9 @@ import "swiper/css/scrollbar";
 
 const ads = [
   "https://smhttp-ssl-73217.nexcesscdn.net/pub/media/wysiwyg/june_2023/anker_mainbanner_web_en.jpg",
-  "public/intel_mainbanner_web_ar_new.jpg",
-  "public/bank_mainbanner_ar_web_new.jpg",
-  "public/intelbanner_web_ar.jpg"
+  "/intel_mainbanner_web_ar_new.jpg",
+  "/bank_mainbanner_ar_web_new.jpg",
+  "/intelbanner_web_ar.jpg"
 ];
 
 const AdsSlider = () => {

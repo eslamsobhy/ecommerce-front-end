@@ -9,7 +9,8 @@ const BackToTopButton = () => {
 
   useEffect(() => {
     const handleScroll = () => {
-      const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+      const scrollTop =
+        window.pageYOffset || document.documentElement.scrollTop;
       if (scrollTop > 0) {
         setBtnVisibility(true);
       } else {
@@ -31,7 +32,11 @@ const BackToTopButton = () => {
           className="bg-gray-200 z-999999 text-white px-3 py-2 rounded-full hover:bg-f37020 fixed bottom-4 right-4"
           onClick={handleBackToTop}
         >
-          <img className="w-5 h-5" src="../../public/up-arrow-svgrepo-com.svg" alt="Back to Top"></img>
+          <img
+            className="w-5 h-5"
+            src="/up-arrow-svgrepo-com.svg"
+            alt="Back to Top"
+          ></img>
         </button>
       )}
     </>

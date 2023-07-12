@@ -1,7 +1,12 @@
 import React from "react";
 import Counter from "../Counter";
 import { CartIcon, FilledRatingStarIcon } from "../Icons";
-import { BestSellerBadge, NewArrivalBadge, SaleBadge } from "../Badges";
+import {
+  BestSellerBadge,
+  NewArrivalBadge,
+  RatingBadge,
+  SaleBadge
+} from "../Badges";
 
 const ProductDetails = ({
   count,
@@ -30,10 +35,7 @@ const ProductDetails = ({
           <h1 className="text-2xl mb-4 text-gray-800">{product.name}</h1>
           {product.avg_rating && (
             <div className="flex items-center">
-              <div className="flex gap-1 items-center w-fit text-sm h-5 font-semibold bg-gray-800 text-gray-100 p-2 rounded-xl">
-                <FilledRatingStarIcon></FilledRatingStarIcon>
-                <span className="mb-[2px]">{product.avg_rating}</span>
-              </div>
+              <RatingBadge avg_rating={product.avg_rating}></RatingBadge>
               <span className="w-1 h-1 mx-1.5 bg-gray-500 rounded-full"></span>
               <a
                 href="#reviews"

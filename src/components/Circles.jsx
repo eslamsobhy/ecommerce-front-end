@@ -10,50 +10,38 @@ function Circles() {
         <div className="flex flex-wrap justify-center gap-12 max-w-5xl">
           <Link to="/products?orderBy=bestSeller">
             <Circle
-              srcImg={"/public/circles-images/best-sellers.png"}
+              srcImg={"/circles-images/best-sellers.png"}
               title={"Best Sellers"}
             />
           </Link>
 
           <Link to="/products?orderBy=newArrivals">
             <Circle
-              srcImg={"/public/circles-images/new-arrivals.png"}
+              srcImg={"/circles-images/new-arrivals.png"}
               title={"New Arrivals"}
             />
           </Link>
 
           <Link to="/products?orderBy=hasOffer">
-            <Circle
-              srcImg={"/public/circles-images/offers.png"}
-              title={"Offers"}
-            />
+            <Circle srcImg={"/circles-images/offers.png"} title={"Offers"} />
           </Link>
 
           <Link to="/products?category=TVs">
-            <Circle srcImg={"/public/circles-images/tvs.png"} title={"TVs"} />
+            <Circle srcImg={"/circles-images/tvs.png"} title={"TVs"} />
           </Link>
 
           <Link to="/products?category=Laptops">
-            <Circle
-              srcImg={"/public/circles-images/laptops.png"}
-              title={"Laptops"}
-            />
+            <Circle srcImg={"/circles-images/laptops.png"} title={"Laptops"} />
           </Link>
           <Link to="/products?category=Mobiles">
-            <Circle
-              srcImg={"/public/circles-images/mobiles.png"}
-              title={"Mobiles"}
-            />
+            <Circle srcImg={"/circles-images/mobiles.png"} title={"Mobiles"} />
           </Link>
           <Link to="/products?category=Gaming">
-            <Circle
-              srcImg={"/public/circles-images/gaming.png"}
-              title={"Gaming"}
-            />
+            <Circle srcImg={"/circles-images/gaming.png"} title={"Gaming"} />
           </Link>
           <Link to="/products?category=Accessories">
             <Circle
-              srcImg={"/public/circles-images/accessories.png"}
+              srcImg={"/circles-images/accessories.png"}
               title={"Accessories"}
             />
           </Link>
