@@ -39,9 +39,9 @@ const Slider = ({ products }) => {
       key: product._id,
       id: product._id,
       name: product.name,
-      image: product.image,
+      image: product.images[0].url,
       amount: 1,
-      price: product.price
+      price: product.new_price ? product.new_price : product.price
     });
   }
 
@@ -79,11 +79,11 @@ const Slider = ({ products }) => {
       >
         {products.map((product, index) => (
           <SwiperSlide key={index}>
-            <Link
-              to={`products/${product._id}`}
-              className="flex flex-col border px-4 py-3 bg-white rounded-lg"
-            >
-              <div className="flex flex-col justify-center items-center gap-2">
+            <div className="flex flex-col border px-4 py-3 bg-white rounded-lg">
+              <Link
+                to={`products/${product._id}`}
+                className="flex flex-col justify-center items-center gap-2"
+              >
                 <figure className="relative">
                   <img src={product.images[0].url} />
 
@@ -118,7 +118,7 @@ const Slider = ({ products }) => {
                     </span>
                   </div>
                 )}
-              </div>
+              </Link>
               <button
                 onClick={() => addItemToCart(product)}
                 className="flex justify-center items-center border border-slate rounded-lg p-2 mt-3 bg-gray-100 hover:bg-orange-500 hover:text-white transition-all duration-300"
@@ -126,7 +126,7 @@ const Slider = ({ products }) => {
                 <CartIcon />
                 <span>Add to Cart</span>
               </button>
-            </Link>
+            </div>
           </SwiperSlide>
         ))}
       </Swiper>
