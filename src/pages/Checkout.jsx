@@ -49,7 +49,17 @@ const Checkout = (props) => {
         { address: data.address },
         { headers: { Authorization: `${cookies.UserToken}` } }
       );
-
+      // create order in the backend 
+      const reqData = {
+        order: CartCTX.items.map((item) => ({
+          product_id : item.id,
+          quantity : item.amount
+        }))
+      };
+      const response2 = await axios.post(`http://localhost:8000/orders`,
+      reqData,
+      { headers: { Authorization: `${cookies.UserToken}` } }
+      )
       if (data.paymentMethod == "Cash") {
         emailjs.sendForm(
           "service_97xavkg",
