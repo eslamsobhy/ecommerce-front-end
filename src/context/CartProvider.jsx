@@ -1,7 +1,10 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
 import { useReducer } from "react";
 
 import CartContext from "./CartContext";
+import { useCookies } from "react-cookie";
+
 
 //--------------------------------Reducer-------------------------------------------
 const storedItems = JSON.parse(window.localStorage.getItem("cartItems"))
@@ -24,7 +27,8 @@ if (storedItems) {
 const defaultCartState = {
   items: storedItems? storedItems : [],
   totalAmount: storedItems? storedItemsAmount : 0,
-  totalItemsNum : storedItems? storedItemsNum : 0
+  totalItemsNum : storedItems? storedItemsNum : 0,
+  changed: false
 };
 
 function CartReducer(state, action) {
@@ -39,11 +43,12 @@ function CartReducer(state, action) {
     const existingCartItem = state.items[existingCartItemIndex];
     let updatedItems;
     let updatedTotalItemsNum;
-
+    
     if (existingCartItem) {
       const updatedItem = {
         ...existingCartItem,
-        amount: existingCartItem.amount + action.item.amount
+        amount: existingCartItem.amount + action.item.amount,
+        changed:true
       };
 
       updatedItems = [...state.items];
@@ -111,15 +116,20 @@ function CartReducer(state, action) {
 //--------------------------------Provider-------------------------------------------
 
 function CartProvider(props) {
+const [cookies, setCookies] = useCookies(["User"]);
+
   const [cartState, cartDispatch] = useReducer(CartReducer, defaultCartState);
 
   const cartContextValue = {
     items: cartState.items,
     totalAmount: cartState.totalAmount,
     totalItemsNum: cartState.totalItemsNum,
+    changed : cartState.changed,
     addItem: addItemHandler,
     removeItem: removeItemHandler,
     clearCart: clearCartHandler,
+    fetchCartItems: fetchCartItems,
+    sendCartItems : sendCartItems
   };
 
   function addItemHandler(item) {
@@ -134,12 +144,76 @@ function CartProvider(props) {
     cartDispatch({ type: "CLEAR" });
   }
 
+//---------------------sync cart with backend methods------------------------------------
+async function fetchCartItems () {
+    const sendRequest = async () => {
+      const response = await fetch(
+        'https://react-fetching-d4ab5-default-rtdb.firebaseio.com/carts.json');
+
+        if (!response.ok) {
+          throw new Error('Sending cart data failed.');
+        }
+
+        const data = await response.json();
+
+        return data;
+      };
+
+    try{
+      const cartData = await sendRequest()
+      console.log(cartData)
+      dispatch(cartSlice.actions.replaceCart({
+        items: cartData.items || [],
+        totalAmount: cartData.totalAmount,
+      }))
+      
+    }catch(error){
+      console.log(error)
+    }
+
+  }
+
+
+
+async function sendCartItems(cart) {
+    const sendRequest = async () => {
+      const response = await fetch(
+        `http://localhost:3000/users/${cookies.User._id}`,
+        {
+          method: 'PUT',
+          body: JSON.stringify({
+            cart_items: cart.items.map((item) => ({
+              product: item.id,
+              quantity: item.amount,
+            })),
+            totalAmount: cart.totalAmount,
+          })
+        });
+
+      if (!response.ok) {
+        throw new Error('Sending cart data failed.');
+      }
+    };
+    try {
+      await sendRequest();
+    
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+
+
   return (
     <CartContext.Provider value={cartContextValue}>
       {props.children}
     </CartContext.Provider>
   );
 }
+
+
+
+
 
 
 export default CartProvider;

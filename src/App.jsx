@@ -5,7 +5,7 @@ import Footer from "../src/components/Footer";
 import Home from "./pages/Home.jsx";
 import FreeShipping from "./pages/FreeShipping.jsx";
 import TechServices from "./pages/TechServices.jsx";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import Navbar from "./components/Navbar.jsx";
 import { Route, Routes } from "react-router";
 import NotFound from "./pages/NotFound.jsx";
@@ -14,15 +14,34 @@ import ProductPage from "./pages/ProductPage";
 import About from "./pages/About.jsx";
 import Subnav from "./components/Subnav.jsx";
 import { useGlobalContext } from "./context/ProductsContext.jsx";
+import CartContext from "./context/CartContext.jsx";
+
+let firstRender =true;
+
 
 function App() {
   const [searchText, setSearchText] = useState("");
 
   const { fetchProducts } = useGlobalContext();
+  const myCart = useContext(CartContext)
 
   useEffect(() => {
     fetchProducts();
   }, []);
+
+  useEffect(()=>{
+    myCart.fetchCartItems()
+  },[])
+
+  useEffect(() => {
+    if (firstRender) {
+      firstRender =false;
+      return;
+    }
+    if (myCart.changed) {
+      myCart.sendCartItems(myCart);
+    }
+  }, [myCart]);
 
   return (
     <>
