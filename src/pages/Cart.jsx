@@ -1,11 +1,12 @@
 /* eslint-disable no-unused-vars */
-import { useContext, useState } from "react"
+import { useContext, useEffect, useState } from "react"
 import CartItem from "../components/CartItem"
 import cartContext from "../context/CartContext"
 import { useNavigate } from "react-router-dom";
 import UserContext from "../context/UserContext"
 import { toast } from "react-toastify";
 import { useCookies } from 'react-cookie';
+import axios from "axios";
 
 
 const Cart = () => {
@@ -14,6 +15,7 @@ const Cart = () => {
   const navigate = useNavigate();
   const [cookies, setCookie] = useCookies(['UserToken','User']);
   const [showPurchasedItems, setShowPurchasedItems] = useState(false);
+  const [PurchasedItems, setPurchasedItems] = useState(false);
 
   const togglePurchasedItems = () => {
     setShowPurchasedItems(!showPurchasedItems);
@@ -44,6 +46,16 @@ const Cart = () => {
 
   }
 
+  useEffect(()=>{
+    async function getOrderHistory(){
+      const response = await axios.get(`http://localhost:8000/orders/${cookies.User._id}` ,
+      { headers: { Authorization: `${cookies.UserToken}` } }
+      )
+      setPurchasedItems(await response.order)
+
+    }
+    getOrderHistory()
+  },[])
 
   return (
     <>
@@ -87,10 +99,11 @@ const Cart = () => {
                 Recently Purchased
               </button>
             </div>
-            {showPurchasedItems && window.localStorage.getItem('purchasedItems') && (
+            {/* {showPurchasedItems && window.localStorage.getItem('purchasedItems') && ( */}
+            {showPurchasedItems && PurchasedItems && (
               <div className="purchased-container max-w-[300px] border border-spacing-x-4 mr-3 p-1">
                 <div className="purchased-items">
-                  {JSON.parse(window.localStorage.getItem('purchasedItems')).map((item) => (
+                  {JSON.parse(PurchasedItems).map((item) => (
                     <div className="flex justify-between my-1 border-b-[2px] py-1" key={item.id} >
                       <div className="flex">
                         <img className="max-w-[140px]" src={item.image} alt="Image not Found" />
@@ -109,7 +122,7 @@ const Cart = () => {
               </div>
             )}
 
-            {!window.localStorage.getItem('purchasedItems') &&showPurchasedItems && (
+            {!PurchasedItems &&showPurchasedItems && (
               <p className="text-start ml-6 text-gray-500 mt-4">No purchased items found.</p>
             )}
           </aside>

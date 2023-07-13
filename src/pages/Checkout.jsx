@@ -68,10 +68,10 @@ const Checkout = (props) => {
           "ieyQAv01RBSvsmGou"
         );
 
-        window.localStorage.setItem(
-          "purchasedItems",
-          JSON.stringify(CartCTX.items)
-        );
+        // window.localStorage.setItem(
+        //   "purchasedItems",
+        //   JSON.stringify(CartCTX.items)
+        // );
         CartCTX.clearCart();
         // window.localStorage.setItem("cartItems", "");
         // window.localStorage.setItem("totalAmount", "");

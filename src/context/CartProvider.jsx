@@ -28,7 +28,7 @@ const defaultCartState = {
   items: storedItems ? storedItems : [],
   totalAmount: storedItems ? storedItemsAmount : 0,
   totalItemsNum: storedItems ? storedItemsNum : 0,
-  changed: false
+  changed: false,
 };
 
 function CartReducer(state, action) {
