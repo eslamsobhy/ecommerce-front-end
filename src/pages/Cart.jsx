@@ -33,7 +33,7 @@ const Cart = () => {
 
 
     if(userStatus && cartIsNotEmpty){
-    window.localStorage.setItem("totalAmount", myCart.totalAmount)
+    // window.localStorage.setItem("totalAmount", myCart.totalAmount)
       navigate("/checkout")
     }else if(!userStatus){
       userCTX.toggleModal()

@@ -7,7 +7,8 @@ import { useCookies } from "react-cookie";
 import axios from "axios";
 
 //--------------------------------Reducer-------------------------------------------
-const storedItems = JSON.parse(window.localStorage.getItem("cartItems"));
+// const storedItems = JSON.parse(window.localStorage.getItem("cartItems"));
+const storedItems = "";
 let storedItemsAmount = 0;
 let storedItemsNum = 0;
 
@@ -59,7 +60,7 @@ function CartReducer(state, action) {
       return total + item.amount;
     }, 0);
 
-    window.localStorage.setItem("cartItems", JSON.stringify(updatedItems));
+    // window.localStorage.setItem("cartItems", JSON.stringify(updatedItems));
     return {
       items: updatedItems,
       totalAmount: updatedTotalAmount,
@@ -92,7 +93,7 @@ function CartReducer(state, action) {
       return total + item.amount;
     }, 0);
 
-    window.localStorage.setItem("cartItems", JSON.stringify(updatedItems));
+    // window.localStorage.setItem("cartItems", JSON.stringify(updatedItems));
     return {
       items: updatedItems,
       totalAmount: updatedTotalAmount,
@@ -102,7 +103,7 @@ function CartReducer(state, action) {
   }
 
   if (action.type === "CLEAR") {
-    window.localStorage.removeItem("cartItems");
+    // window.localStorage.removeItem("cartItems");
     return {
       items: [],
       totalAmount: 0,

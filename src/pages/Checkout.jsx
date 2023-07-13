@@ -63,8 +63,8 @@ const Checkout = (props) => {
           JSON.stringify(CartCTX.items)
         );
         CartCTX.clearCart();
-        window.localStorage.setItem("cartItems", "");
-        window.localStorage.setItem("totalAmount", "");
+        // window.localStorage.setItem("cartItems", "");
+        // window.localStorage.setItem("totalAmount", "");
         console.log(form.current).then(
           (result) => {
             console.log(result.text);

@@ -71,8 +71,8 @@ const ButtonWrapper = ({ currency, showSpinner }) => {
           sendEmail(data);
           window.localStorage.setItem("purchasedItems", JSON.stringify(CartCTX.items));
           CartCTX.clearCart();
-          window.localStorage.setItem("cartItems", "");
-          window.localStorage.setItem("totalAmount", "")
+          // window.localStorage.setItem("cartItems", "");
+          // window.localStorage.setItem("totalAmount", "")
             .then((result_2) => {
               console.log(result_2.text);
             }, (error) => {
