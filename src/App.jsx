@@ -29,9 +29,9 @@ function App() {
     fetchProducts();
   }, []);
 
-  // useEffect(()=>{
-  //   myCart.fetchCartItems()
-  // },[])
+  useEffect(()=>{
+    myCart.fetchCartItems()
+  },[])
 
   useEffect(() => {
     if (firstRender) {

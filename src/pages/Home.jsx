@@ -43,7 +43,7 @@ export default function Home() {
     async function getUserData() {
       try {
         const response = await axios.get(
-          `http://localhost:3000/users/${cookies.User._id}`,
+          `http://localhost:8000/users/${cookies.User._id}`,
           {
             headers: { Authorization: cookies.UserToken }
           }

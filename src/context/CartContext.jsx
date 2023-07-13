@@ -11,7 +11,8 @@ const CartContext = React.createContext({
   removeItem : (id) => {},
   clearCart : () => {},
   sendCartItems: (cart)=>{},
-  fetchCartItems:()=>{}
+  fetchCartItems:()=>{},
+  replaceCart: ()=>{}
 })
 
 export default CartContext

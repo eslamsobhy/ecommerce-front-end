@@ -110,6 +110,15 @@ function CartReducer(state, action) {
       changed: true
     };
   }
+  if (action.type === "REPLACE") {
+    
+    return {
+      items: action.items,
+      totalAmount: action.totalAmount,
+      totalItemsNum: action.totalItemsNum,
+      changed: true
+    };
+  }
 
   return defaultCartState;
 }
@@ -129,8 +138,9 @@ function CartProvider(props) {
     addItem: addItemHandler,
     removeItem: removeItemHandler,
     clearCart: clearCartHandler,
-    // fetchCartItems: fetchCartItems,
-    sendCartItems: sendCartItems
+    fetchCartItems: fetchCartItems,
+    sendCartItems: sendCartItems,
+    replaceCart: replaceCart
   };
 
   function addItemHandler(item) {
@@ -145,35 +155,43 @@ function CartProvider(props) {
     cartDispatch({ type: "CLEAR" });
   }
 
+  function replaceCart(cartItems,totalAmount) {
+    cartDispatch({ type: "REPLACE", items: cartItems, totalAmount: totalAmount });
+  }
+
   // ---------------------sync cart with backend methods------------------------------------
-  // async function fetchCartItems () {
-  //     const sendRequest = async () => {
-  //       const response = await fetch(
-  //         'https://react-fetching-d4ab5-default-rtdb.firebaseio.com/carts.json');
 
-  //         if (!response.ok) {
-  //           throw new Error('Sending cart data failed.');
-  //         }
+  async function fetchCartItems () {
+      const sendRequest = async () => {
+        const user = await axios.get(
+          `http://localhost:8000/users/${cookies.User._id}`,
+          { headers: { Authorization: cookies.UserToken } }
+        );
+        return user
+      };
 
-  //         const data = await response.json();
+      try {
+        const data = await sendRequest();
+        const cartItems = await data.user.cartItems;
+        
+        const totalAmount = cartItems.reduce((sum, item) => sum + item.amount * item.price, 0);
+      
+        cartDispatch({
+          type: "UPDATE_CART",
+          items: cartItems || [],
+          totalAmount: totalAmount,
+          totalItemsNum: cartItems.reduce((sum, item) => sum + item.amount, 0)
+        });
+      
+        console.log(data);
+      } catch (error) {
+        console.log(error);
+      }
 
-  //         return data;
-  //       };
+    }
 
-  //     try{
-  //       const cartData = await sendRequest()
-  //       console.log(cartData)
-  //       dispatch(cartSlice.actions.replaceCart({
-  //         items: cartData.items || [],
-  //         totalAmount: cartData.totalAmount,
-  //       }))
 
-  //     }catch(error){
-  //       console.log(error)
-  //     }
-
-  //   }
-
+    
   async function sendCartItems(cart) {
     const sendRequest = async () => {
       const reqData = {
