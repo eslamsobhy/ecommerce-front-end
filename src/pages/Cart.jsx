@@ -7,7 +7,6 @@ import UserContext from "../context/UserContext"
 import { toast } from "react-toastify";
 import { useCookies } from 'react-cookie';
 import axios from "axios";
-import { GiPriceTag } from "react-icons/gi";
 
 
 const Cart = () => {
@@ -61,18 +60,22 @@ const Cart = () => {
       { headers: { Authorization: `${cookies.UserToken}` } }
       )
       const orders = await response.data.order.map((item) => item.order.map((orderItem) => orderItem.product_id))
-      const products = await orders.map((order)=> order)
       setPurchasedItems(orders)
       const quantities = await response.data.order.map((item) => item.order.map((orderItem) => orderItem.quantity))
       setQuantities(quantities)
-      console.log("items displayed:",response.data.order.map((item) => item.order.map((orderItem) => orderItem.quantity)))
     }
     getOrderHistory()
   },[])
   
   useEffect(()=>{
-    if(myCart.changed){
-      myCart.fetchCartItems()
+    // if(myCart.changed){
+    //   myCart.fetchCartItems()
+    // }
+    async function getCartHistory(){
+      const response = await axios.get(`http://localhost:8000/users/${cookies.User._id}` ,
+      { headers: { Authorization: `${cookies.UserToken}` } }
+      )
+      
     }
   },[])
   
