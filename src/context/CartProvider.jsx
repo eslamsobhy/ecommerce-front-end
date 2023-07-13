@@ -4,16 +4,16 @@ import { useReducer } from "react";
 
 import CartContext from "./CartContext";
 import { useCookies } from "react-cookie";
-
+import axios from "axios";
 
 //--------------------------------Reducer-------------------------------------------
-const storedItems = JSON.parse(window.localStorage.getItem("cartItems"))
+const storedItems = JSON.parse(window.localStorage.getItem("cartItems"));
 let storedItemsAmount = 0;
 let storedItemsNum = 0;
 
 if (storedItems) {
   storedItemsAmount = storedItems.reduce((totalAmount, item) => {
-    return totalAmount +( item.amount * item.price);
+    return totalAmount + item.amount * item.price;
   }, 0);
 }
 
@@ -23,11 +23,10 @@ if (storedItems) {
   }, 0);
 }
 
-
 const defaultCartState = {
-  items: storedItems? storedItems : [],
-  totalAmount: storedItems? storedItemsAmount : 0,
-  totalItemsNum : storedItems? storedItemsNum : 0,
+  items: storedItems ? storedItems : [],
+  totalAmount: storedItems ? storedItemsAmount : 0,
+  totalItemsNum: storedItems ? storedItemsNum : 0,
   changed: false
 };
 
@@ -43,11 +42,11 @@ function CartReducer(state, action) {
     const existingCartItem = state.items[existingCartItemIndex];
     let updatedItems;
     let updatedTotalItemsNum;
-    
+
     if (existingCartItem) {
       const updatedItem = {
         ...existingCartItem,
-        amount: existingCartItem.amount + action.item.amount,
+        amount: existingCartItem.amount + action.item.amount
       };
 
       updatedItems = [...state.items];
@@ -60,12 +59,12 @@ function CartReducer(state, action) {
       return total + item.amount;
     }, 0);
 
-    window.localStorage.setItem("cartItems",JSON.stringify(updatedItems))
+    window.localStorage.setItem("cartItems", JSON.stringify(updatedItems));
     return {
       items: updatedItems,
       totalAmount: updatedTotalAmount,
-      totalItemsNum : updatedTotalItemsNum,
-      changed:true
+      totalItemsNum: updatedTotalItemsNum,
+      changed: true
     };
   }
 
@@ -93,22 +92,22 @@ function CartReducer(state, action) {
       return total + item.amount;
     }, 0);
 
-    window.localStorage.setItem("cartItems",JSON.stringify(updatedItems))
+    window.localStorage.setItem("cartItems", JSON.stringify(updatedItems));
     return {
       items: updatedItems,
       totalAmount: updatedTotalAmount,
       totalItemsNum: updatedTotalItemsNum,
-      changed:true
+      changed: true
     };
   }
 
   if (action.type === "CLEAR") {
-    window.localStorage.removeItem("cartItems")
+    window.localStorage.removeItem("cartItems");
     return {
       items: [],
       totalAmount: 0,
       totalItemsNum: 0,
-      changed:true
+      changed: true
     };
   }
 
@@ -118,7 +117,7 @@ function CartReducer(state, action) {
 //--------------------------------Provider-------------------------------------------
 
 function CartProvider(props) {
-const [cookies, setCookies] = useCookies(["User","UserToken"]);
+  const [cookies, setCookies] = useCookies(["User", "UserToken"]);
 
   const [cartState, cartDispatch] = useReducer(CartReducer, defaultCartState);
 
@@ -126,12 +125,12 @@ const [cookies, setCookies] = useCookies(["User","UserToken"]);
     items: cartState.items,
     totalAmount: cartState.totalAmount,
     totalItemsNum: cartState.totalItemsNum,
-    changed : cartState.changed,
+    changed: cartState.changed,
     addItem: addItemHandler,
     removeItem: removeItemHandler,
     clearCart: clearCartHandler,
     // fetchCartItems: fetchCartItems,
-    sendCartItems : sendCartItems
+    sendCartItems: sendCartItems
   };
 
   function addItemHandler(item) {
@@ -146,77 +145,57 @@ const [cookies, setCookies] = useCookies(["User","UserToken"]);
     cartDispatch({ type: "CLEAR" });
   }
 
-//---------------------sync cart with backend methods------------------------------------
-// async function fetchCartItems () {
-//     const sendRequest = async () => {
-//       const response = await fetch(
-//         'https://react-fetching-d4ab5-default-rtdb.firebaseio.com/carts.json');
+  // ---------------------sync cart with backend methods------------------------------------
+  // async function fetchCartItems () {
+  //     const sendRequest = async () => {
+  //       const response = await fetch(
+  //         'https://react-fetching-d4ab5-default-rtdb.firebaseio.com/carts.json');
 
-//         if (!response.ok) {
-//           throw new Error('Sending cart data failed.');
-//         }
+  //         if (!response.ok) {
+  //           throw new Error('Sending cart data failed.');
+  //         }
 
-//         const data = await response.json();
+  //         const data = await response.json();
 
-//         return data;
-//       };
+  //         return data;
+  //       };
 
-//     try{
-//       const cartData = await sendRequest()
-//       console.log(cartData)
-//       dispatch(cartSlice.actions.replaceCart({
-//         items: cartData.items || [],
-//         totalAmount: cartData.totalAmount,
-//       }))
-      
-//     }catch(error){
-//       console.log(error)
-//     }
+  //     try{
+  //       const cartData = await sendRequest()
+  //       console.log(cartData)
+  //       dispatch(cartSlice.actions.replaceCart({
+  //         items: cartData.items || [],
+  //         totalAmount: cartData.totalAmount,
+  //       }))
 
-//   }
+  //     }catch(error){
+  //       console.log(error)
+  //     }
 
+  //   }
 
-
-async function sendCartItems(cart) {
+  async function sendCartItems(cart) {
     const sendRequest = async () => {
-      // const formData = new FormData()
-      // formData.append(
-      //   'cart_items',
-      //   JSON.stringify(
-      //     cart.items.map((item) => ({
-      //       product: "64a19b729f5ab3edc98dc1b7",
-      //       quantity: item.amount
-      //     }))
-      //   ));
       const reqData = {
         cart_items: cart.items.map((item) => ({
-          product: "64a19b729f5ab3edc98dc1b7",
-          quantity: item.amount,
-        })),
+          product: item.id,
+          quantity: item.amount
+        }))
       };
-        console.log(JSON.stringify(reqData))
-      const response = await fetch(
-        `http://localhost:3000/users/${cookies.User._id}`,
-        {
-          method: 'PATCH',
-          headers: { Authorization: `${cookies.UserToken}`},
-          body:JSON.stringify(reqData)
-        });
-      if (!response.ok) {
-        throw new Error('Sending cart data failed.');
-      }
-      const responseData = await response.json();
-      console.log(responseData);
+
+      await axios.patch(
+        `http://localhost:8000/users/${cookies.User._id}`,
+        reqData,
+        { headers: { Authorization: cookies.UserToken } }
+      );
     };
+
     try {
       await sendRequest();
-    
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
   }
-
-
 
   return (
     <CartContext.Provider value={cartContextValue}>
@@ -224,10 +203,5 @@ async function sendCartItems(cart) {
     </CartContext.Provider>
   );
 }
-
-
-
-
-
 
 export default CartProvider;
