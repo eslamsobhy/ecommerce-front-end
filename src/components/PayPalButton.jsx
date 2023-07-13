@@ -44,7 +44,7 @@ const ButtonWrapper = ({ currency, showSpinner }) => {
   return (
     <>
       {showSpinner && isPending && <div className="spinner" />}
-      <PayPalButtons
+      <PayPalButtons 
         style={style}
         disabled={false}
         forceReRender={[amount, currency, style]}
