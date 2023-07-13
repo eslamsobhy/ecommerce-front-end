@@ -50,17 +50,17 @@ const Checkout = (props) => {
         { headers: { Authorization: `${cookies.UserToken}` } }
       );
       // create order in the backend 
-      const reqData = {
-        order: CartCTX.items.map((item) => ({
-          product_id : item.id,
-          quantity : item.amount
-        }))
-      };
-      const response2 = await axios.post(`http://localhost:8000/orders`,
-      reqData,
-      { headers: { Authorization: `${cookies.UserToken}` } }
-      )
       if (data.paymentMethod == "Cash") {
+        const reqData = {
+          order: CartCTX.items.map((item) => ({
+            product_id : item.id,
+            quantity : item.amount
+          }))
+        };
+        const response2 = await axios.post(`http://localhost:8000/orders`,
+        reqData,
+        { headers: { Authorization: `${cookies.UserToken}` } }
+        )
         emailjs.sendForm(
           "service_97xavkg",
           "template_6bes58a",
@@ -179,23 +179,16 @@ const Checkout = (props) => {
               className="hidden"
               {...register("items")}
               defaultValue={`${
-                window.localStorage.getItem("cartItems")
-                  ? JSON.parse(window.localStorage.getItem("cartItems"))
-                      .map((item) => item.name)
-                      .join(", ")
-                  : ""
-              }`}
+                CartCTX? CartCTX.items.map((item) => item.name).join(", "): "" }`}
             />
             {/* total totalAmount sent to email */}
             <input
               className="hidden"
               {...register("totalAmount")}
-              defaultValue={`${
-                window.localStorage.getItem("totalAmount")
-                  ? JSON.parse(window.localStorage.getItem("totalAmount"))
-                  : ""
-              }`}
+              defaultValue={`${ CartCTX?
+                CartCTX.totalAmount:"" }`}
             />
+            {console.log(CartCTX.items.reduce((acc, item) => { acc + item.amount * item.price }))}
             <div className="mb-4">
               <label htmlFor="address" className="block mb-2">
                 Address:
@@ -268,68 +261,26 @@ const Checkout = (props) => {
         </div>
 
         {/* Items */}
-        <div className="  m-3 p-1 rounded-lg items drop-shadow-md flex flex-wrap items-start ">
-          {CartCTX.items
-            ? CartCTX.items.map((product) => (
-                <div
-                  key={product.id}
-                  className="card border max-w-[120px] my-10 mx-1 p-2 w-96 bg-white shadow-md rounded-lg"
-                >
-                  <figure>
-                    <img src={product.image} />
-                  </figure>
-                  <div className="card-body">
-                    <h2 className="card-title text-bold">{product.name}</h2>
-                    <div className="text-gray-700">
-                      pieces: {product.amount}
-                    </div>
-                    <div className="badge badge-outline text-gray-500">
-                      {product.price}LE
-                    </div>
+        <div className="flex flex-wrap justify-center gap-4 overflow-y-auto" style={{ maxHeight: "calc(100vh - 200px)" }}>
+          {CartCTX.items && CartCTX.items.map((product) => (
+            <div key={product.id} className="max-w-sm my-2 rounded-lg overflow-hidden shadow-md bg-white">
+              <img src={product.image} alt={product.name} className="w-full h-48 object-cover" />
+              <div className="px-4 py-2">
+                <h2 className="text-lg font-semibold text-gray-800">{product.name}</h2>
+                <div className="text-gray-700 text-sm">{product.amount} pieces</div>
+                <div className="flex items-center justify-between">
+                  <div className="text-gray-600 font-medium">{product.price}LE</div>
+                  <div className="text-indigo-600 flex items-center">
+                    <svg className="w-4 h-4 mr-1 stroke-current stroke-2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M12 5l2 5h5l-4 4 2.103 5L12 16l-5.103 3L9 14l-4-4h5l2-5z" />
+                    </svg>
+                    <div className="text-sm">{product.rate}</div>
                   </div>
                 </div>
-              ))
-            : window.localStorage.getItem("cartItems")
-            ? JSON.parse(window.localStorage.getItem("cartItems")).map(
-                (product) => (
-                  <div
-                    key={product.id}
-                    className="card border mx-1 p-4 w-96 bg-white shadow-md rounded-lg"
-                  >
-                    <figure>
-                      <img src={product.image} />
-                    </figure>
-                    <div className="card-body">
-                      <h2 className="card-title">{product.name}</h2>
-                      <div className="card-actions justify-end">
-                        <div className="badge badge-outline">
-                          <dd className="text-indigo-600 flex items-center dark:text-orange-500">
-                            <svg
-                              width="24"
-                              height="24"
-                              fill="none"
-                              aria-hidden="true"
-                              className="mr-1 stroke-current dark:stroke-orange-500"
-                            >
-                              <path
-                                d="m12 5 2 5h5l-4 4 2.103 5L12 16l-5.103 3L9 14l-4-4h5l2-5Z"
-                                strokeWidth="2"
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                              />
-                            </svg>{" "}
-                            {product.rate}
-                          </dd>
-                        </div>
-                        <div className="badge badge-outline text-gray-500">
-                          {product.price}LE
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                )
-              )
-            : "Cart Is Empty"}
+              </div>
+            </div>
+          ))}
+          {!CartCTX.items && <div className="text-gray-500">Cart Is Empty</div>}
         </div>
       </div>
       <ToastContainer />

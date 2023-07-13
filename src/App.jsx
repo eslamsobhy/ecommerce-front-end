@@ -30,8 +30,13 @@ function App() {
   }, []);
 
   useEffect(()=>{
-    myCart.fetchCartItems()
+    if(myCart.changed){
+      myCart.fetchCartItems()
+      console.log("fetch fired changed status :" , myCart.changed)
+    }
+    
   },[])
+
 
   useEffect(() => {
     if (firstRender) {
@@ -40,7 +45,6 @@ function App() {
     }
     if (myCart.changed) {
       myCart.sendCartItems(myCart);
-      
     }
     
   }, [myCart]);

@@ -7,27 +7,11 @@ import { useCookies } from "react-cookie";
 import axios from "axios";
 
 //--------------------------------Reducer-------------------------------------------
-// const storedItems = JSON.parse(window.localStorage.getItem("cartItems"));
-const storedItems = "";
-let storedItemsAmount = 0;
-let storedItemsNum = 0;
-
-if (storedItems) {
-  storedItemsAmount = storedItems.reduce((totalAmount, item) => {
-    return totalAmount + item.amount * item.price;
-  }, 0);
-}
-
-if (storedItems) {
-  storedItemsNum = storedItems.reduce((totalAmount, item) => {
-    return totalAmount + item.amount;
-  }, 0);
-}
 
 const defaultCartState = {
-  items: storedItems ? storedItems : [],
-  totalAmount: storedItems ? storedItemsAmount : 0,
-  totalItemsNum: storedItems ? storedItemsNum : 0,
+  items: [],
+  totalAmount: 0,
+  totalItemsNum: 0,
   changed: false,
 };
 
@@ -156,8 +140,9 @@ function CartProvider(props) {
     cartDispatch({ type: "CLEAR" });
   }
 
-  function replaceCart(cartItems,totalAmount) {
-    cartDispatch({ type: "REPLACE", items: cartItems, totalAmount: totalAmount });
+  function replaceCart(cartItems,totalAmount,totalItemsNum) {
+    cartDispatch({ type: "REPLACE", items: cartItems, totalAmount: totalAmount ,totalItemsNum:totalItemsNum});
+    console.log(totalItemsNum)
   }
 
   // ---------------------sync cart with backend methods------------------------------------
@@ -172,19 +157,19 @@ function CartProvider(props) {
       };
 
       try {
-        const data = await sendRequest();
-        const cartItems = await data.user.cartItems;
-        
-        const totalAmount = cartItems.reduce((sum, item) => sum + item.amount * item.price, 0);
-      
+        const response = await sendRequest();
+        console.log(await response.data.use)
+        const cartItems = JSON.parse(await response.data.user.cart_items) ;
+        console.log(cartItems)
+        const totalAmount = JSON.parse(await cartItems.reduce((sum, item) => sum + item.amount * item.price, 0));
         cartDispatch({
-          type: "UPDATE_CART",
+          type: "REPLACE",
           items: cartItems || [],
           totalAmount: totalAmount,
           totalItemsNum: cartItems.reduce((sum, item) => sum + item.amount, 0)
         });
       
-        console.log(data);
+        console.log(response);
       } catch (error) {
         console.log(error);
       }

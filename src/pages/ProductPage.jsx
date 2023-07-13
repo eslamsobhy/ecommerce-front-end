@@ -12,7 +12,7 @@ import ProductRoute from "../components/Product/ProductRoute";
 
 const ProductPage = () => {
   const [product, setProduct] = useState(null);
-  const [count, setCount] = useState(0);
+  const [count, setCount] = useState(1);
   const myCart = useContext(CartContext);
   const { id } = useParams();
 

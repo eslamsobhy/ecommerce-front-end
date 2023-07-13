@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 /* eslint-disable no-unused-vars */
 // Import Swiper React components
 import { useContext, useEffect, useState } from "react";

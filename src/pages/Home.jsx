@@ -34,7 +34,7 @@ export default function Home() {
 
   useEffect(() => {
     // async function getProducts(){
-    // const response = await axios.get("http://localhost:3000/products")
+    // const response = await axios.get("http://localhost:8000/products")
     // console.log(response.data)
     // setProducts(response.data)
     // }
@@ -48,7 +48,6 @@ export default function Home() {
             headers: { Authorization: cookies.UserToken }
           }
         );
-        console.log(response);
         setCookies("User", response.data.user);
       } catch (error) {
         console.error(error);

@@ -17,9 +17,8 @@ const CartItem = ({item, onAdd , onRemove}) => {
             src={item.image}
             alt="Image not Found"
           />
-
           <div className="flex flex-col mr-2">
-            <h5 className="text-xl font-bold">{item.name}</h5>
+            <h5 className="text-l font-bold">{item.name}</h5>
             <p className="my-1">details here</p>
       
             <div className="flex gap-2">

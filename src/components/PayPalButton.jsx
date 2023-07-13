@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
 import { useContext, useEffect, useState } from "react";
 import {
@@ -7,12 +8,15 @@ import {
 } from "@paypal/react-paypal-js";
 import CartContext from "../context/CartContext.jsx";
 import emailjs from 'emailjs-com';
+import { useCookies } from "react-cookie";
+import axios from "axios";
 
 const ButtonWrapper = ({ currency, showSpinner }) => {
   const [{ options, isPending }, dispatch] = usePayPalScriptReducer();
   const CartCTX = useContext(CartContext);
   const [amount, setAmount] = useState("");
   const style = { layout: "vertical" };
+  const [cookies, setCookies] = useCookies(["User"]);
   emailjs.init('ieyQAv01RBSvsmGou');
 
   useEffect(() => {
@@ -69,10 +73,20 @@ const ButtonWrapper = ({ currency, showSpinner }) => {
         onApprove={async function (data, actions) {
           await actions.order.capture();
           sendEmail(data);
-          window.localStorage.setItem("purchasedItems", JSON.stringify(CartCTX.items));
+          // window.localStorage.setItem("purchasedItems", JSON.stringify(CartCTX.items));
+          const reqData = {
+            order: CartCTX.items.map((item) => ({
+              product_id : item.id,
+              quantity : item.amount
+            }))
+          };
+          const response2 = await axios.post(`http://localhost:8000/orders`,
+          reqData,
+          { headers: { Authorization: `${cookies.UserToken}` } }
+          )
           CartCTX.clearCart();
           // window.localStorage.setItem("cartItems", "");
-          // window.localStorage.setItem("totalAmount", "")
+          window.localStorage.setItem("totalAmount", "")
             .then((result_2) => {
               console.log(result_2.text);
             }, (error) => {
