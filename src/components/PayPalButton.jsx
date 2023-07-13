@@ -8,7 +8,7 @@ import {
 import CartContext from "../context/CartContext.jsx";
 import emailjs from 'emailjs-com';
 
-const ButtonWrapper = ({ currency, showSpinner }) => {
+const ButtonWrapper = ({form , currency, showSpinner }) => {
   const [{ options, isPending }, dispatch] = usePayPalScriptReducer();
   const CartCTX = useContext(CartContext);
   const [amount, setAmount] = useState("");
@@ -31,7 +31,7 @@ const ButtonWrapper = ({ currency, showSpinner }) => {
       await emailjs.sendForm(
         'service_97xavkg',
         'template_6bes58a',
-        data,
+        form,
         'ieyQAv01RBSvsmGou'
       );
       console.log('Email sent successfully');
@@ -84,7 +84,7 @@ const ButtonWrapper = ({ currency, showSpinner }) => {
   );
 };
 
-export default function PayPal() {
+export default function PayPal({form}) {
   const currency = "USD";
 
   return (
@@ -96,7 +96,7 @@ export default function PayPal() {
           currency: "USD",
         }}
       >
-        <ButtonWrapper currency={currency} showSpinner={false} />
+        <ButtonWrapper form={form} currency={currency} showSpinner={false} />
       </PayPalScriptProvider>
     </div>
   );
