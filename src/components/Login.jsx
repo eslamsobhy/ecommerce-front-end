@@ -9,6 +9,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import { useCookies } from 'react-cookie';
 import UserContext from "../context/UserContext"
 import { useContext } from "react";
+import 'react-toastify/dist/ReactToastify.css';
 
 function Login(){
   const [cookies, setCookie] = useCookies(['UserToken','User']);
@@ -29,8 +30,18 @@ function Login(){
     userCTX.toggleModal();
 
   } catch (error) {
-    console.error(error);
-    error.response ? toast.error(error.response.data.message) : ''
+    // console.error(error);
+    error.response ? toast.error(error.response.data.message, {
+      position: "top-right",
+      autoClose: 2000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+      }) : ''
+
   }
 }
 

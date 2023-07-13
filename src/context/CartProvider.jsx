@@ -48,7 +48,6 @@ function CartReducer(state, action) {
       const updatedItem = {
         ...existingCartItem,
         amount: existingCartItem.amount + action.item.amount,
-        changed:true
       };
 
       updatedItems = [...state.items];
@@ -65,7 +64,8 @@ function CartReducer(state, action) {
     return {
       items: updatedItems,
       totalAmount: updatedTotalAmount,
-      totalItemsNum : updatedTotalItemsNum
+      totalItemsNum : updatedTotalItemsNum,
+      changed:true
     };
   }
 
@@ -98,6 +98,7 @@ function CartReducer(state, action) {
       items: updatedItems,
       totalAmount: updatedTotalAmount,
       totalItemsNum: updatedTotalItemsNum,
+      changed:true
     };
   }
 
@@ -107,6 +108,7 @@ function CartReducer(state, action) {
       items: [],
       totalAmount: 0,
       totalItemsNum: 0,
+      changed:true
     };
   }
 
@@ -116,7 +118,7 @@ function CartReducer(state, action) {
 //--------------------------------Provider-------------------------------------------
 
 function CartProvider(props) {
-const [cookies, setCookies] = useCookies(["User"]);
+const [cookies, setCookies] = useCookies(["User","UserToken"]);
 
   const [cartState, cartDispatch] = useReducer(CartReducer, defaultCartState);
 
@@ -128,7 +130,7 @@ const [cookies, setCookies] = useCookies(["User"]);
     addItem: addItemHandler,
     removeItem: removeItemHandler,
     clearCart: clearCartHandler,
-    fetchCartItems: fetchCartItems,
+    // fetchCartItems: fetchCartItems,
     sendCartItems : sendCartItems
   };
 
@@ -145,54 +147,66 @@ const [cookies, setCookies] = useCookies(["User"]);
   }
 
 //---------------------sync cart with backend methods------------------------------------
-async function fetchCartItems () {
-    const sendRequest = async () => {
-      const response = await fetch(
-        'https://react-fetching-d4ab5-default-rtdb.firebaseio.com/carts.json');
+// async function fetchCartItems () {
+//     const sendRequest = async () => {
+//       const response = await fetch(
+//         'https://react-fetching-d4ab5-default-rtdb.firebaseio.com/carts.json');
 
-        if (!response.ok) {
-          throw new Error('Sending cart data failed.');
-        }
+//         if (!response.ok) {
+//           throw new Error('Sending cart data failed.');
+//         }
 
-        const data = await response.json();
+//         const data = await response.json();
 
-        return data;
-      };
+//         return data;
+//       };
 
-    try{
-      const cartData = await sendRequest()
-      console.log(cartData)
-      dispatch(cartSlice.actions.replaceCart({
-        items: cartData.items || [],
-        totalAmount: cartData.totalAmount,
-      }))
+//     try{
+//       const cartData = await sendRequest()
+//       console.log(cartData)
+//       dispatch(cartSlice.actions.replaceCart({
+//         items: cartData.items || [],
+//         totalAmount: cartData.totalAmount,
+//       }))
       
-    }catch(error){
-      console.log(error)
-    }
+//     }catch(error){
+//       console.log(error)
+//     }
 
-  }
+//   }
 
 
 
 async function sendCartItems(cart) {
     const sendRequest = async () => {
+      // const formData = new FormData()
+      // formData.append(
+      //   'cart_items',
+      //   JSON.stringify(
+      //     cart.items.map((item) => ({
+      //       product: "64a19b729f5ab3edc98dc1b7",
+      //       quantity: item.amount
+      //     }))
+      //   ));
+      const reqData = {
+        cart_items: cart.items.map((item) => ({
+          product: "64a19b729f5ab3edc98dc1b7",
+          quantity: item.amount,
+        })),
+      };
+        console.log(JSON.stringify(reqData))
       const response = await fetch(
         `http://localhost:3000/users/${cookies.User._id}`,
         {
-          method: 'PUT',
-          body: JSON.stringify({
-            cart_items: cart.items.map((item) => ({
-              product: item.id,
-              quantity: item.amount,
-            })),
-            totalAmount: cart.totalAmount,
-          })
+          method: 'PATCH',
+          headers: { Authorization: `${cookies.UserToken}`},
+          body:JSON.stringify(reqData)
         });
-
       if (!response.ok) {
         throw new Error('Sending cart data failed.');
       }
+      const responseData = await response.json();
+      console.log(responseData);
     };
     try {
       await sendRequest();

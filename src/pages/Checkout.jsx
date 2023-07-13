@@ -12,6 +12,8 @@ import { useCookies } from "react-cookie";
 import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import emailjs from "emailjs-com";
+import 'react-toastify/dist/ReactToastify.css';
+
 
 const Checkout = (props) => {
   const {
@@ -73,7 +75,16 @@ const Checkout = (props) => {
         );
       }
     } catch (error) {
-      toast.error(error);
+      toast.error(error, {
+        position: "top-right",
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+        });
     }
   };
 

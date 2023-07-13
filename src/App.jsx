@@ -29,9 +29,9 @@ function App() {
     fetchProducts();
   }, []);
 
-  useEffect(()=>{
-    myCart.fetchCartItems()
-  },[])
+  // useEffect(()=>{
+  //   myCart.fetchCartItems()
+  // },[])
 
   useEffect(() => {
     if (firstRender) {
@@ -40,7 +40,9 @@ function App() {
     }
     if (myCart.changed) {
       myCart.sendCartItems(myCart);
+      console.log(myCart, myCart.changed, "fired")
     }
+    console.log(myCart, myCart.changed, "fired")
   }, [myCart]);
 
   return (
