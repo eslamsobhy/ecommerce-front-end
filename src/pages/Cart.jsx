@@ -1,19 +1,18 @@
 /* eslint-disable no-unused-vars */
-import { useContext, useEffect, useState } from "react"
-import CartItem from "../components/CartItem"
-import cartContext from "../context/CartContext"
+import { useContext, useEffect, useState } from "react";
+import CartItem from "../components/CartItem";
+import cartContext from "../context/CartContext";
 import { useNavigate } from "react-router-dom";
-import UserContext from "../context/UserContext"
+import UserContext from "../context/UserContext";
 import { toast } from "react-toastify";
-import { useCookies } from 'react-cookie';
+import { useCookies } from "react-cookie";
 import axios from "axios";
 
-
 const Cart = () => {
-  const userCTX = useContext(UserContext)
-  const myCart = useContext(cartContext)
+  const userCTX = useContext(UserContext);
+  const myCart = useContext(cartContext);
   const navigate = useNavigate();
-  const [cookies, setCookie] = useCookies(['UserToken','User']);
+  const [cookies, setCookie] = useCookies(["UserToken", "User"]);
   const [showPurchasedItems, setShowPurchasedItems] = useState(false);
   const [PurchasedItems, setPurchasedItems] = useState([]);
   const [quantities, setQuantities] = useState([]);
@@ -27,45 +26,47 @@ const Cart = () => {
   }
 
   function addItemHandler(item) {
-    myCart.addItem({ 
-      
-        id: item.id,
-        name : item.name,
-        image: item.image ? item.image : item.images[0].url,
-        price: item.price,
-      
-      amount: 1 });
+    myCart.addItem({
+      id: item.id,
+      name: item.name,
+      image: item.image ? item.image : item.images[0].url,
+      price: item.price,
+
+      amount: 1
+    });
   }
 
-  function checkoutHandler(){
-    const cartIsNotEmpty = myCart.totalItemsNum ? true : false
-    const userStatus = window.localStorage.getItem("logged")
+  function checkoutHandler() {
+    const cartIsNotEmpty = myCart.totalItemsNum ? true : false;
+    const userStatus = window.localStorage.getItem("logged");
 
-
-    if(userStatus && cartIsNotEmpty){
-      navigate("/checkout")
-    }else if(!userStatus){
-      userCTX.toggleModal()
-      toast(`Please Sign First!`)
-    }else if(!cartIsNotEmpty){
-      toast(`The Cart Is Empty ${cookies.User['first_name']}!`)
+    if (userStatus && cartIsNotEmpty) {
+      navigate("/checkout");
+    } else if (!userStatus) {
+      userCTX.toggleModal();
+      toast(`Please Sign First!`);
+    } else if (!cartIsNotEmpty) {
+      toast(`The Cart Is Empty ${cookies.User["first_name"]}!`);
     }
-
   }
 
-  useEffect(()=>{
-    async function getOrderHistory(){
-      const response = await axios.get(`http://localhost:8000/orders/user/${cookies.User._id}` ,
-      { headers: { Authorization: `${cookies.UserToken}` } }
-      )
-      const orders = await response.data.order.map((item) => item.order.map((orderItem) => orderItem.product_id))
-      setPurchasedItems(orders)
-      const quantities = await response.data.order.map((item) => item.order.map((orderItem) => orderItem.quantity))
-      setQuantities(quantities)
+  useEffect(() => {
+    async function getOrderHistory() {
+      const response = await axios.get(
+        `${import.meta.env.VITE_API_URL}orders/user/${cookies.User._id}`,
+        { headers: { Authorization: `${cookies.UserToken}` } }
+      );
+      const orders = await response.data.order.map((item) =>
+        item.order.map((orderItem) => orderItem.product_id)
+      );
+      setPurchasedItems(orders);
+      const quantities = await response.data.order.map((item) =>
+        item.order.map((orderItem) => orderItem.quantity)
+      );
+      setQuantities(quantities);
     }
-    getOrderHistory()
-  },[])
-  
+    getOrderHistory();
+  }, []);
 
   return (
     <>
@@ -81,25 +82,41 @@ const Cart = () => {
             {myCart.items.length !== 0 ? (
               myCart.items.length ? (
                 myCart.items.map((item) => (
-                  <CartItem item={item} key={item.id} onAdd={() => addItemHandler(item)} onRemove={() => removeItemHandler(item.id)} />
+                  <CartItem
+                    item={item}
+                    key={item.id}
+                    onAdd={() => addItemHandler(item)}
+                    onRemove={() => removeItemHandler(item.id)}
+                  />
                 ))
               ) : (
-                localStorage.getItem('cartItems') &&
-                JSON.parse(localStorage.getItem('cartItems')).map((item) => (
-                  <CartItem item={item} key={item.id} onAdd={() => addItemHandler(item)} onRemove={() => removeItemHandler(item.id)} />
+                localStorage.getItem("cartItems") &&
+                JSON.parse(localStorage.getItem("cartItems")).map((item) => (
+                  <CartItem
+                    item={item}
+                    key={item.id}
+                    onAdd={() => addItemHandler(item)}
+                    onRemove={() => removeItemHandler(item.id)}
+                  />
                 ))
               )
             ) : (
-              <p className="mx-auto max-w-fit py-1 px-2 font-semibold text-xl my-3 rounded-full">Cart is empty!</p>
+              <p className="mx-auto max-w-fit py-1 px-2 font-semibold text-xl my-3 rounded-full">
+                Cart is empty!
+              </p>
             )}
           </section>
           <aside className="col-span-5 lg:col-span-2">
             <div className="py-6 bg-gray-50 flex flex-col px-5">
               <h6 className="font-semibold text-xl">Subtotal</h6>
               <span>
-                {myCart.totalItemsNum} items:<span className="font-bold"> {myCart.totalAmount} LE</span>
+                {myCart.totalItemsNum} items:
+                <span className="font-bold"> {myCart.totalAmount} LE</span>
               </span>
-              <button onClick={checkoutHandler} className="bg-f37020 px-2 max-w-[200px] rounded block">
+              <button
+                onClick={checkoutHandler}
+                className="bg-f37020 px-2 max-w-[200px] rounded block"
+              >
                 Checkout
               </button>
               <button
@@ -113,38 +130,56 @@ const Cart = () => {
             {showPurchasedItems && PurchasedItems && (
               <div className="purchased-container max-w-[340px] border border-spacing-x-4 mr-3 p-1">
                 <div className="purchased-items">
-                  {PurchasedItems.map((items,ind) => (
-
-                    items.map((item,index)=>(
-                      <div className="flex justify-between my-1 border-b-[2px] py-1" key={item.id} >
-                      <div className="flex">
-                        <img className="max-w-[140px]" src={item.images[0].thumbnailUrl} alt="Image not Found" />
-                        <div className="flex flex-col">
-                          <h3 className="text-[13px] leading-4 font-bold">{item.name}</h3>
-                          <div className="flex gap-2 flex-col">
-                            {console.log(items)}
-                            <div className="text-f37020 text-[13px]">{quantities[ind][index]} pieces Purchased</div>
-                            <div className="me-1 text-bold"> { item.stock_count * item.new_price } LE </div>
-                            <button className="bg-black text-white hover:bg-orange-600 text-[13px] px-2 py-1 rounded-lg" onClick={() => addItemHandler(item)}>buy again!</button>
+                  {PurchasedItems.map((items, ind) =>
+                    items.map((item, index) => (
+                      <div
+                        className="flex justify-between my-1 border-b-[2px] py-1"
+                        key={item.id}
+                      >
+                        <div className="flex">
+                          <img
+                            className="max-w-[140px]"
+                            src={item.images[0].thumbnailUrl}
+                            alt="Image not Found"
+                          />
+                          <div className="flex flex-col">
+                            <h3 className="text-[13px] leading-4 font-bold">
+                              {item.name}
+                            </h3>
+                            <div className="flex gap-2 flex-col">
+                              {console.log(items)}
+                              <div className="text-f37020 text-[13px]">
+                                {quantities[ind][index]} pieces Purchased
+                              </div>
+                              <div className="me-1 text-bold">
+                                {" "}
+                                {item.stock_count * item.new_price} LE{" "}
+                              </div>
+                              <button
+                                className="bg-black text-white hover:bg-orange-600 text-[13px] px-2 py-1 rounded-lg"
+                                onClick={() => addItemHandler(item)}
+                              >
+                                buy again!
+                              </button>
+                            </div>
                           </div>
                         </div>
                       </div>
-                    </div>
                     ))
-
-
-                    ))}
-                </div>
-                  {!PurchasedItems.length > 0 &&showPurchasedItems && (
-                    <p className="text-start pb-3 ml-6 text-gray-500 mt-4">No purchased items found.</p>
                   )}
+                </div>
+                {!PurchasedItems.length > 0 && showPurchasedItems && (
+                  <p className="text-start pb-3 ml-6 text-gray-500 mt-4">
+                    No purchased items found.
+                  </p>
+                )}
               </div>
             )}
           </aside>
         </div>
       </div>
     </>
-  )
-}
+  );
+};
 
-export default Cart
+export default Cart;

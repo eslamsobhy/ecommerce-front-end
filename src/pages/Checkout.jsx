@@ -12,8 +12,7 @@ import { useCookies } from "react-cookie";
 import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import emailjs from "emailjs-com";
-import 'react-toastify/dist/ReactToastify.css';
-
+import "react-toastify/dist/ReactToastify.css";
 
 const Checkout = (props) => {
   const {
@@ -49,18 +48,19 @@ const Checkout = (props) => {
         { address: data.address },
         { headers: { Authorization: `${cookies.UserToken}` } }
       );
-      // create order in the backend 
+      // create order in the backend
       if (data.paymentMethod == "Cash") {
         const reqData = {
           order: CartCTX.items.map((item) => ({
-            product_id : item.id,
-            quantity : item.amount
+            product_id: item.id,
+            quantity: item.amount
           }))
         };
-        const response2 = await axios.post(`http://localhost:8000/orders`,
-        reqData,
-        { headers: { Authorization: `${cookies.UserToken}` } }
-        )
+        const response2 = await axios.post(
+          `${import.meta.env.VITE_API_URL}orders`,
+          reqData,
+          { headers: { Authorization: `${cookies.UserToken}` } }
+        );
         emailjs.sendForm(
           "service_97xavkg",
           "template_6bes58a",
@@ -69,9 +69,9 @@ const Checkout = (props) => {
         );
 
         CartCTX.clearCart();
-                
+
         const response = await axios.patch(
-          `http://localhost:8000/users/${cookies.User._id}`,
+          `${import.meta.env.VITE_API_URL}users/${cookies.User._id}`,
           { cart_items: [] },
           { headers: { Authorization: `${cookies.UserToken}` } }
         );
@@ -83,7 +83,6 @@ const Checkout = (props) => {
             console.log(error.text);
           }
         );
-
       }
     } catch (error) {
       toast.error(error, {
@@ -94,8 +93,8 @@ const Checkout = (props) => {
         pauseOnHover: true,
         draggable: true,
         progress: undefined,
-        theme: "light",
-        });
+        theme: "light"
+      });
     }
   };
 
@@ -180,16 +179,16 @@ const Checkout = (props) => {
               className="hidden"
               {...register("items")}
               defaultValue={`${
-                CartCTX? CartCTX.items.map((item) => item.name).join(", "): "" }`}
+                CartCTX ? CartCTX.items.map((item) => item.name).join(", ") : ""
+              }`}
             />
             {/* total totalAmount sent to email */}
             <input
               className="hidden"
               {...register("totalAmount")}
-              defaultValue={`${ CartCTX?
-                CartCTX.totalAmount:"" }`}
+              defaultValue={`${CartCTX ? CartCTX.totalAmount : ""}`}
             />
-            
+
             <div className="mb-4">
               <label htmlFor="address" className="block mb-2">
                 Address:
@@ -262,25 +261,46 @@ const Checkout = (props) => {
         </div>
 
         {/* Items */}
-        <div className="flex flex-wrap justify-center gap-4 overflow-y-auto" style={{ maxHeight: "calc(100vh - 200px)" }}>
-          {CartCTX.items && CartCTX.items.map((product) => (
-            <div key={product.id} className="max-w-sm my-2 rounded-lg overflow-hidden shadow-md bg-white">
-              <img src={product.image} alt={product.name} className="w-full h-48 object-cover" />
-              <div className="px-4 py-2">
-                <h2 className="text-lg font-semibold text-gray-800">{product.name}</h2>
-                <div className="text-gray-700 text-sm">{product.amount} pieces</div>
-                <div className="flex items-center justify-between">
-                  <div className="text-gray-600 font-medium">{product.price}LE</div>
-                  <div className="text-indigo-600 flex items-center">
-                    <svg className="w-4 h-4 mr-1 stroke-current stroke-2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                      <path d="M12 5l2 5h5l-4 4 2.103 5L12 16l-5.103 3L9 14l-4-4h5l2-5z" />
-                    </svg>
-                    <div className="text-sm">{product.rate}</div>
+        <div
+          className="flex flex-wrap justify-center gap-4 overflow-y-auto"
+          style={{ maxHeight: "calc(100vh - 200px)" }}
+        >
+          {CartCTX.items &&
+            CartCTX.items.map((product) => (
+              <div
+                key={product.id}
+                className="max-w-sm my-2 rounded-lg overflow-hidden shadow-md bg-white"
+              >
+                <img
+                  src={product.image}
+                  alt={product.name}
+                  className="w-full h-48 object-cover"
+                />
+                <div className="px-4 py-2">
+                  <h2 className="text-lg font-semibold text-gray-800">
+                    {product.name}
+                  </h2>
+                  <div className="text-gray-700 text-sm">
+                    {product.amount} pieces
+                  </div>
+                  <div className="flex items-center justify-between">
+                    <div className="text-gray-600 font-medium">
+                      {product.price}LE
+                    </div>
+                    <div className="text-indigo-600 flex items-center">
+                      <svg
+                        className="w-4 h-4 mr-1 stroke-current stroke-2"
+                        viewBox="0 0 24 24"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path d="M12 5l2 5h5l-4 4 2.103 5L12 16l-5.103 3L9 14l-4-4h5l2-5z" />
+                      </svg>
+                      <div className="text-sm">{product.rate}</div>
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
-          ))}
+            ))}
           {!CartCTX.items && <div className="text-gray-500">Cart Is Empty</div>}
         </div>
       </div>

@@ -7,28 +7,27 @@ import axios from "axios";
 import { useCookies } from "react-cookie";
 import { FetchCartItems } from "./FetchCartItems";
 import { toast } from "react-toastify";
-import UserContext from "../context/UserContext"
+import UserContext from "../context/UserContext";
 //--------------------------------Reducer-------------------------------------------
 
-const result = await FetchCartItems()
+const result = await FetchCartItems();
 
 const defaultCartState = {
   items: result ? result.myItems : [],
   totalAmount: result ? result.totalAmount : 0,
-  totalItemsNum: result? result.totalItemsNum :0,
-  changed: false,
+  totalItemsNum: result ? result.totalItemsNum : 0,
+  changed: false
 };
-console.log(defaultCartState)
+console.log(defaultCartState);
 
 function CartReducer(state, action) {
-  const userCTX = useContext(UserContext)
+  const userCTX = useContext(UserContext);
 
   if (action.type === "ADD") {
-    if(window.localStorage.getItem("logged")){
-
-        const updatedTotalAmount =
+    if (window.localStorage.getItem("logged")) {
+      const updatedTotalAmount =
         state.totalAmount + action.item.amount * action.item.price;
-        
+
       const existingCartItemIndex = state.items.findIndex(
         (item) => item.id === action.item.id
       );
@@ -48,11 +47,11 @@ function CartReducer(state, action) {
       } else {
         updatedItems = state.items.concat(action.item);
       }
-      
+
       updatedTotalItemsNum = updatedItems.reduce((total, item) => {
         return total + item.amount;
       }, 0);
-      
+
       // window.localStorage.setItem("cartItems", JSON.stringify(updatedItems));
       return {
         items: updatedItems,
@@ -60,8 +59,8 @@ function CartReducer(state, action) {
         totalItemsNum: updatedTotalItemsNum,
         changed: true
       };
-    }else{
-      toast.info("Sign in first !",{
+    } else {
+      toast.info("Sign in first !", {
         position: "top-right",
         autoClose: 1500,
         hideProgressBar: false,
@@ -69,11 +68,11 @@ function CartReducer(state, action) {
         pauseOnHover: true,
         draggable: true,
         progress: undefined,
-        theme: "light",
-        })
-      userCTX.toggleModal()
+        theme: "light"
+      });
+      userCTX.toggleModal();
     }
-}
+  }
 
   if (action.type === "REMOVE") {
     const existingCartItemIndex = state.items.findIndex(
@@ -99,7 +98,6 @@ function CartReducer(state, action) {
       return total + item.amount;
     }, 0);
 
-
     return {
       items: updatedItems,
       totalAmount: updatedTotalAmount,
@@ -116,7 +114,6 @@ function CartReducer(state, action) {
       changed: true
     };
   }
-
 
   return defaultCartState;
 }
@@ -136,7 +133,7 @@ function CartProvider(props) {
     addItem: addItemHandler,
     removeItem: removeItemHandler,
     clearCart: clearCartHandler,
-    sendCartItems: sendCartItems,
+    sendCartItems: sendCartItems
     // replaceCart: replaceCart
   };
 
@@ -158,66 +155,65 @@ function CartProvider(props) {
   // }
   // ---------------------sync cart with backend methods------------------------------------
 
-  
-
-    
-    async function sendCartItems(cart,currentCartItems) {
-      const sendRequest = async () => {
-        // Fetch the current cart items from the backend
-        const response = await axios.get(`http://localhost:8000/users/${cookies.User._id}`, {
+  async function sendCartItems(cart, currentCartItems) {
+    const sendRequest = async () => {
+      // Fetch the current cart items from the backend
+      const response = await axios.get(
+        `${import.meta.env.VITE_API_URL}users/${cookies.User._id}`,
+        {
           headers: { Authorization: cookies.UserToken }
-        });
-        
-  
-        // Merge the current and new cart items
-        const mergedCartItems = mergeCartItems(currentCartItems, cart.items);
-  
-        // Update the cart items in the backend
-        const reqData = {
-          cart_items: mergedCartItems.map((item) => ({
-            product: item.id,
-            quantity: item.amount
-          }))
-        };
-        await axios.patch(
-          `http://localhost:8000/users/${cookies.User._id}`,
-          reqData,
-          { headers: { Authorization: cookies.UserToken } }
-        );
-      };
-  
-      try {
-        await sendRequest();
-      } catch (error) {
-        console.log(error);
-      }
-    }
-  
-    function mergeCartItems(currentCartItems, newCartItems) {
-      // If currentCartItems is undefined, set it to an empty array
-      currentCartItems = currentCartItems || [];
-    
-      // Create a map of the current cart items for easy lookup
-      const currentCartItemsMap = new Map();
-      currentCartItems.forEach((item) => {
-        currentCartItemsMap.set(item.id, item);
-      });
-    
-      // Merge the current and new cart items
-      const mergedCartItems = [...currentCartItems];
-      newCartItems.forEach((newItem) => {
-        const currentItem = currentCartItemsMap.get(newItem.id);
-        if (currentItem) {
-          // If the item already exists in the cart, update its amount
-          currentItem.amount += newItem.amount;
-        } else {
-          // If the item is new, add it to the cart
-          mergedCartItems.push(newItem);
         }
-      });
-    
-      return mergedCartItems;
+      );
+
+      // Merge the current and new cart items
+      const mergedCartItems = mergeCartItems(currentCartItems, cart.items);
+
+      // Update the cart items in the backend
+      const reqData = {
+        cart_items: mergedCartItems.map((item) => ({
+          product: item.id,
+          quantity: item.amount
+        }))
+      };
+      await axios.patch(
+        `${import.meta.env.VITE_API_URL}users/${cookies.User._id}`,
+        reqData,
+        { headers: { Authorization: cookies.UserToken } }
+      );
+    };
+
+    try {
+      await sendRequest();
+    } catch (error) {
+      console.log(error);
     }
+  }
+
+  function mergeCartItems(currentCartItems, newCartItems) {
+    // If currentCartItems is undefined, set it to an empty array
+    currentCartItems = currentCartItems || [];
+
+    // Create a map of the current cart items for easy lookup
+    const currentCartItemsMap = new Map();
+    currentCartItems.forEach((item) => {
+      currentCartItemsMap.set(item.id, item);
+    });
+
+    // Merge the current and new cart items
+    const mergedCartItems = [...currentCartItems];
+    newCartItems.forEach((newItem) => {
+      const currentItem = currentCartItemsMap.get(newItem.id);
+      if (currentItem) {
+        // If the item already exists in the cart, update its amount
+        currentItem.amount += newItem.amount;
+      } else {
+        // If the item is new, add it to the cart
+        mergedCartItems.push(newItem);
+      }
+    });
+
+    return mergedCartItems;
+  }
 
   return (
     <CartContext.Provider value={cartContextValue}>
@@ -225,12 +221,5 @@ function CartProvider(props) {
     </CartContext.Provider>
   );
 }
-
-
-
-
-
-
-
 
 export default CartProvider;
