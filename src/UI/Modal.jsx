@@ -11,6 +11,7 @@ function Backdrop(props) {
 }
 
 function ModalOverlay(props) {
+  console.log("modaloverlay rendered")
   return (
     <div className="fixed z-[51] top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2  bg-white px-5 py-10 rounded-lg shadow-md animate-slide-down">
       {props.children}

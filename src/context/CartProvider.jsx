@@ -151,7 +151,8 @@ function CartProvider(props) {
     removeItem: removeItemHandler,
     clearCart: clearCartHandler,
     sendCartItems: sendCartItems,
-    fetchCartItems: fetchCartItems
+    fetchCartItems: fetchCartItems,
+    replaceCart :replaceCart
   };
 
   function addItemHandler(item) {
@@ -264,14 +265,14 @@ async function fetchCartItems() {
         totalAmount: totalAmount || 0 ,
         totalItemsNum: totalItemsNum || 0
       });
-    // let result = { myItems, totalAmount, totalItemsNum };
-    // return result;
+    let result = { myItems, totalAmount, totalItemsNum };
+    return result;
   } catch (error) {
     console.log(error);
   }
 }
 
-fetchCartItems
+
 
 
   return (

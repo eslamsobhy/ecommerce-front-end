@@ -33,7 +33,6 @@ function App() {
 
 
   useEffect(() => {
-    
       const result = myCart.fetchCartItems();
       myCart.sendCartItems(myCart,result.myItems);
     
