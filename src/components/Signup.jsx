@@ -6,15 +6,12 @@ import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import UserContext from "../context/UserContext";
 import { useContext, useState } from "react";
-import { useCookies } from "react-cookie";
+import { useCookies } from 'react-cookie';
+import 'react-toastify/dist/ReactToastify.css';
 
-function Signup() {
-  const {
-    register,
-    handleSubmit,
-    formState: { errors }
-  } = useForm();
-  const userCTX = useContext(UserContext);
+function Signup(){
+  const {register , handleSubmit , formState: { errors }} = useForm()
+  const userCTX = useContext(UserContext)
   const [countryCode, setCountryCode] = useState("+1");
   const [cookies, setCookie] = useCookies(["UserToken", "User"]);
 
@@ -22,24 +19,41 @@ function Signup() {
     let { first_name, last_name, email, password, phone_number } = data;
 
     try {
-      const response = await axios.post(
-        `${import.meta.env.VITE_API_URL}/users/signup`,
-        { first_name, last_name, email, password, phone_number }
-      );
-      toast.success(
-        `your account has been created successfully ${first_name}!`
-      );
+    const response = await axios.post(`${import.meta.env.VITE_API_URL}/users/signup`,
+      {first_name,last_name, email, password,phone_number 
+    });
+    toast.success(`your account has been created successfully ${first_name}!`, {
+      position: "top-right",
+      autoClose: 2000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+      })
+    
+    setCookie('User', JSON.stringify(response.data.newUser));
+    setCookie('UserToken', response.data.token);
+    window.localStorage.setItem("logged", true)
 
       setCookie("User", JSON.stringify(response.data.newUser));
       setCookie("UserToken", response.data.token);
       window.localStorage.setItem("logged", true);
 
-      userCTX.toggleModal();
-      // console.log(response)
-    } catch (error) {
-      console.error(error);
-      error.response ? toast.error(error.response.data.message) : "";
-    }
+  } catch (error) {
+    console.error(error);
+    error.response ? toast.error(error.response.data.message, {
+      position: "top-right",
+      autoClose: 2000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+      }) : ''
+  }
   }
 
   return (

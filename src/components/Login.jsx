@@ -1,14 +1,15 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
 /* eslint-disable react/no-unescaped-entities */
-import { useForm } from "react-hook-form";
-import Modal from "../UI/Modal";
-import axios from "axios";
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
-import { useCookies } from "react-cookie";
-import UserContext from "../context/UserContext";
-import { useContext } from "react";
+import { useForm } from "react-hook-form"
+import Modal from "../UI/Modal"
+import axios  from "axios"
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { useCookies } from 'react-cookie';
+import UserContext from "../context/UserContext"
+import { useContext, useEffect } from "react";
+import 'react-toastify/dist/ReactToastify.css';
 
 function Login() {
   const [cookies, setCookie] = useCookies(["UserToken", "User"]);
@@ -28,18 +29,36 @@ function Login() {
         { email, password }
       );
 
-      setCookie("UserToken", response.data.token);
-      setCookie("User", JSON.stringify(response.data.user));
-      window.localStorage.setItem("logged", true);
-      toast(`Welcome back ${response.data.user?.["first_name"] || ""}!`);
-      userCTX.toggleModal();
-    } catch (error) {
-      console.error(error);
-      error.response ? toast.error(error.response.data.message) : "";
-    }
+    setCookie('UserToken', response.data.token);
+    setCookie('User', JSON.stringify(response.data.user));
+    window.localStorage.setItem("logged", true)
+    toast(`Welcome back ${response.data.user?.['first_name'] || ''}!`,{
+      position: "top-right",
+      autoClose: 1500,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+      })
+    userCTX.toggleModal();
+
+  } catch (error) {
+    // console.error(error);
+    error.response ? toast.error(error.response.data.message, {
+      position: "top-right",
+      autoClose: 2000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+      }) : ''
   }
 
-  return (
+  return(
     <>
       <Modal toggleModal={userCTX.toggleModal}>
         <h1 className="mx-auto w-fit text-2xl font-bold mb-4">Welcome back!</h1>

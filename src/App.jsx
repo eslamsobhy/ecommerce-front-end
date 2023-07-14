@@ -5,7 +5,7 @@ import Footer from "../src/components/Footer";
 import Home from "./pages/Home.jsx";
 import FreeShipping from "./pages/FreeShipping.jsx";
 import TechServices from "./pages/TechServices.jsx";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import Navbar from "./components/Navbar.jsx";
 import { Route, Routes } from "react-router";
 import NotFound from "./pages/NotFound.jsx";
@@ -14,15 +14,33 @@ import ProductPage from "./pages/ProductPage";
 import About from "./pages/About.jsx";
 import Subnav from "./components/Subnav.jsx";
 import { useGlobalContext } from "./context/ProductsContext.jsx";
+import CartContext from "./context/CartContext.jsx";
+import { FetchCartItems } from "./context/FetchCartItems.js";
+import { useCookies } from 'react-cookie';
+
 
 function App() {
   const [searchText, setSearchText] = useState("");
-
+  const [cookies, setCookie] = useCookies(['UserToken','User']);
   const { fetchProducts } = useGlobalContext();
+  const myCart = useContext(CartContext)
 
   useEffect(() => {
-    fetchProducts();
-  }, []);
+      fetchProducts();
+      window.localStorage.setItem('User',JSON.stringify(cookies.User))
+      window.localStorage.setItem('UserToken',cookies.UserToken)
+  }, [] );
+
+
+
+  //sending cart items to backend
+  useEffect(() => {
+    if (myCart.changed) {
+      const result = FetchCartItems();
+      myCart.sendCartItems(myCart,result.myItems);
+    }
+    
+  }, [myCart]);
 
   return (
     <>
