@@ -68,13 +68,13 @@ const Checkout = (props) => {
           "ieyQAv01RBSvsmGou"
         );
 
-        // window.localStorage.setItem(
-        //   "purchasedItems",
-        //   JSON.stringify(CartCTX.items)
-        // );
         CartCTX.clearCart();
-        // window.localStorage.setItem("cartItems", "");
-        // window.localStorage.setItem("totalAmount", "");
+                
+        const response = await axios.patch(
+          `http://localhost:8000/users/${cookies.User._id}`,
+          { cart_items: [] },
+          { headers: { Authorization: `${cookies.UserToken}` } }
+        );
         console.log(form.current).then(
           (result) => {
             console.log(result.text);
@@ -83,6 +83,7 @@ const Checkout = (props) => {
             console.log(error.text);
           }
         );
+
       }
     } catch (error) {
       toast.error(error, {
