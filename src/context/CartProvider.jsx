@@ -5,20 +5,28 @@ import { useContext, useReducer } from "react";
 import CartContext from "./CartContext";
 import axios from "axios";
 import { useCookies } from "react-cookie";
-import { FetchCartItems } from "./FetchCartItems";
+// import { FetchCartItems } from "./FetchCartItems";
 import { toast } from "react-toastify";
 import UserContext from "../context/UserContext";
 //--------------------------------Reducer-------------------------------------------
 
-const result = await FetchCartItems();
+// const result = await FetchCartItems();
+
+// const defaultCartState = {
+//   items: result ? result.myItems : [],
+//   totalAmount: result ? result.totalAmount : 0,
+//   totalItemsNum: result ? result.totalItemsNum : 0,
+//   changed: false
+// };
 
 const defaultCartState = {
-  items: result ? result.myItems : [],
-  totalAmount: result ? result.totalAmount : 0,
-  totalItemsNum: result ? result.totalItemsNum : 0,
+  items:  [],
+  totalAmount:  0,
+  totalItemsNum:  0,
   changed: false
 };
-console.log(defaultCartState);
+
+
 
 function CartReducer(state, action) {
   const userCTX = useContext(UserContext);
@@ -52,7 +60,7 @@ function CartReducer(state, action) {
         return total + item.amount;
       }, 0);
 
-      // window.localStorage.setItem("cartItems", JSON.stringify(updatedItems));
+      
       return {
         items: updatedItems,
         totalAmount: updatedTotalAmount,
@@ -115,6 +123,15 @@ function CartReducer(state, action) {
     };
   }
 
+  if (action.type === "REPLACE") {
+    return {
+      items: action.items,
+      totalAmount: action.totalAmount,
+      totalItemsNum: action.totalItemsNum,
+      changed: true
+    };
+  }
+
   return defaultCartState;
 }
 
@@ -133,8 +150,8 @@ function CartProvider(props) {
     addItem: addItemHandler,
     removeItem: removeItemHandler,
     clearCart: clearCartHandler,
-    sendCartItems: sendCartItems
-    // replaceCart: replaceCart
+    sendCartItems: sendCartItems,
+    fetchCartItems: fetchCartItems
   };
 
   function addItemHandler(item) {
@@ -149,10 +166,6 @@ function CartProvider(props) {
     cartDispatch({ type: "CLEAR" });
   }
 
-  // function replaceCart(cartItems,totalAmount,totalItemsNum) {
-  //   cartDispatch({ type: "REPLACE", items: cartItems, totalAmount: totalAmount ,totalItemsNum:totalItemsNum});
-  //   console.log(totalItemsNum)
-  // }
   // ---------------------sync cart with backend methods------------------------------------
 
   async function sendCartItems(cart, currentCartItems) {
@@ -214,6 +227,52 @@ function CartProvider(props) {
 
     return mergedCartItems;
   }
+
+//---------------------
+
+async function fetchCartItems() {
+  const sendRequest = async () => {
+
+    const user = await axios.get(
+      `${import.meta.env.VITE_API_URL}users/${cookies.User._id}`,
+      { headers: { Authorization: cookies.UserToken } }
+    );
+    return user;
+  };
+
+  try {
+    const response = await sendRequest();
+    const cartData = await response.data.user.cart_items;
+    const quantities = cartData.map((item) => item.quantity);
+    const cartItems = cartData.map((item) => item.product);
+
+    const myItems = cartItems.map((item, index) => ({
+      id: item.id,
+      name: item.name,
+      image: item.images[0].url,
+      amount: quantities[index],
+      price: item.new_price
+    }));
+    // console.log(myItems)
+    const totalAmount = myItems.reduce(
+      (sum, item) => sum + item.amount * item.price,0);
+    const totalItemsNum = myItems.reduce((sum, item) => sum + item.amount, 0);
+
+    cartDispatch({
+        type: "REPLACE",
+        items: myItems || [],
+        totalAmount: totalAmount || 0 ,
+        totalItemsNum: totalItemsNum || 0
+      });
+    // let result = { myItems, totalAmount, totalItemsNum };
+    // return result;
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+fetchCartItems
+
 
   return (
     <CartContext.Provider value={cartContextValue}>

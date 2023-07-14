@@ -15,7 +15,7 @@ import About from "./pages/About.jsx";
 import Subnav from "./components/Subnav.jsx";
 import { useGlobalContext } from "./context/ProductsContext.jsx";
 import CartContext from "./context/CartContext.jsx";
-import { FetchCartItems } from "./context/FetchCartItems.js";
+// import { FetchCartItems } from "./context/FetchCartItems.js";
 import { useCookies } from 'react-cookie';
 
 
@@ -32,15 +32,22 @@ function App() {
   }, [] );
 
 
+  useEffect(() => {
+    
+      const result = myCart.fetchCartItems();
+      myCart.sendCartItems(myCart,result.myItems);
+    
+    
+  }, []);
 
   //sending cart items to backend
-  useEffect(() => {
-    if (myCart.changed) {
-      const result = FetchCartItems();
-      myCart.sendCartItems(myCart,result.myItems);
-    }
+  // useEffect(() => {
+  //   if (myCart.changed) {
+  //     const result = FetchCartItems();
+  //     myCart.sendCartItems(myCart,result.myItems);
+  //   }
     
-  }, [myCart]);
+  // }, [myCart]);
 
   return (
     <>
