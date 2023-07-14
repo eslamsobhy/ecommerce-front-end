@@ -152,7 +152,7 @@ const Subnav = () => {
                   to="/products?category=Gaming"
                   className="block sm:inline-block text-white hover:text-gray-200 sm:mx-4"
                 >
-                  Gaming
+                  Gaming <AiFillCaretDown className="block sm:inline-block text-white hover:text-gray-200 " />
                 </Link>
                 <Link
                   id="5"
