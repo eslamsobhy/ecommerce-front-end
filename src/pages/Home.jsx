@@ -34,7 +34,7 @@ export default function Home() {
 
   useEffect(() => {
     // async function getProducts(){
-    // const response = await axios.get("http://localhost:8000/products")
+    // const response = await axios.get("${import.meta.env.VITE_API_URL}/products")
     // console.log(response.data)
     // setProducts(response.data)
     // }
@@ -43,7 +43,7 @@ export default function Home() {
     async function getUserData() {
       try {
         const response = await axios.get(
-          `http://localhost:8000/users/${cookies.User._id}`,
+          `${import.meta.env.VITE_API_URL}/users/${cookies.User._id}`,
           {
             headers: { Authorization: cookies.UserToken }
           }

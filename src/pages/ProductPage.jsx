@@ -43,7 +43,9 @@ const ProductPage = () => {
   // AND DON'T FORGET ABOUT THE LOADING FUNCTIONALITY! (-_-)
   useEffect(() => {
     async function getProduct() {
-      const { data } = await axios.get(`http://localhost:8000/products/${id}`);
+      const { data } = await axios.get(
+        `${import.meta.env.VITE_API_URL}/products/${id}`
+      );
       // console.log(data);
       setProduct(data);
     }
