@@ -4,20 +4,10 @@ import { useContext, useReducer } from "react";
 
 import CartContext from "./CartContext";
 import axios from "axios";
-import { useCookies } from "react-cookie";
-// import { FetchCartItems } from "./FetchCartItems";
 import { toast } from "react-toastify";
 import UserContext from "../context/UserContext";
 //--------------------------------Reducer-------------------------------------------
 
-// const result = await FetchCartItems();
-
-// const defaultCartState = {
-//   items: result ? result.myItems : [],
-//   totalAmount: result ? result.totalAmount : 0,
-//   totalItemsNum: result ? result.totalItemsNum : 0,
-//   changed: false
-// };
 
 const defaultCartState = {
   items:  [],
@@ -29,10 +19,7 @@ const defaultCartState = {
 
 
 function CartReducer(state, action) {
-  const userCTX = useContext(UserContext);
-
   if (action.type === "ADD") {
-    if (window.localStorage.getItem("logged")) {
       const updatedTotalAmount =
         state.totalAmount + action.item.amount * action.item.price;
 
@@ -67,20 +54,8 @@ function CartReducer(state, action) {
         totalItemsNum: updatedTotalItemsNum,
         changed: true
       };
-    } else {
-      toast.info("Sign in first !", {
-        position: "top-right",
-        autoClose: 1500,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "light"
-      });
-      userCTX.toggleModal();
     }
-  }
+  
 
   if (action.type === "REMOVE") {
     const existingCartItemIndex = state.items.findIndex(
@@ -128,7 +103,7 @@ function CartReducer(state, action) {
       items: action.items,
       totalAmount: action.totalAmount,
       totalItemsNum: action.totalItemsNum,
-      changed: true
+      changed: false
     };
   }
 
@@ -138,7 +113,6 @@ function CartReducer(state, action) {
 //--------------------------------Provider-------------------------------------------
 
 function CartProvider(props) {
-  const [cookies, setCookies] = useCookies(["User", "UserToken"]);
 
   const [cartState, cartDispatch] = useReducer(CartReducer, defaultCartState);
 
@@ -151,7 +125,6 @@ function CartProvider(props) {
     removeItem: removeItemHandler,
     clearCart: clearCartHandler,
     sendCartItems: sendCartItems,
-    fetchCartItems: fetchCartItems,
     replaceCart :replaceCart
   };
 
@@ -169,16 +142,8 @@ function CartProvider(props) {
 
   // ---------------------sync cart with backend methods------------------------------------
 
-  async function sendCartItems(cart, currentCartItems) {
+  async function sendCartItems(cart, currentCartItems, userID,userToken) {
     const sendRequest = async () => {
-      // Fetch the current cart items from the backend
-      const response = await axios.get(
-        `${import.meta.env.VITE_API_URL}users/${cookies.User._id}`,
-        {
-          headers: { Authorization: cookies.UserToken }
-        }
-      );
-
       // Merge the current and new cart items
       const mergedCartItems = mergeCartItems(currentCartItems, cart.items);
 
@@ -189,10 +154,11 @@ function CartProvider(props) {
           quantity: item.amount
         }))
       };
+      console.log(reqData)
       await axios.patch(
-        `${import.meta.env.VITE_API_URL}users/${cookies.User._id}`,
+        `${import.meta.env.VITE_API_URL}/users/${userID}`,
         reqData,
-        { headers: { Authorization: cookies.UserToken } }
+        { headers: { Authorization: userToken } }
       );
     };
 
@@ -231,48 +197,17 @@ function CartProvider(props) {
 
 //---------------------
 
-async function fetchCartItems() {
-  const sendRequest = async () => {
 
-    const user = await axios.get(
-      `${import.meta.env.VITE_API_URL}users/${cookies.User._id}`,
-      { headers: { Authorization: cookies.UserToken } }
-    );
-    return user;
-  };
-
-  try {
-    const response = await sendRequest();
-    const cartData = await response.data.user.cart_items;
-    const quantities = cartData.map((item) => item.quantity);
-    const cartItems = cartData.map((item) => item.product);
-
-    const myItems = cartItems.map((item, index) => ({
-      id: item.id,
-      name: item.name,
-      image: item.images[0].url,
-      amount: quantities[index],
-      price: item.new_price
-    }));
-    // console.log(myItems)
-    const totalAmount = myItems.reduce(
-      (sum, item) => sum + item.amount * item.price,0);
-    const totalItemsNum = myItems.reduce((sum, item) => sum + item.amount, 0);
-
-    cartDispatch({
-        type: "REPLACE",
-        items: myItems || [],
-        totalAmount: totalAmount || 0 ,
-        totalItemsNum: totalItemsNum || 0
-      });
-    let result = { myItems, totalAmount, totalItemsNum };
-    return result;
-  } catch (error) {
-    console.log(error);
-  }
+function replaceCart(myItems,totalAmount,totalItemsNum) {
+  cartDispatch({
+    type: "REPLACE",
+    items: myItems || [],
+    totalAmount: totalAmount || 0 ,
+    totalItemsNum: totalItemsNum || 0,
+    changed: false
+  });
+  
 }
-
-
 
 
   return (

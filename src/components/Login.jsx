@@ -5,7 +5,6 @@ import { useForm } from "react-hook-form";
 import Modal from "../UI/Modal";
 import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
 import { useCookies } from "react-cookie";
 import UserContext from "../context/UserContext";
 import { useContext, useEffect } from "react";
@@ -58,7 +57,7 @@ function Login() {
           })
         : "";
     }
-
+  }
     return (
       <>
         <Modal toggleModal={userCTX.toggleModal}>
@@ -153,5 +152,5 @@ function Login() {
       </>
     );
   }
-}
+
 export default Login;

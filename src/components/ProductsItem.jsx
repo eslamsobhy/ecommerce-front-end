@@ -10,18 +10,41 @@ import {
   SaleBadge
 } from "./Badges";
 import { CartIcon } from "./Icons";
+import UserContext from "../context/UserContext";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
+
 
 const ProductsItem = ({ item }) => {
   const myCart = useContext(CartContext);
+  const userCTX = useContext(UserContext)
+
+
   function addItemToCart(product) {
-    myCart.addItem({
-      key: product._id,
+    if (window.localStorage.getItem("logged")) {
+
+      myCart.addItem({
+        key: product._id,
       id: product._id,
       name: product.name,
       image: product.images[0].url,
       amount: 1,
       price: product.new_price ?? product.price
     });
+    } else {
+      toast.info("Sign in first !", {
+        position: "top-right",
+        autoClose: 1500,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light"
+      });
+      userCTX.toggleModal()
+    }
   }
   return (
     <>
