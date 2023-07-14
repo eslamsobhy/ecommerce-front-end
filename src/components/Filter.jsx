@@ -34,12 +34,16 @@ const Filter = () => {
   useEffect(() => {
     async function getAllBrands() {
       if (selectedCategory === "All") {
-        const { data } = await axios.get("http://localhost:8000/brands");
+        const { data } = await axios.get(
+          `${import.meta.env.VITE_API_URL}/brands`
+        );
         console.log("brands", data);
         setBrands(data);
       } else {
         const { data } = await axios.get(
-          `http://localhost:8000/brands?category_name=${selectedCategory}`
+          `${
+            import.meta.env.VITE_API_URL
+          }/brands?category_name=${selectedCategory}`
         );
         console.log("here brand 2");
 
@@ -51,7 +55,9 @@ const Filter = () => {
 
   useEffect(() => {
     async function getAllCategories() {
-      const { data } = await axios.get("http://localhost:8000/categories");
+      const { data } = await axios.get(
+        `${import.meta.env.VITE_API_URL}/categories`
+      );
 
       setCategories(data);
     }

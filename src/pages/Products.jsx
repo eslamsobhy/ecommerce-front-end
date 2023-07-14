@@ -14,7 +14,9 @@ const Products = () => {
   useEffect(() => {
     // get all products
     const getAllProducts = async () => {
-      const { data } = await axios.get("http://localhost:8000/products");
+      const { data } = await axios.get(
+        `${import.meta.env.VITE_API_URL}/products`
+      );
       // set all products
       setAllProducts(data);
     };

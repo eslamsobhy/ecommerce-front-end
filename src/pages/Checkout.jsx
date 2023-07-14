@@ -43,7 +43,7 @@ const Checkout = (props) => {
     try {
       // updating user info
       const response = await axios.patch(
-        `http://localhost:8000/users/${cookies.User._id}`,
+        `${import.meta.env.VITE_API_URL}/users/${cookies.User._id}`,
         { address: data.address },
         { headers: { Authorization: `${cookies.UserToken}` } }
       );
@@ -219,7 +219,7 @@ const Checkout = (props) => {
               Proceed To Payment
             </button>
             <div className={paypalclass}>
-              <PayPal form ={form.current}/>
+              <PayPal form={form.current} />
             </div>
             <div className={cashclass}>
               <div className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-slate-200 p-4 rounded-lg shadow-md z-30 animate-slide-down">

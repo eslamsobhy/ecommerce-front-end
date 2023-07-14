@@ -5,7 +5,7 @@ import reducer from "./reducer";
 // define the initial state
 const initialState = {
   loading: true,
-  products: [],
+  products: []
 };
 
 // create the context
@@ -19,7 +19,7 @@ export const ProductProvider = ({ children }) => {
   const fetchProducts = async () => {
     dispatch({ type: "LOADING" });
     await axios
-      .get("http://localhost:8000/products")
+      .get(`${import.meta.env.VITE_API_URL}/products`)
       .then((res) => {
         dispatch({ type: "SET_PRODUCTS", payload: res.data });
       })
