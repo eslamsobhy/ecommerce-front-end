@@ -53,7 +53,7 @@ const Cart = () => {
   useEffect(() => {
     async function getOrderHistory() {
       const response = await axios.get(
-        `${import.meta.env.VITE_API_URL}orders/user/${cookies.User._id}`,
+        `${import.meta.env.VITE_API_URL}/orders/user/${cookies.User._id}`,
         { headers: { Authorization: `${cookies.UserToken}` } }
       );
       const orders = await response.data.order.map((item) =>
@@ -65,7 +65,9 @@ const Cart = () => {
       );
       setQuantities(quantities);
     }
-    getOrderHistory();
+    if(window.localStorage.getItem('logged')){
+      getOrderHistory();
+    }
   }, []);
 
   return (
@@ -153,7 +155,7 @@ const Cart = () => {
                               </div>
                               <div className="me-1 text-bold">
                                 {" "}
-                                {item.stock_count * item.new_price} LE{" "}
+                                {quantities[ind][index] * item.new_price} LE{" "}
                               </div>
                               <button
                                 className="bg-black text-white hover:bg-orange-600 text-[13px] px-2 py-1 rounded-lg"

@@ -4,20 +4,23 @@ import { useParams } from "react-router-dom";
 import { useContext } from "react";
 
 import CartContext from "../context/CartContext";
-
+import UserContext from "../context/UserContext"
 import ProductImageCarousel from "../components/Product/ProductImageCarousel";
 import ProductDetails from "../components/Product/ProductDetails";
 import ProductPanels from "../components/Product/ProductPanels";
 import ProductRoute from "../components/Product/ProductRoute";
-
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const ProductPage = () => {
   const [product, setProduct] = useState(null);
   const [count, setCount] = useState(1);
   const myCart = useContext(CartContext);
   const { id } = useParams();
-
+  const userCTX = useContext(UserContext)
+  
   const handleAddItemToCart = (product) => {
+    if (window.localStorage.getItem("logged")) {
       myCart.addItem({
         key: product._id,
         id: product._id,
@@ -26,7 +29,20 @@ const ProductPage = () => {
         amount: count,
         price: product.new_price ?? product.price,
       });
-  };
+    } else {
+    toast.info("Sign in first !", {
+      position: "top-right",
+      autoClose: 1500,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light"
+    });
+    userCTX.toggleModal()
+  }
+}
 
   // handleCounterDecrement
   const handleCounterDecrement = () => {

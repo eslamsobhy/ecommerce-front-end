@@ -8,7 +8,7 @@ import CartContext from "../context/CartContext";
 import UserContext from "../context/UserContext"
 import { Grid, Navigation } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
-
+import "react-toastify/dist/ReactToastify.css";
 // Import Swiper styles
 import "swiper/css";
 import "swiper/css/navigation";
@@ -24,6 +24,7 @@ import {
 } from "../components/Badges";
 
 import 'react-toastify/dist/ReactToastify.css';
+import { toast } from "react-toastify";
 // import { useGlobalContext } from "../context/ProductsContext";
 
 // import required modules
@@ -33,10 +34,11 @@ const Slider = ({ products }) => {
   // const { loading } = useGlobalContext();
 
   const myCart = useContext(CartContext);
-
+  const userCTX = useContext(UserContext)
   const [slidesPerView, setSlidesPerView] = useState(5);
 
   async function addItemToCart(product) {
+    if (window.localStorage.getItem("logged")) {     
       myCart.addItem({
         key: product._id,
         id: product._id,
@@ -45,6 +47,19 @@ const Slider = ({ products }) => {
         amount: 1,
         price: product.new_price ? product.new_price : product.price
       });
+    } else {
+      toast.info("Sign in first !", {
+        position: "top-right",
+        autoClose: 1500,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light"
+      });
+      userCTX.toggleModal()
+    }
 
   }
 

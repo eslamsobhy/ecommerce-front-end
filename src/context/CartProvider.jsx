@@ -4,27 +4,22 @@ import { useContext, useReducer } from "react";
 
 import CartContext from "./CartContext";
 import axios from "axios";
-import { useCookies } from "react-cookie";
-import { FetchCartItems } from "./FetchCartItems";
 import { toast } from "react-toastify";
 import UserContext from "../context/UserContext";
 //--------------------------------Reducer-------------------------------------------
 
-const result = await FetchCartItems();
 
 const defaultCartState = {
-  items: result ? result.myItems : [],
-  totalAmount: result ? result.totalAmount : 0,
-  totalItemsNum: result ? result.totalItemsNum : 0,
+  items:  [],
+  totalAmount:  0,
+  totalItemsNum:  0,
   changed: false
 };
-console.log(defaultCartState);
+
+
 
 function CartReducer(state, action) {
-  const userCTX = useContext(UserContext);
-
   if (action.type === "ADD") {
-    if (window.localStorage.getItem("logged")) {
       const updatedTotalAmount =
         state.totalAmount + action.item.amount * action.item.price;
 
@@ -52,27 +47,15 @@ function CartReducer(state, action) {
         return total + item.amount;
       }, 0);
 
-      // window.localStorage.setItem("cartItems", JSON.stringify(updatedItems));
+      
       return {
         items: updatedItems,
         totalAmount: updatedTotalAmount,
         totalItemsNum: updatedTotalItemsNum,
         changed: true
       };
-    } else {
-      toast.info("Sign in first !", {
-        position: "top-right",
-        autoClose: 1500,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "light"
-      });
-      userCTX.toggleModal();
     }
-  }
+  
 
   if (action.type === "REMOVE") {
     const existingCartItemIndex = state.items.findIndex(
@@ -115,13 +98,21 @@ function CartReducer(state, action) {
     };
   }
 
+  if (action.type === "REPLACE") {
+    return {
+      items: action.items,
+      totalAmount: action.totalAmount,
+      totalItemsNum: action.totalItemsNum,
+      changed: false
+    };
+  }
+
   return defaultCartState;
 }
 
 //--------------------------------Provider-------------------------------------------
 
 function CartProvider(props) {
-  const [cookies, setCookies] = useCookies(["User", "UserToken"]);
 
   const [cartState, cartDispatch] = useReducer(CartReducer, defaultCartState);
 
@@ -133,8 +124,8 @@ function CartProvider(props) {
     addItem: addItemHandler,
     removeItem: removeItemHandler,
     clearCart: clearCartHandler,
-    sendCartItems: sendCartItems
-    // replaceCart: replaceCart
+    sendCartItems: sendCartItems,
+    replaceCart :replaceCart
   };
 
   function addItemHandler(item) {
@@ -149,22 +140,10 @@ function CartProvider(props) {
     cartDispatch({ type: "CLEAR" });
   }
 
-  // function replaceCart(cartItems,totalAmount,totalItemsNum) {
-  //   cartDispatch({ type: "REPLACE", items: cartItems, totalAmount: totalAmount ,totalItemsNum:totalItemsNum});
-  //   console.log(totalItemsNum)
-  // }
   // ---------------------sync cart with backend methods------------------------------------
 
-  async function sendCartItems(cart, currentCartItems) {
+  async function sendCartItems(cart, currentCartItems, userID,userToken) {
     const sendRequest = async () => {
-      // Fetch the current cart items from the backend
-      const response = await axios.get(
-        `${import.meta.env.VITE_API_URL}users/${cookies.User._id}`,
-        {
-          headers: { Authorization: cookies.UserToken }
-        }
-      );
-
       // Merge the current and new cart items
       const mergedCartItems = mergeCartItems(currentCartItems, cart.items);
 
@@ -175,10 +154,11 @@ function CartProvider(props) {
           quantity: item.amount
         }))
       };
+      console.log(reqData)
       await axios.patch(
-        `${import.meta.env.VITE_API_URL}users/${cookies.User._id}`,
+        `${import.meta.env.VITE_API_URL}/users/${userID}`,
         reqData,
-        { headers: { Authorization: cookies.UserToken } }
+        { headers: { Authorization: userToken } }
       );
     };
 
@@ -214,6 +194,21 @@ function CartProvider(props) {
 
     return mergedCartItems;
   }
+
+//---------------------
+
+
+function replaceCart(myItems,totalAmount,totalItemsNum) {
+  cartDispatch({
+    type: "REPLACE",
+    items: myItems || [],
+    totalAmount: totalAmount || 0 ,
+    totalItemsNum: totalItemsNum || 0,
+    changed: false
+  });
+  
+}
+
 
   return (
     <CartContext.Provider value={cartContextValue}>

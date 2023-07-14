@@ -57,7 +57,7 @@ const Checkout = (props) => {
           }))
         };
         const response2 = await axios.post(
-          `${import.meta.env.VITE_API_URL}orders`,
+          `${import.meta.env.VITE_API_URL}/orders`,
           reqData,
           { headers: { Authorization: `${cookies.UserToken}` } }
         );
@@ -71,7 +71,7 @@ const Checkout = (props) => {
         CartCTX.clearCart();
 
         const response = await axios.patch(
-          `${import.meta.env.VITE_API_URL}users/${cookies.User._id}`,
+          `${import.meta.env.VITE_API_URL}/users/${cookies.User._id}`,
           { cart_items: [] },
           { headers: { Authorization: `${cookies.UserToken}` } }
         );
@@ -179,7 +179,7 @@ const Checkout = (props) => {
               className="hidden"
               {...register("items")}
               defaultValue={`${
-                CartCTX ? CartCTX.items.map((item) => item.name).join(", ") : ""
+                CartCTX ? CartCTX.items.map((item) => item.name).join("--- ") : ""
               }`}
             />
             {/* total totalAmount sent to email */}
