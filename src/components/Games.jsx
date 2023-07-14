@@ -1,11 +1,11 @@
-import { Link } from "react-router-dom";
+// import { Link } from "react-router-dom";
 
 const Games = () => {
   return (
     <>
 <div className="flex flex-wrap w-full justify-between">
     {/* /////////////////////// Headers //////////////////////////// */}
-  <div className="p-4 m-auto w-full md:w-1/4">
+  {/* <div className="p-4 m-auto w-full md:w-1/4">
     <Link className="flex justify-between items-center" to={"./Category"}>
       <span className="m-auto uppercase hover:text-orange-500 font-bold tracking-wider text-sm whitespace-nowrap">LAPTOP FOR GAMES</span>
     </Link>
@@ -24,10 +24,10 @@ const Games = () => {
     <Link className="flex justify-between items-center" to={"./Category"}>
       <span className="m-auto uppercase hover:text-orange-500 font-bold tracking-wider text-sm whitespace-nowrap">CD GAMES</span>
     </Link>
-  </div>
+  </div> */}
 
   {/* //////////////////////// menu  1 ///////////////////////// */}
-  <div className="p-4 m-auto w-full  md:w-1/4">
+  {/* <div className="p-4 m-auto w-full  md:w-1/4">
     <Link className="flex justify-between   " to={"./Category"}>
       <span className="m-auto uppercase hover:text-orange-500 tracking-wider text-sm whitespace-nowrap"> </span>
     </Link>
@@ -46,10 +46,10 @@ const Games = () => {
     <Link className="flex justify-between  " to={"./Category"}>
       <span className="m-auto uppercase hover:text-orange-500 tracking-wider text-sm whitespace-nowrap"> </span>
     </Link>
-  </div>
+  </div> */}
 
  {/* //////////////////////// menu  2 ///////////////////////// */}
- <div className="p-4 m-auto w-full md:w-1/4">
+ {/* <div className="p-4 m-auto w-full md:w-1/4">
     <Link className="flex justify-between items-center" to={"./Category"}>
       <span className="m-auto uppercase  hover:text-orange-500  tracking-wider text-sm whitespace-nowrap"> </span>
     </Link>
@@ -68,12 +68,12 @@ const Games = () => {
     <Link className="flex justify-between items-center" to={"./Category"}>
       <span className="m-auto uppercase  hover:text-orange-500  tracking-wider text-sm whitespace-nowrap"> </span>
     </Link>
-  </div>
+  </div> */}
 
 
 
  {/* //////////////////////// menu  3 ///////////////////////// */}
- <div className="p-4 m-auto w-full md:w-1/4">
+ {/* <div className="p-4 m-auto w-full md:w-1/4">
     <Link className="flex justify-between items-center" to={"./Category"}>
       <span className="m-auto uppercase  hover:text-orange-500  tracking-wider text-sm whitespace-nowrap"> </span>
     </Link>
@@ -92,12 +92,12 @@ const Games = () => {
     <Link className="flex justify-between items-center" to={"./Category"}>
       <span className="m-auto uppercase  hover:text-orange-500  tracking-wider text-sm whitespace-nowrap"> </span>
     </Link>
-  </div>
+  </div> */}
 
 
 
  {/* //////////////////////// menu  4 ///////////////////////// */}
-  <div className="p-4 m-auto w-full md:w-1/4">
+  {/* <div className="p-4 m-auto w-full md:w-1/4">
     <Link className="flex justify-between items-center" to={"./Category"}>
       <span className="m-auto uppercase  hover:text-orange-500  tracking-wider text-sm whitespace-nowrap"> </span>
     </Link>
@@ -116,12 +116,12 @@ const Games = () => {
     <Link className="flex justify-between items-center" to={"./Category"}>
       <span className="m-auto uppercase  hover:text-orange-500  tracking-wider text-sm whitespace-nowrap"> </span>
     </Link>
-  </div>
+  </div> */}
 
 
 
  {/* //////////////////////// menu 5 ///////////////////////// */}
- <div className="p-4 m-auto w-full md:w-1/4">
+ {/* <div className="p-4 m-auto w-full md:w-1/4">
     <Link className="flex justify-between items-center" to={"./Category"}>
       <span className="m-auto uppercase  hover:text-orange-500  tracking-wider text-sm whitespace-nowrap"> </span>
     </Link>
@@ -141,7 +141,7 @@ const Games = () => {
       <span className="m-auto uppercase  hover:text-orange-500  tracking-wider text-sm whitespace-nowrap"> </span>
     </Link>
   </div>
-
+ */}
 
 
 

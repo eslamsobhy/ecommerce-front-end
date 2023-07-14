@@ -19,7 +19,7 @@ function Signup(){
     let {first_name,last_name, email , password ,phone_number}  = data
 
     try {
-    const response = await axios.post(`http://localhost:3000/users/signup`,
+    const response = await axios.post(`http://localhost:8000/users/signup`,
       {first_name,last_name, email, password,phone_number 
     });
     toast.success(`your account has been created successfully ${first_name}!`)

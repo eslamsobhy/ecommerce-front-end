@@ -3,31 +3,41 @@ import { Link } from "react-router-dom";
 const Accessories = () => {
   return (
     <>
-<div className="flex flex-wrap w-full justify-between">
+<div className="flex flex-wrap w-3/4 justify-between">
     {/* /////////////////////// Headers //////////////////////////// */}
-  <div className="p-4 m-auto w-full md:w-1/4">
-    <Link className="flex justify-between items-center" to={"./Category"}>
-      <span className="m-auto uppercase hover:text-orange-500 font-bold tracking-wider text-sm whitespace-nowrap">MOBILE ACCESSORIES</span>
+  <div className="p-4 m-auto w-full md:w-1/3">
+    <Link className="flex justify-between items-center" to={"./products?brand=Apple&category=Accessories&orderBy=newArrival"}>
+      <span className="m-auto uppercase hover:text-orange-500  tracking-wider text-sm whitespace-nowrap">Apple</span>
     </Link>
   </div>
-  <div className="p-4 m-auto w-full md:w-1/4">
-    <Link className="flex justify-between items-center" to={"./Category"}>
-      <span className="m-auto uppercase hover:text-orange-500 font-bold tracking-wider text-sm whitespace-nowrap">COMPUTER ACCESSORIES</span>
+  <div className="p-4 m-auto w-full md:w-1/3">
+    <Link className="flex justify-between items-center" to={"./products?brand=Samsung&category=Accessories&orderBy=newArrival"}>
+      <span className="m-auto uppercase hover:text-orange-500  tracking-wider text-sm whitespace-nowrap">Samsung</span>
     </Link>
   </div>
-  <div className="p-4 m-auto w-full md:w-1/4">
-    <Link className="flex justify-between items-center" to={"./Category"}>
-      <span className="m-auto uppercase hover:text-orange-500 font-bold tracking-wider text-sm whitespace-nowrap">SMART WATCHES AND BAND </span>
+  <div className="p-4 m-auto w-full md:w-1/3">
+    <Link className="flex justify-between items-center" to={"./products?brand=Sony&category=Accessories&orderBy=newArrival"}>
+      <span className="m-auto uppercase hover:text-orange-500  tracking-wider text-sm whitespace-nowrap">Sony </span>
     </Link>
   </div>
-  <div className="p-4 m-auto w-full md:w-1/4">
-    <Link className="flex justify-between items-center" to={"./Category"}>
-      <span className="m-auto uppercase hover:text-orange-500 font-bold tracking-wider text-sm whitespace-nowrap">AUDIO DEVICES</span>
+  <div className="p-4  w-full md:w-1/3">
+    <Link className="flex  " to={"./products?brand=Xiaomi&category=Accessories&orderBy=newArrival"}>
+      <span className="m-auto uppercase hover:text-orange-500  tracking-wider text-sm whitespace-nowrap">Xiaomi</span>
+    </Link>
+  </div>
+  <div className="p-4  w-full md:w-1/3">
+    <Link className="flex  " to={"./products?brand=Spirit+of+Gamer&category=Accessories&orderBy=hasOffer"}>
+      <span className="m-auto uppercase hover:text-orange-500  tracking-wider text-sm whitespace-nowrap">Spirit of Gamer</span>
+    </Link>
+  </div>
+  <div className="p-4  w-full md:w-1/3">
+    <Link className="flex  " to={"./products?brand=Sony&category=Accessories&orderBy=newArrival"}>
+      <span className="m-auto uppercase hover:text-orange-500  tracking-wider text-sm whitespace-nowrap">Playstion</span>
     </Link>
   </div>
 
   {/* //////////////////////// menu  1 ///////////////////////// */}
-  <div className="p-4 m-auto w-full  md:w-1/4">
+  {/* <div className="p-4 m-auto w-full  md:w-1/4">
     <Link className="flex justify-between   " to={"./Category"}>
       <span className="m-auto uppercase hover:text-orange-500 tracking-wider text-sm whitespace-nowrap">CABLE</span>
     </Link>
@@ -46,10 +56,10 @@ const Accessories = () => {
     <Link className="flex justify-between  " to={"./Category"}>
       <span className="m-auto uppercase hover:text-orange-500 tracking-wider text-sm whitespace-nowrap">HEADPHONES</span>
     </Link>
-  </div>
+  </div> */}
 
  {/* //////////////////////// menu  2 ///////////////////////// */}
- <div className="p-4 m-auto w-full md:w-1/4">
+ {/* <div className="p-4 m-auto w-full md:w-1/4">
     <Link className="flex justify-between items-center" to={"./Category"}>
       <span className="m-auto uppercase  hover:text-orange-500  tracking-wider text-sm whitespace-nowrap">CHARGERS</span>
     </Link>
@@ -69,11 +79,11 @@ const Accessories = () => {
       <span className="m-auto uppercase  hover:text-orange-500  tracking-wider text-sm whitespace-nowrap">TWS WIRELESS HEADPHONES</span>
     </Link>
   </div>
-
+ */}
 
 
  {/* //////////////////////// menu  3 ///////////////////////// */}
- <div className="p-4 m-auto w-full md:w-1/4">
+ {/* <div className="p-4 m-auto w-full md:w-1/4">
     <Link className="flex justify-between items-center" to={"./Category"}>
       <span className="m-auto uppercase  hover:text-orange-500  tracking-wider text-sm whitespace-nowrap">POWER BANK</span>
     </Link>
@@ -95,10 +105,10 @@ const Accessories = () => {
     </Link>
   </div>
 
-
+ */}
 
  {/* //////////////////////// menu  4 ///////////////////////// */}
-  <div className="p-4 m-auto w-full md:w-1/4">
+  {/* <div className="p-4 m-auto w-full md:w-1/4">
     <Link className="flex justify-between items-center" to={"./Category"}>
       <span className="m-auto uppercase  hover:text-orange-500  tracking-wider text-sm whitespace-nowrap">SOCKS</span>
     </Link>
@@ -118,11 +128,11 @@ const Accessories = () => {
       <span className="m-auto uppercase  hover:text-orange-500  tracking-wider text-sm whitespace-nowrap">SPEAKERS</span>
     </Link>
   </div>
-
+ */}
 
 
  {/* //////////////////////// menu 5 ///////////////////////// */}
- <div className="p-4 m-auto w-full md:w-1/4">
+ {/* <div className="p-4 m-auto w-full md:w-1/4">
     <Link className="flex justify-between items-center" to={"./Category"}>
       <span className="m-auto uppercase  hover:text-orange-500  tracking-wider text-sm whitespace-nowrap">SCREEN PROTECTOR</span>
     </Link>
@@ -144,10 +154,10 @@ const Accessories = () => {
   </div>
 
 
-
+ */}
 
  {/* //////////////////////// menu  6 ///////////////////////// */}
- <div className="p-4 m-auto w-full md:w-1/4">
+ {/* <div className="p-4 m-auto w-full md:w-1/4">
     <Link className="flex justify-between items-center" to={"./Category"}>
       <span className="m-auto uppercase  hover:text-orange-500  tracking-wider text-sm whitespace-nowrap"> </span>
     </Link>
@@ -169,10 +179,10 @@ const Accessories = () => {
   </div>
 
 
-
+ */}
 
  {/* //////////////////////// menu  7 ///////////////////////// */}
- <div className="p-4 m-auto w-full md:w-1/4">
+ {/* <div className="p-4 m-auto w-full md:w-1/4">
     <Link className="flex justify-between items-center" to={"./Category"}>
       <span className="m-auto uppercase  hover:text-orange-500  tracking-wider text-sm whitespace-nowrap"> </span>
     </Link>
@@ -192,10 +202,10 @@ const Accessories = () => {
       <span className="m-auto uppercase  hover:text-orange-500  tracking-wider text-sm whitespace-nowrap"> </span>
     </Link>
   </div>
-
+ */}
 
     {/* /////////////////////// Headers 2//////////////////////////// */}
-    <div className="p-4 m-auto w-full md:w-1/4">
+    {/* <div className="p-4 m-auto w-full md:w-1/4">
     <Link className="flex justify-between items-center" to={"./Category"}>
       <span className="m-auto uppercase hover:text-orange-500  font-bold tracking-wider text-sm whitespace-nowrap">TV ACCESSORIES</span>
     </Link>
@@ -216,7 +226,7 @@ const Accessories = () => {
     </Link>
   </div>
 
-
+ */}
 
 
   </div>
