@@ -1,10 +1,11 @@
+/* eslint-disable react/prop-types */
 /* eslint-disable no-unused-vars */
 // Import Swiper React components
 import { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
 import CartContext from "../context/CartContext";
-
+import UserContext from "../context/UserContext"
 import { Grid, Navigation } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
 
@@ -22,6 +23,7 @@ import {
   SaleBadge
 } from "../components/Badges";
 
+import 'react-toastify/dist/ReactToastify.css';
 // import { useGlobalContext } from "../context/ProductsContext";
 
 // import required modules
@@ -35,14 +37,15 @@ const Slider = ({ products }) => {
   const [slidesPerView, setSlidesPerView] = useState(5);
 
   async function addItemToCart(product) {
-    myCart.addItem({
-      key: product._id,
-      id: product._id,
-      name: product.name,
-      image: product.images[0].url,
-      amount: 1,
-      price: product.new_price ? product.new_price : product.price
-    });
+      myCart.addItem({
+        key: product._id,
+        id: product._id,
+        name: product.name,
+        image: product.images[0].url,
+        amount: 1,
+        price: product.new_price ? product.new_price : product.price
+      });
+
   }
 
   useEffect(() => {

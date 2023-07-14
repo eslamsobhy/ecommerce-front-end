@@ -48,7 +48,6 @@ export default function Home() {
             headers: { Authorization: cookies.UserToken }
           }
         );
-        console.log(response);
         setCookies("User", response.data.user);
       } catch (error) {
         console.error(error);
