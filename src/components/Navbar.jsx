@@ -46,6 +46,8 @@ const Navbar = (props) => {
     window.localStorage.removeItem("logged");
     removeCookie("UserToken");
     removeCookie("User");
+    window.localStorage.removeItem('User')
+    window.localStorage.removeItem('UserToken')
     navigate("/");
     window.location.reload();
   }
@@ -101,7 +103,7 @@ const Navbar = (props) => {
               </div>
             ) : (
               <button
-                className="hover:text-gray-400 whitespace-nowrap"
+                className="hover:text-gray-400 whitespace-nowrap text-[15px] ml-1"
                 onClick={userCTX.toggleModal}
               >
                 Sign in

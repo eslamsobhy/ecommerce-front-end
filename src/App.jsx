@@ -15,36 +15,29 @@ import About from "./pages/About.jsx";
 import Subnav from "./components/Subnav.jsx";
 import { useGlobalContext } from "./context/ProductsContext.jsx";
 import CartContext from "./context/CartContext.jsx";
-
-let firstRender =true;
+import { FetchCartItems } from "./context/FetchCartItems.js";
+import { useCookies } from 'react-cookie';
 
 
 function App() {
   const [searchText, setSearchText] = useState("");
-
+  const [cookies, setCookie] = useCookies(['UserToken','User']);
   const { fetchProducts } = useGlobalContext();
   const myCart = useContext(CartContext)
 
   useEffect(() => {
-    fetchProducts();
-  }, []);
-
-  useEffect(()=>{
-    if(myCart.changed){
-      myCart.fetchCartItems()
-      console.log("fetch fired changed status :" , myCart.changed)
-    }
-    
-  },[])
+      fetchProducts();
+      window.localStorage.setItem('User',JSON.stringify(cookies.User))
+      window.localStorage.setItem('UserToken',cookies.UserToken)
+  }, [] );
 
 
+
+  //sending cart items to backend
   useEffect(() => {
-    if (firstRender) {
-      firstRender =false;
-      return;
-    }
     if (myCart.changed) {
-      myCart.sendCartItems(myCart);
+      const result = FetchCartItems();
+      myCart.sendCartItems(myCart,result.myItems);
     }
     
   }, [myCart]);

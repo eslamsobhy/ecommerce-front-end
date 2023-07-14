@@ -188,7 +188,7 @@ const Checkout = (props) => {
               defaultValue={`${ CartCTX?
                 CartCTX.totalAmount:"" }`}
             />
-            {console.log(CartCTX.items.reduce((acc, item) => { acc + item.amount * item.price }))}
+            
             <div className="mb-4">
               <label htmlFor="address" className="block mb-2">
                 Address:

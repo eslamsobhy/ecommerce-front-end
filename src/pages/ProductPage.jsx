@@ -10,6 +10,7 @@ import ProductDetails from "../components/Product/ProductDetails";
 import ProductPanels from "../components/Product/ProductPanels";
 import ProductRoute from "../components/Product/ProductRoute";
 
+
 const ProductPage = () => {
   const [product, setProduct] = useState(null);
   const [count, setCount] = useState(1);
@@ -17,14 +18,14 @@ const ProductPage = () => {
   const { id } = useParams();
 
   const handleAddItemToCart = (product) => {
-    myCart.addItem({
-      key: product._id,
-      id: product._id,
-      name: product.name,
-      image: product.images[0].url,
-      amount: count,
-      price: product.new_price ?? product.price,
-    });
+      myCart.addItem({
+        key: product._id,
+        id: product._id,
+        name: product.name,
+        image: product.images[0].url,
+        amount: count,
+        price: product.new_price ?? product.price,
+      });
   };
 
   // handleCounterDecrement

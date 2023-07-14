@@ -43,7 +43,6 @@ const Cart = () => {
 
 
     if(userStatus && cartIsNotEmpty){
-    // window.localStorage.setItem("totalAmount", myCart.totalAmount)
       navigate("/checkout")
     }else if(!userStatus){
       userCTX.toggleModal()
@@ -67,20 +66,7 @@ const Cart = () => {
     getOrderHistory()
   },[])
   
-  useEffect(()=>{
-    // if(myCart.changed){
-    //   myCart.fetchCartItems()
-    // }
-    async function getCartHistory(){
-      const response = await axios.get(`http://localhost:8000/users/${cookies.User._id}` ,
-      { headers: { Authorization: `${cookies.UserToken}` } }
-      )
-      
-    }
-  },[])
-  
-  // console.log(PurchasedItems[0][0])
-  // console.log(PurchasedItems.map((item) => item.order.map((orderItem) => orderItem.product_id)));
+
   return (
     <>
       <div className="container mx-11 my-10">
@@ -123,7 +109,7 @@ const Cart = () => {
                 Recently Purchased
               </button>
             </div>
-            {/* {showPurchasedItems && window.localStorage.getItem('purchasedItems') && ( */}
+
             {showPurchasedItems && PurchasedItems && (
               <div className="purchased-container max-w-[340px] border border-spacing-x-4 mr-3 p-1">
                 <div className="purchased-items">
