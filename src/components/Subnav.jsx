@@ -1,10 +1,12 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import { AiFillCaretDown } from "react-icons/ai"
 
 import Mobile from "./Mobile.jsx";
 import Laptop from "./Laptop.jsx";
 import Accessories from "./Accessories.jsx";
 import Games from "./Games.jsx";
+import Tv from "./Tv.jsx";
 
 const Subnav = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -22,16 +24,16 @@ const Subnav = () => {
         return (
           <div
             onMouseLeave={handleMouseLeave}
-            className="  absolute bg-slate-200 bg-opacity-100 z-10 trp w-full  m-auto h-fit "
+            className="  absolute bg-slate-100 bg-opacity-95 z-10 trp w-full  m-auto h-fit "
           >
-            <Mobile />
+            <Tv />
           </div>
         );
       case "2":
         return (
           <div
             onMouseLeave={handleMouseLeave}
-            className=" absolute bg-slate-200 bg-opacity-100 z-10 w-full m-auto h-fit "
+            className=" absolute bg-slate-100 bg-opacity-95 z-10 w-full m-auto h-fit "
           >
             <Laptop />
           </div>
@@ -40,7 +42,7 @@ const Subnav = () => {
         return (
           <div
             onMouseLeave={handleMouseLeave}
-            className=" absolute bg-slate-200 bg-opacity-100  z-10 w-full m-auto h-fit "
+            className=" absolute bg-slate-100 bg-opacity-95  z-10 w-full m-auto h-fit "
           >
             <Mobile />
           </div>
@@ -49,7 +51,7 @@ const Subnav = () => {
         return (
           <div
             onMouseLeave={handleMouseLeave}
-            className=" absolute bg-slate-200 bg-opacity-100 w-full z-10 m-auto h-fit"
+            className=" absolute bg-slate-100 bg-opacity-95 w-full z-10 m-auto h-fit"
           >
             <Games />
           </div>
@@ -58,7 +60,7 @@ const Subnav = () => {
         return (
           <div
             onMouseLeave={handleMouseLeave}
-            className=" absolute bg-slate-200 bg-opacity-100 w-full z-10 m-auto h-fit"
+            className=" absolute bg-slate-100 bg-opacity-95 w-full z-10 m-auto h-fit"
           >
             <Accessories />
           </div>
@@ -67,7 +69,7 @@ const Subnav = () => {
         return (
           <div
             onMouseLeave={handleMouseLeave}
-            className=" absolute bg-slate-200 bg-opacity-100 w-full z-10  m-auto h-fit"
+            className=" absolute bg-slate-100 bg-opacity-95 w-full z-10  m-auto h-fit"
           >
             <Mobile />
           </div>
@@ -76,7 +78,7 @@ const Subnav = () => {
         return (
           <div
             onMouseLeave={handleMouseLeave}
-            className=" absolute bg-slate-200 bg-opacity-100 w-full z-10  m-auto  h-fit"
+            className=" absolute bg-slate-100 bg-opacity-95 w-full z-10  m-auto  h-fit"
           >
             <Mobile />
           </div>
@@ -118,7 +120,7 @@ const Subnav = () => {
                   to="/products?category=TVs"
                   className="block  sm:inline-block text-white hover:text-gray-200 sm:mx-4"
                 >
-                  TVs
+                  TVs 
                 </Link>
 
                 <Link
@@ -129,7 +131,7 @@ const Subnav = () => {
                   to="/products?category=Laptops"
                   className="block sm:inline-block text-white hover:text-gray-200 sm:mx-4"
                 >
-                  Laptops
+                  Laptops <AiFillCaretDown className="block sm:inline-block text-white hover:text-gray-200 " />
                 </Link>
 
                 <Link
@@ -140,7 +142,7 @@ const Subnav = () => {
                   to="/products?category=Mobiles"
                   className="block sm:inline-block text-white hover:text-gray-200 sm:mx-4"
                 >
-                  Mobiles
+                  Mobiles <AiFillCaretDown className="block sm:inline-block text-white hover:text-gray-200 " />
                 </Link>
                 <Link
                   id="4"
@@ -160,7 +162,7 @@ const Subnav = () => {
                   to="/products?category=Accessories"
                   className="block sm:inline-block text-white hover:text-gray-200 sm:mx-4"
                 >
-                  Accessories
+                  Accessories <AiFillCaretDown className="block sm:inline-block text-white hover:text-gray-200 " />
                 </Link>
               </div>
             </div>

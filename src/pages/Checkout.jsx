@@ -43,7 +43,7 @@ const Checkout = (props) => {
     try {
       // updating user info
       const response = await axios.patch(
-        `http://localhost:3000/users/${cookies.User._id}`,
+        `http://localhost:8000/users/${cookies.User._id}`,
         { address: data.address },
         { headers: { Authorization: `${cookies.UserToken}` } }
       );
